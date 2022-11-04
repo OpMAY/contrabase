@@ -43,12 +43,36 @@
     margin-top: 48px;
 }
 
+.mt-56 {
+    margin-top: 56px;
+}
+
+.mt-60 {
+    margin-top: 60px;
+}
+
 .mt-64 {
     margin-top: 64px;
 }
 
+.mt-80 {
+    margin-top: 80px;
+}
+
+.mt-96 {
+    margin-top: 96px;
+}
+
 .mt-100 {
     margin-top: 100px;
+}
+
+.mt-160 {
+    margin-top: 100px;
+}
+
+.mr-4 {
+    margin-right: 4px;
 }
 
 .mr-8 {
@@ -191,8 +215,16 @@
     margin-bottom: 68px;
 }
 
+.mb-96 {
+    margin-bottom: 96px;
+}
+
 .mb-100 {
     margin-bottom: 100px;
+}
+
+.mb-126 {
+    margin-bottom: 126px;
 }
 
 .m-8 {
@@ -240,6 +272,10 @@
 }
 
 /* Padding Class */
+.padding-top-4 {
+    padding-top: 4px;
+}
+
 .pt-8 {
     padding-top: 8px;
 }
@@ -284,12 +320,16 @@
     padding-top: 48px;
 }
 
-.pt-100 {
-    padding-top: 100px;
+.pt-64 {
+    padding-top: 64px;
 }
 
-.pb-100 {
-    padding-bottom: 100px;
+.pt-88 {
+    padding-top: 88px;
+}
+
+.pt-100 {
+    padding-top: 100px;
 }
 
 .pr-8 {
@@ -424,6 +464,14 @@
     padding-bottom: 48px;
 }
 
+.pb-64 {
+    padding-bottom: 64px;
+}
+
+.pb-100 {
+    padding-bottom: 100px;
+}
+
 .p-8 {
     padding: 8px;
 }
@@ -470,6 +518,10 @@
 
 .cursor-pointer {
     cursor: pointer;
+}
+
+.default-pointer {
+    cursor: initial !important;
 }
 
 .background-image {

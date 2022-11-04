@@ -1,0 +1,42 @@
+.content-container {
+    position: relative;
+    min-width: 375px;
+    max-width: 375px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header-wrap {
+    width: 100%;
+    max-width: 375px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.bottom-nav-animation {
+    transition: bottom 0.3s;
+}
+
+.main-bottom-nav {
+    overflow: hidden;
+    background-color: var(--basic-white);
+    position: fixed;
+    left: 50%;
+    width: 375px;
+    bottom: 0;
+    height: auto;
+    transform: translate(-50%, 0);
+    border-top: 2px solid var(--gray-high-light);
+}
+
+.floating-bottom {
+    overflow: hidden;
+    position: fixed;
+    left: 50%;
+    width: 375px;
+    bottom: 0;
+    height: auto;
+    transform: translate(-50%, 0);
+}

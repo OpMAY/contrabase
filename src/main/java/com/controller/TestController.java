@@ -59,7 +59,7 @@ public class TestController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView home() {
-        return new ModelAndView("sample");
+        return new ModelAndView("supplier/register-onboarding-three");
     }
 
     /**
