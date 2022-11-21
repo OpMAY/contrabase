@@ -14,7 +14,6 @@ import com.model.common.MFile;
 import com.util.TokenGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -68,7 +67,7 @@ public class LoginAPI {
             }
             /** Login Success*/
             user.setEmail(naverInfo.getResponse().getEmail());
-            user.setId(naverInfo.getResponse().getId());
+            user.setAccess_token(naverInfo.getResponse().getId());
             user.setName(naverInfo.getResponse().getNickname());
             profile_img.setUrl(naverInfo.getResponse().getProfile_image() != null ? naverInfo.getResponse().getProfile_image() :  null);
             if (profile_img.getUrl() == null) {
@@ -107,7 +106,7 @@ public class LoginAPI {
             if (kakaoInfo.getKakao_account().getHas_email() != null && kakaoInfo.getKakao_account().getHas_email()) {
                 user.setEmail(kakaoInfo.getKakao_account().getEmail());
             }
-            user.setId(Long.toString(kakaoInfo.getId()));
+            user.setAccess_token(Long.toString(kakaoInfo.getId()));
             user.setName(
                     kakaoInfo.getKakao_account() != null ? kakaoInfo.getKakao_account().getProfile().getNickname() != null ?
                             kakaoInfo.getKakao_account().getProfile().getNickname() :
@@ -153,7 +152,7 @@ public class LoginAPI {
             /** Login Success*/
             /**Google API는 NAME 못가져옵니다. 다른 방법을 사용해서 얻어야합니다.*/
             user.setEmail(googleInfo.getEmail());
-            user.setId(googleInfo.getId());
+            user.setAccess_token(googleInfo.getId());
             user.setName(googleInfo.getName() == null ? "Empty User Name" : googleInfo.getName());
             profile_img.setUrl(googleInfo.getPicture() != null ? googleInfo.getPicture() : null);
             if (profile_img.getUrl() == null) {
