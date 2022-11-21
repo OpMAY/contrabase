@@ -4,7 +4,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.exception.TokenInvalidException;
 import com.model.jwt.RootUser;
 import com.util.Constant;
 import com.util.Time;
@@ -73,7 +72,7 @@ public class EncryptionService implements Encrypt {
                     .withClaim(JWTEnum.GRANT.name(), user.getGrant().name())
                     .withClaim(JWTEnum.TOKEN.name(), user.getAccess_token())
                     .withClaim(JWTEnum.EMAIL.name(), user.getEmail())
-                    .withClaim(JWTEnum.ID.name(), user.getId())
+                    .withClaim(JWTEnum.ID.name(), user.getAccess_token())
                     .withClaim(JWTEnum.NO.name(), user.getNo())
                     .withClaim(JWTEnum.SIGNATURE.name(), encryptSHA256(SECRET_KEY))
                     .withIssuer("auth0")
