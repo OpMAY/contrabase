@@ -135,7 +135,7 @@
     </div></div>
 
 <jsp:include page="../../view/common/js.jsp"></jsp:include>
-<script src="../../../resources/js/app.js"></script>
+
 
 </body>
 </html>

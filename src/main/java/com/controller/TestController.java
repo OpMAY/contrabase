@@ -7,9 +7,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
@@ -37,8 +39,8 @@ public class TestController {
 
     public static void main(String[] args) {
         try {
-            System.out.println(new EncryptionService().encryptAES("smtp.naver.com", false));
-            System.out.println(new EncryptionService().encryptAES("587", false));
+            System.out.println(new EncryptionService().encryptAES("test", false));
+            System.out.println(new EncryptionService().encryptAES("test", true));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -57,9 +59,10 @@ public class TestController {
         return VIEW;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView home() {
-        return new ModelAndView("supplier/register-onboarding-three");
+    @RequestMapping(value = "/test/module/map", method = RequestMethod.GET)
+    public ModelAndView moduleMap(HttpServletRequest request) {
+        ModelAndView VIEW = new ModelAndView("test-module");
+        return VIEW;
     }
 
     /**
@@ -91,6 +94,7 @@ public class TestController {
     public ModelAndView testRecover() {
         return new ModelAndView("error/recover");
     }
+
     @RequestMapping(value = "/test/error", method = RequestMethod.GET)
     public ModelAndView testError() {
         return new ModelAndView("error/error");

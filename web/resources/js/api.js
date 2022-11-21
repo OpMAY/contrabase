@@ -9,8 +9,6 @@
  * }
  * */
 
-const host = 'http://localhost:8080';
-
 /*Template*/
 async function apiLogin(email, password) {
   function apiFetchLogin(email, password) {
@@ -28,7 +26,7 @@ async function apiLogin(email, password) {
       headers: myHeaders,
       body: raw,
     };
-    const response = fetch(`${host}/auth/login`, requestOptions);
+    const response = fetch(`/auth/login`, requestOptions);
     return response.then((res) => res.json());
   }
 
@@ -51,7 +49,7 @@ async function insertBookMark(type, no) {
       method: 'POST',
       headers: myHeaders,
     };
-    const response = fetch(`${host}/api/${type}/bookmark/like/${no}`, requestOptions);
+    const response = fetch(`/api/${type}/bookmark/like/${no}`, requestOptions);
     return response.then((res) => res.json());
   }
 
@@ -74,7 +72,7 @@ async function deleteBookMark(type, no) {
       method: 'POST',
       headers: myHeaders,
     };
-    const response = fetch(`${host}/api/${type}/bookmark/unlike/${no}`, requestOptions);
+    const response = fetch(`/api/${type}/bookmark/unlike/${no}`, requestOptions);
     return response.then((res) => res.json());
   }
 
@@ -97,7 +95,7 @@ async function insertFarmHouseLike(no) {
       method: 'POST',
       headers: myHeaders,
     };
-    const response = fetch(`${host}/api/farmhouse/like/${no}`, requestOptions);
+    const response = fetch(`/api/farmhouse/like/${no}`, requestOptions);
     return response.then((res) => res.json());
   }
 
@@ -120,7 +118,7 @@ async function deleteFarmHouseLike(no){
       method: 'POST',
       headers: myHeaders,
     };
-    const response = fetch(`${host}/api/farmhouse/unlike/${no}`, requestOptions);
+    const response = fetch(`/api/farmhouse/unlike/${no}`, requestOptions);
     return response.then((res) => res.json());
   }
 
@@ -143,7 +141,7 @@ async function selectSearchRecent() {
       method: 'POST',
       headers: myHeaders,
     };
-    const response = fetch(`${host}/api/search/recent`, requestOptions);
+    const response = fetch(`/api/search/recent`, requestOptions);
     return response.then((res) => res.json());
   }
 
@@ -166,7 +164,7 @@ async function selectSearchRecom() {
       method: 'POST',
       headers: myHeaders,
     };
-    const response = fetch(`${host}/api/search/recom`, requestOptions);
+    const response = fetch(`/api/search/recom`, requestOptions);
     return response.then((res) => res.json());
   }
 
@@ -196,7 +194,7 @@ async function insertReview(type, no, content){
       headers: myHeaders,
       body: raw
     };
-    const response = fetch(`${host}/api/review/create`, requestOptions);
+    const response = fetch(`/api/review/create`, requestOptions);
     return response.then((res) => res.json());
   }
 
@@ -227,7 +225,7 @@ async function insertMyReviewReply(type, no, content){
       headers: myHeaders,
       body: raw
     };
-    const response = fetch(`${host}/api/farmhouse/review/reply/create`, requestOptions);
+    const response = fetch(`/api/farmhouse/review/reply/create`, requestOptions);
     return response.then((res) => res.json());
   }
 
@@ -251,7 +249,7 @@ async function updateMyReviewLike(type, no, status) {
       method: 'POST',
       headers: myHeaders,
     };
-    const response = fetch(`${host}/api/${type}/review/${no}/${status}`, requestOptions);
+    const response = fetch(`/api/${type}/review/${no}/${status}`, requestOptions);
     return response.then((res) => res.json());
   }
 
@@ -274,7 +272,7 @@ async function deleteMyReview(type, no) {
       method: 'POST',
       headers: myHeaders,
     };
-    const response = fetch(`${host}/api/${type}/review/delete/${no}/`, requestOptions);
+    const response = fetch(`/api/${type}/review/delete/${no}/`, requestOptions);
     return response.then((res) => res.json());
   }
 
@@ -298,7 +296,7 @@ async function deleteMyReviewReply(type, no, reply_no) {
       method: 'POST',
       headers: myHeaders,
     };
-    const response = fetch(`${host}/api/${type}/review/${no}/delete/${reply_no}`, requestOptions);
+    const response = fetch(`/api/${type}/review/${no}/delete/${reply_no}`, requestOptions);
     return response.then((res) => res.json());
   }
 
@@ -322,7 +320,7 @@ async function insertContentLike(type, no) {
       method: 'POST',
       headers: myHeaders,
     };
-    const response = fetch(`${host}/api/${type}/content/like/${no}`, requestOptions);
+    const response = fetch(`/api/${type}/content/like/${no}`, requestOptions);
     return response.then((res) => res.json());
   }
 
@@ -346,7 +344,7 @@ async function deleteContentLike(type, no) {
       method: 'POST',
       headers: myHeaders,
     };
-    const response = fetch(`${host}/api/${type}/content/unlike/${no}`, requestOptions);
+    const response = fetch(`/api/${type}/content/unlike/${no}`, requestOptions);
     return response.then((res) => res.json());
   }
 
@@ -370,7 +368,7 @@ async function deleteMyContent(type, no) {
       method: 'POST',
       headers: myHeaders,
     };
-    const response = fetch(`${host}/api/${type}/content/delete/${no}`, requestOptions);
+    const response = fetch(`/api/${type}/content/delete/${no}`, requestOptions);
     return response.then((res) => res.json());
   }
 
@@ -393,7 +391,7 @@ async function updateMyReviewLock(no, status) {
       method: 'POST',
       headers: myHeaders,
     };
-    const response = fetch(`${host}/api/content/review/${no}/${status}`, requestOptions);
+    const response = fetch(`/api/content/review/${no}/${status}`, requestOptions);
     return response.then((res) => res.json());
   }
 
@@ -416,7 +414,7 @@ async function updateFarmHouseName(name) {
       method: 'POST',
       headers: myHeaders,
     };
-    const response = fetch(`${host}/api/farmhouse/change/name/${name}`, requestOptions);
+    const response = fetch(`/api/farmhouse/change/name/${name}`, requestOptions);
     return response.then((res) => res.json());
   }
 
@@ -439,7 +437,7 @@ async function updateFarmHouseType(type) {
       method: 'POST',
       headers: myHeaders,
     };
-    const response = fetch(`${host}/api/farmhouse/change/type/${type}`, requestOptions);
+    const response = fetch(`/api/farmhouse/change/type/${type}`, requestOptions);
     return response.then((res) => res.json());
   }
 
@@ -468,7 +466,7 @@ async function updateFarmHouseDetails(details) {
       headers: myHeaders,
       body: raw,
     };
-    const response = fetch(`${host}/api/farmhouse/change/details`, requestOptions);
+    const response = fetch(`/api/farmhouse/change/details`, requestOptions);
     return response.then((res) => res.json());
   }
 
@@ -492,7 +490,7 @@ async function updateFarmHouseHashTag(tag) {
       method: 'POST',
       headers: myHeaders,
     };
-    const response = fetch(`${host}/api/farmhouse/change/hashtag/${tag}`, requestOptions);
+    const response = fetch(`/api/farmhouse/change/hashtag/${tag}`, requestOptions);
     return response.then((res) => res.json());
   }
 
@@ -521,7 +519,7 @@ async function updateFarmHouseSNS(insta, blog, home) {
       headers: myHeaders,
       body: raw,
     };
-    const response = fetch(`${host}/api/farmhouse/change/sns`, requestOptions);
+    const response = fetch(`/api/farmhouse/change/sns`, requestOptions);
     return response.then((res) => res.json());
   }
 
@@ -546,7 +544,7 @@ async function selectTrace(type, value) {
       method: 'POST',
       headers: myHeaders,
     };
-    const response = fetch(`${host}/api/trace/${type}/${value}`, requestOptions);
+    const response = fetch(`/api/trace/${type}/${value}`, requestOptions);
     return response.then((res) => res.json());
   }
 
@@ -570,7 +568,7 @@ async function updateAlarm(type, value, status) {
       method: 'POST',
       headers: myHeaders,
     };
-    const response = fetch(`${host}/api/alarm/${type}/${status}/${value}`, requestOptions);
+    const response = fetch(`/api/alarm/${type}/${status}/${value}`, requestOptions);
     return response.then((res) => res.json());
   }
 

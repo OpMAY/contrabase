@@ -9,7 +9,6 @@
 <!doctype html>
 <html lang="en">
 <head>
-
     <jsp:include page="../../view/common/css.jsp"></jsp:include>
     <title>Hello, world!</title>
 </head>
@@ -364,7 +363,6 @@
             event.stopPropagation();
             event.preventDefault();
         });
-
         document.querySelector('#overlay').addEventListener('click', function (event) {
             let bottom_tab = document.querySelector('#bottom-tab-car');
 
@@ -382,7 +380,6 @@
             event.stopPropagation();
             event.preventDefault();
         });
-
         $('#start').datepicker({
             container: '.start-datepicker-container',
             language: 'ko'
