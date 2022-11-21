@@ -99,31 +99,31 @@ $(document).ready(function () {
 
         let overlay = document.querySelector('#overlay');
 
-        if (bottom_tab.classList.contains('is-active')) {
+        if (bottom_tab.classList?.contains('is-active')) {
             bottom_tab.classList.remove('is-active');
         }
 
-        if (bottom_tab_location.classList.contains('is-active')) {
+        if (bottom_tab_location?.classList.contains('is-active')) {
             bottom_tab_location.classList.remove('is-active');
         }
 
-        if (bottom_tab_workday.classList.contains('is-active')) {
+        if (bottom_tab_workday?.classList.contains('is-active')) {
             bottom_tab_workday.classList.remove('is-active');
         }
 
-        if (bottom_tab_distance.classList.contains('is-active')) {
+        if (bottom_tab_distance?.classList.contains('is-active')) {
             bottom_tab_distance.classList.remove('is-active');
         }
 
-        if (bottom_tab_emergency.classList.contains('is-active')) {
+        if (bottom_tab_emergency?.classList.contains('is-active')) {
             bottom_tab_emergency.classList.remove('is-active');
         }
 
-        if (bottom_tab_kakao.classList.contains('is-active')) {
+        if (bottom_tab_kakao?.classList.contains('is-active')) {
             bottom_tab_kakao.classList.remove('is-active');
         }
 
-        if (overlay.classList.contains('is-active')) {
+        if (overlay?.classList.contains('is-active')) {
             overlay.classList.remove('is-active');
         }
         event.stopPropagation();
@@ -139,27 +139,27 @@ $(document).ready(function () {
 
         let overlay = document.querySelector('#overlay');
 
-        if (bottom_tab.classList.contains('is-active')) {
+        if (bottom_tab?.classList.contains('is-active')) {
             bottom_tab.classList.remove('is-active');
         }
 
-        if (bottom_tab_location.classList.contains('is-active')) {
+        if (bottom_tab_location?.classList.contains('is-active')) {
             bottom_tab_location.classList.remove('is-active');
         }
 
-        if (bottom_tab_workday.classList.contains('is-active')) {
+        if (bottom_tab_workday?.classList.contains('is-active')) {
             bottom_tab_workday.classList.remove('is-active');
         }
 
-        if (bottom_tab_distance.classList.contains('is-active')) {
+        if (bottom_tab_distance?.classList.contains('is-active')) {
             bottom_tab_distance.classList.remove('is-active');
         }
 
-        if (bottom_tab_emergency.classList.contains('is-active')) {
+        if (bottom_tab_emergency?.classList.contains('is-active')) {
             bottom_tab_emergency.classList.remove('is-active');
         }
 
-        if (overlay.classList.contains('is-active')) {
+        if (overlay?.classList.contains('is-active')) {
             overlay.classList.remove('is-active');
         }
 
