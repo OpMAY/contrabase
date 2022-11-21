@@ -19,3 +19,8 @@ button.btn:focus {
 .form-group > input::placeholder {
     color: var(--gray-light);
 }
+
+input.form-control:disabled, input.form-control[readonly] {
+    background-color: var(--basic-white);
+    color: var(--gray-dark-low);
+}

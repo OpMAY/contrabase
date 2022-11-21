@@ -5,8 +5,6 @@
     String title = request.getParameter("title");
     String type = request.getParameter("type");
     String icon = request.getParameter("icon");
-
-    System.out.println(type);
 %>
 
 <c:set var="type" value="<%=type%>"/>
@@ -53,7 +51,7 @@
     </c:when>
 
     <c:when test="${type eq 'text-center'}">
-        <div class="header-wrap" id="header">
+        <header class="header-wrap" id="header">
             <div class="row m-0">
                 <div class="col-3 p-0">
                     <div class="p-24 text-left">
@@ -86,21 +84,21 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </header>
     </c:when>
 
     <c:when test="${type eq 'auth'}">
-        <div class="header-wrap" id="header">
+        <header class="header-wrap" id="header">
             <div class="col-12 d-flex p-0">
                 <div class="mr-auto p-24">
                     <img src="../../resources/assets/images/img/img-logo-black.svg" alt="">
                 </div>
             </div>
-        </div>
+        </header>
     </c:when>
 
     <c:when test="${type eq 'location'}">
-        <div class="header-wrap" id="header">
+        <header class="header-wrap" id="header">
             <div class="col-12 d-flex justify-content-start p-0">
                 <div class="pt-24 pl-24 pr-8">
                     <img src="../../resources/assets/images/icon/icon-back.svg" alt="">
@@ -109,9 +107,7 @@
                     <%=title%>
                 </div>
             </div>
-        </div>
-
+        </header>
     </c:when>
-
 </c:choose>
 
