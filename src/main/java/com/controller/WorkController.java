@@ -2,6 +2,7 @@ package com.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 @RequiredArgsConstructor
 @RequestMapping(value = "/{user_type}/work")
 public class WorkController {
+    @Value("${KAKAO.JAVASCRIPT}")
+    private String KAKAO_JAVASCRIPT;
+
     private ModelAndView VIEW;
 
     @RequestMapping(value = "/detail/{hash}", method = RequestMethod.GET)
@@ -30,6 +34,7 @@ public class WorkController {
     @RequestMapping(value = "/detail/{hash}/location", method = RequestMethod.GET)
     public ModelAndView workDetailLocation(HttpServletRequest request, @PathVariable String hash, @PathVariable String user_type) {
         VIEW = new ModelAndView("user/detail-location");
+        VIEW.addObject("kakao_key", KAKAO_JAVASCRIPT);
         return VIEW;
     }
 
