@@ -32,4 +32,8 @@ public class Work extends Time {
     private String details;
     private String notice;
     private boolean is_emergency;
+
+    private ArrayList<WorkApplyStock> stocks;
+    private boolean is_like;
+    private int stock_left;
 }
