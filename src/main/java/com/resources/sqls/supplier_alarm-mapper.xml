@@ -3,4 +3,32 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.SupplierAlarmMapper">
+    <select id="getAllAlarmsByType" resultType="SupplierAlarm">
+        select *
+        from supplier_alarm
+        WHERE supplier_no = #{supplier_no}
+          AND type = #{type}
+    </select>
+    <insert id="insertAlarm" useGeneratedKeys="true" keyProperty="no">
+        insert into supplier_alarm(supplier_no, type, content, reg_datetime, updated_datetime)
+        VALUES (#{supplier_no}, #{type}, #{content}, now(), now())
+    </insert>
+    <update id="updateReadStatus">
+        update supplier_alarm
+        SET read_status      = true,
+            updated_datetime = now()
+        WHERE supplier_no = #{supplier_no}
+          AND type = #{type}
+    </update>
+    <delete id="deleteAlarm">
+        delete
+        from supplier_alarm
+        WHERE no = #{no}
+    </delete>
+    <delete id="deleteAllAlarms">
+        delete
+        from supplier_alarm
+        WHERE supplier_no = #{supplier_no}
+          AND type = #{type}
+    </delete>
 </mapper>
