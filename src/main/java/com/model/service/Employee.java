@@ -1,5 +1,6 @@
 package com.model.service;
 
+import com.model.User;
 import com.model.common.MFile;
 import lombok.Data;
 
@@ -20,4 +21,6 @@ public class Employee {
     private boolean report_alarm;
     private boolean marketing_alarm;
     private String marketing_agree_date;
+
+    private User user;
 }

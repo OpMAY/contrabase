@@ -3,5 +3,59 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.EmployeeMapper">
-
+    <resultMap id="Employee" type="com.model.service.Employee">
+        <result column="driver_license" property="driver_license" javaType="com.model.common.MFile" typeHandler="com.middleware.JsonObjectTypeHandler"/>
+        <result column="transport_license" property="transport_license" javaType="com.model.common.MFile" typeHandler="com.middleware.JsonObjectTypeHandler"/>
+        <result column="work_places" property="work_places" typeHandler="com.middleware.StringArrayListTypeHandler"/>
+    </resultMap>
+    <insert id="registerEmployee" keyProperty="no" useGeneratedKeys="true">
+        insert into employee(user_no, car_code, driver_license, transport_license, work_places, vehicle_type)
+        VALUES (#{user_no}, #{car_code}, #{driver_license, typeHandler=com.middleware.JsonObjectTypeHandler},
+                #{transport_license, typeHandler=com.middleware.JsonObjectTypeHandler},
+                #{work_places, typeHandler=com.middleware.StringArrayListTypeHandler},
+                #{vehicle_type})
+    </insert>
+    <select id="getEmployeeInfoByUserNo" resultType="Employee" resultMap="Employee">
+        select *
+        from employee
+        WHERE user_no = #{user_no}
+    </select>
+    <select id="getEmployeeInfoByNo" resultType="Employee" resultMap="Employee">
+        select *
+        from employee
+        WHERE no = #{no}
+    </select>
+    <update id="updateEmployee">
+        update employee, user
+        SET car_code              = #{car_code},
+            driver_license        = #{driver_license, typeHandler=com.middleware.JsonObjectTypeHandler},
+            transport_license     = #{transport_license, typeHandler=com.middleware.JsonObjectTypeHandler},
+            work_places           = #{work_places, typeHandler=com.middleware.StringArrayListTypeHandler},
+            vehicle_type          = #{vehicle_type},
+            new_work_alarm        = #{new_work_alarm},
+            emergency_work_alarm  = #{emergency_work_alarm},
+            report_alarm          = #{report_alarm},
+            user.updated_datetime = now()
+        WHERE employee.no = #{no}
+          AND user.no = #{user_no}
+    </update>
+    <update id="updateEmployeeMarketingAgree">
+        update employee, user
+        SET marketing_alarm       = #{marketing_alarm},
+            marketing_agree_date  = IF(#{marketing_alarm}, now(), null),
+            user.updated_datetime = now()
+        WHERE no = #{no}
+          AND user.no = #{user_no}
+    </update>
+    <select id="getEmployees" resultType="Employee" resultMap="Employee">
+        select employee.*
+        from employee
+                 left join user on employee.user_no = user.no
+        order by reg_datetime DESC
+    </select>
+    <delete id="deleteEmployee">
+        delete
+        from employee
+        WHERE no = #{no};
+    </delete>
 </mapper>
