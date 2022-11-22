@@ -24,9 +24,10 @@
 <script src="/resources/js/app.js"></script>
 <!--Plugin-->
 <script src="/resources/js/plugin/library-sample.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=80f52af3ad0c9801a7905de9e7756986"></script>
+<%--<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=80f52af3ad0c9801a7905de9e7756986"></script>--%>
 <script src="/resources/js/datepicker/bootstrap-datepicker.js"></script>
 <script src="/resources/js/datepicker/bootstrap-datepicker.ko.min.js"></script>
+<script src="/resources/js/api.js"></script>
 
 <!-- Module JS -->
 <!-- Module JS 는 특정 페이지가 아니라 다양한 페이지에서 작동하는 부분으로 Event 및 Element 생성 및 다양한 화면에 진입했을 때

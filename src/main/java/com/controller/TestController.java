@@ -62,6 +62,7 @@ public class TestController {
     @RequestMapping(value = "/test/module/map", method = RequestMethod.GET)
     public ModelAndView moduleMap(HttpServletRequest request) {
         ModelAndView VIEW = new ModelAndView("test-module");
+        VIEW.addObject("kakao_javascript", KAKAO_JAVASCRIPT);
         return VIEW;
     }
 
