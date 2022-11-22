@@ -1,6 +1,5 @@
 package com.dao;
 
-import com.mapper.AlarmMapper;
 import com.mapper.PointReceiptMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
