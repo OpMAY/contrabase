@@ -18,8 +18,8 @@
 
     <!--header-->
     <jsp:include page="../../view/common/header.jsp" flush="false">
-        <jsp:param name="title" value="창원시 마산합 영통구 신동구가 13 510호12" />
-        <jsp:param name="type" value="location" />
+        <jsp:param name="title" value="창원시 마산합 영통구 신동구가 13 510호12"/>
+        <jsp:param name="type" value="location"/>
     </jsp:include>
 
     <!--content-->
@@ -30,7 +30,7 @@
 
         <div class="row">
             <div class="col-12 p-0">
-                <div id="map" style="width:100%;height:1000px;"></div>
+                <div id="map" style="width:100%;height:calc(1000px - 324px);"></div>
             </div>
         </div>
 
@@ -106,36 +106,72 @@
         </div>
 
     </div>
-    <div class="main-bottom-nav bottom-nav-animation" id="footer" style="z-index: 2">
-        <div class="row m-0">
-            <div class="col-12 d-flex pt-16 pb-16">
-                <div class="flex-fill text-center">
-                    <img src="../../resources/assets/images/icon/icon-home.svg" alt="">
-                </div>
 
-                <div class="flex-fill text-center">
-                    <img src="../../resources/assets/images/icon/icon-board.svg" alt="">
-                </div>
+    <jsp:include page="../../view/common/js.jsp"></jsp:include>
+    <script type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakao_key}&libraries=services,clusterer,drawing"></script>
+    <script type="text/javascript" src="/resources/js/module/api/kakao/kakao-map.js"></script>
+    <script>
+        /** TYPE 1 - BY ADDRESS **/
+        const geocoder = new kakao.maps.services.Geocoder();
+        // SAMPLE CODE
+        geocoder.addressSearch('서울특별시 광진구 군자로 29', function (result, status) {
+            // 정상적으로 검색이 완료됐으면
+            if (status === kakao.maps.services.Status.OK) {
+                createKakaoMapElement({
+                    map_id: 'map',
+                    map_x: result[0].x,
+                    map_y: result[0].y,
+                    level: 3,
+                    draggable: true,
+                    zoomable: true
+                }).then(() => {
+                    createMarkerOnMap({
+                        map_x: result[0].x,
+                        map_y: result[0].y,
+                        no: 1,
+                        onClick: () => {
+                            // BLOCK DEFAULT FUNCTION -> DO NOTHING
+                        }
+                    })
+                })
+            }
+        });
 
-                <div class="flex-fill text-center">
-                    <img src="../../resources/assets/images/icon/icon-location-active.svg" alt="">
-                </div>
+        // TODO 주석 해제 후 {} 앞에 $붙여서 사용
+        // geocoder.addressSearch('{work.start_place}', function (result, status) {
+        //     // 정상적으로 검색이 완료됐으면
+        //     if (status === kakao.maps.services.Status.OK) {
+        //         createKakaoMapElement({
+        //             map_id: 'map',
+        //             map_x: result[0].x,
+        //             map_y: result[0].y,
+        //             level: 3
+        //         }).then(() => {
+        //             createMarkerOnMap({
+        //                 map_x: result[0].x,
+        //                 map_y: result[0].y,
+        //                 no: 1,
+        //             })
+        //         })
+        //     }
+        // });
 
-                <div class="flex-fill text-center">
-                    <img src="../../resources/assets/images/icon/icon-star.svg" alt="">
-                </div>
-
-                <div class="flex-fill text-center">
-                    <img src="../../resources/assets/images/icon/icon-mypage.svg" alt="">
-                </div>
-
-
-            </div>
-        </div>
-    </div></div>
-
-<jsp:include page="../../view/common/js.jsp"></jsp:include>
-
+        /** TYPE 2 - BY Coords **/
+        // TODO 주석 해제 후 {} 앞에 $붙여서 사용
+        // createKakaoMapElement({
+        //     map_id: 'map', // MAP ID
+        //     map_x: {work.start_place_x},
+        //     map_y: {work.start_place_y},
+        //     level: 3
+        // }).then(() => {
+        //     createMarkerOnMap({
+        //         map_x: {work.start_place_x},
+        //         map_y: {work.start_place_y},
+        //         no: {work.no},
+        //     })
+        // })
+    </script>
 
 </body>
 </html>

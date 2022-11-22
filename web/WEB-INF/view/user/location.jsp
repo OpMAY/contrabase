@@ -35,7 +35,7 @@
         <div class="row">
             <div class="col-12 pl-24 pr-24 pt-16 pb-16 d-inline-flex">
                 <div style="margin-right: 8px;">
-                    <img src="../../resources/assets/images/icon/icon-reload.svg" alt="">
+                    <img id="reload" class="cursor-pointer" src="../../resources/assets/images/icon/icon-reload.svg" alt="">
                 </div>
 
                 <div class="dropdown input-dropdown">
@@ -104,7 +104,7 @@
 
         <div class="row">
             <div class="col-12 p-0">
-                <div id="map" style="width:100%;height:1000px;"></div>
+                <div id="map" style="width:100%;height:670px;"></div>
             </div>
         </div>
 
@@ -872,7 +872,48 @@
 </div>
 
 <jsp:include page="../../view/common/js.jsp"></jsp:include>
+<script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakao_key}&libraries=services,clusterer,drawing"></script>
+<script type="text/javascript" src="/resources/js/module/api/kakao/kakao-map.js"></script>
+<script>
+    // TODO 필터 공사 클릭 시 운행 거리는 의미 없는 필터
+    // SAMPLE CODE
+    let array = [
+        {
+            no: 1,
+            start_place_x: 126.567803,
+            start_place_y: 33.452278
+        },
+        {
+            no: 2,
+            start_place_x: 126.574792,
+            start_place_y: 33.452671
+        },
+        {
+            no: 3,
+            start_place_x: 126.572441,
+            start_place_y: 33.451744
+        }
+    ]
 
+    createKakaoMapElement({
+        map_id: 'map',
+        map_x: result[0].x,
+        map_y: result[0].y,
+        level: 3,
+        draggable: true,
+        zoomable: true
+    }).then(() => {
+        array.forEach((element) => {
+            createMarkerOnMap({
+                map_x: element.start_place_x,
+                map_y: element.start_place_y,
+                no: element.no,
+            })
+        })
+    })
 
+    $('#reload').on('click', () => resetMap());
+</script>
 </body>
 </html>

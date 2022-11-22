@@ -4,10 +4,11 @@
  * control 가능한 map을 여러 개 두려면 custom이 필요함
  *
  * TODO 객체 지향의 방식으로 변경하려면 Class 화
+ * TODO 마커 클릭 시 오버레이 데이터 불러오기
  * */
 
 let map = null;
-let overlay_container = $('.map-overlay-container');
+let overlay_container = $('#bottom-tab-kakao');
 let markers = [];
 const marker_image_src = window.location.origin + '/resources/assets/images/icon/icon-location-active.svg',
     marker_image_hover_src = window.location.origin + '/resources/assets/images/icon/icon-location.svg',
@@ -94,6 +95,7 @@ async function createKakaoMapElement({
  * @param {function} onRightClick 이벤트에 해당하는 callback 함수
  * @param {function} onDragStart 이벤트에 해당하는 callback 함수
  * @param {function} onDragEnd 이벤트에 해당하는 callback 함수
+ * @param {boolean} isBoundSet 마커 추가함에 따라 지도의 확대 범위를 초기화 할 것인지 (default : true)
  * @param no -> 데이터 구분자, 데이터 넣는 형식에 따라 변경될 예정
  * @example
  * createMarkerOnMap({
@@ -110,6 +112,7 @@ const createMarkerOnMap = ({
                                onRightClick,
                                onDragStart,
                                onDragEnd,
+                               isBoundSet = true,
                                no
                            }) => {
     if (map !== null) {
@@ -118,12 +121,19 @@ const createMarkerOnMap = ({
             position: position,
             image: marker_image
         })
+        // 지도에 마커 세팅
+        marker.setMap(map);
+        // 클러스터 세팅
+        clusterer.addMarker(marker);
+        // Bound 세팅
         bound_points.push(position);
         bounds.extend(position);
-        marker.setMap(map);
-        clusterer.addMarker(marker);
+
+        // Control할 마커 목록에 추가
         markers.push(marker);
-        setBounds();
+
+        if (isBoundSet)
+            setBounds();
 
         kakao.maps.event.addListener(marker, 'click', onClick ? onClick : function () {
             removeMarkersClickedImage();
@@ -183,10 +193,17 @@ const removeAllMarkers = () => {
     for (let i = 0; i < markers.length; i++) {
         markers[i].setMap(null);
     }
+    markers = [];
+    clusterer.clear();
+    bounds = new kakao.maps.LatLngBounds();
 }
 
 const removeMarker = (marker) => {
-    marker?.setMap(null);
+    if (marker !== undefined && marker !== null) {
+        marker.setMap(null);
+        clusterer.removeMarker(marker);
+        markers.splice(markers.indexOf(marker), 1);
+    }
 }
 
 const setOverlayContainer = (container_id) => {
@@ -201,4 +218,83 @@ const createOverlayElement = (data) => {
 // 모든 마커가 한 눈에 들어올 수 있게 해주는 함수
 const setBounds = () => {
     map.setBounds(bounds);
+}
+
+// 필터를 초기화함에 따라 지도 내의 마커들을 특정 필터 기준에 따라 재설정
+const resetMap = () => {
+    removeAllMarkers();
+    // SAMPLE
+    let array = [
+        {
+            no: 1,
+            start_place_x: 126.567803,
+            start_place_y: 33.452278
+        },
+        {
+            no: 2,
+            start_place_x: 126.574792,
+            start_place_y: 33.452671
+        },
+        {
+            no: 3,
+            start_place_x: 126.572441,
+            start_place_y: 33.451744
+        }
+    ];
+
+    array.forEach((element) => {
+        createMarkerOnMap({
+            map_x: element.start_place_x,
+            map_y: element.start_place_y,
+            no: element.no
+        })
+    })
+}
+
+// 필터 선택 시 현재 기준 맵에 마커가 있으면 그대로, 없으면 이동
+const setMapByFilters = (filter) => {
+    // TODO call list by filters
+    console.log(filter);
+    // remove All markers
+    removeAllMarkers();
+    // SAMPLE
+    let array = [
+        {
+            no: 1,
+            start_place_x: 126.567803,
+            start_place_y: 33.452278
+        },
+        {
+            no: 2,
+            start_place_x: 126.574792,
+            start_place_y: 33.452671
+        },
+        {
+            no: 3,
+            start_place_x: 126.572441,
+            start_place_y: 33.451744
+        }
+    ];
+
+    array.forEach((element) => {
+        createMarkerOnMap({
+            map_x: element.start_place_x,
+            map_y: element.start_place_y,
+            no: element.no,
+            isBoundSet: false,
+        })
+    })
+    // 맵의 표시 범위를 구함
+    let map_bound = map.getBounds();
+    let bound_contains = false;
+    // 맵 범위 내에 마커가 있는지 체크
+    markers.forEach((element) => {
+        let marker_position = element.getPosition();
+        bound_contains = map_bound.contains(marker_position)
+    })
+
+    // 맵 범위 안에 마커가 없으면 현재 있는 마커들 기준으로 범위 세팅
+    if(!bound_contains && markers.length > 0) {
+        setBounds();
+    }
 }
