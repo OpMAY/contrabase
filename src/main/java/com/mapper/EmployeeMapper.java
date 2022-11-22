@@ -15,6 +15,8 @@ public interface EmployeeMapper {
 
     void updateEmployeeMarketingAgree(Employee employee);
 
+    void updateEmployeePoint(Employee employee);
+
     ArrayList<Employee> getEmployees();
 
     void deleteEmployee(int no);

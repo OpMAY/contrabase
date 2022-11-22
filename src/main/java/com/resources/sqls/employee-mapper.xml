@@ -4,8 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.EmployeeMapper">
     <resultMap id="Employee" type="com.model.service.Employee">
-        <result column="driver_license" property="driver_license" javaType="com.model.common.MFile" typeHandler="com.middleware.JsonObjectTypeHandler"/>
-        <result column="transport_license" property="transport_license" javaType="com.model.common.MFile" typeHandler="com.middleware.JsonObjectTypeHandler"/>
+        <result column="driver_license" property="driver_license" javaType="com.model.common.MFile"
+                typeHandler="com.middleware.JsonObjectTypeHandler"/>
+        <result column="transport_license" property="transport_license" javaType="com.model.common.MFile"
+                typeHandler="com.middleware.JsonObjectTypeHandler"/>
         <result column="work_places" property="work_places" typeHandler="com.middleware.StringArrayListTypeHandler"/>
     </resultMap>
     <insert id="registerEmployee" keyProperty="no" useGeneratedKeys="true">
@@ -46,6 +48,11 @@
             user.updated_datetime = now()
         WHERE no = #{no}
           AND user.no = #{user_no}
+    </update>
+    <update id="updateEmployeePoint">
+        update employee
+        SET point = #{point}
+        WHERE no = #{no}
     </update>
     <select id="getEmployees" resultType="Employee" resultMap="Employee">
         select employee.*

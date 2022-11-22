@@ -36,6 +36,10 @@ public class EmployeeDao {
         mapper.updateEmployeeMarketingAgree(employee);
     }
 
+    public void updateEmployeePoint(Employee employee) {
+        mapper.updateEmployeePoint(employee);
+    }
+
     public ArrayList<Employee> getEmployees() {
         return mapper.getEmployees();
     }

@@ -3,4 +3,25 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.PointReceiptMapper">
+    <resultMap id="PointReceipt" type="com.model.service.point.receipt.PointReceipt">
+        <result column="work" property="work" javaType="com.model.service.work.Work" typeHandler="com.middleware.JsonObjectTypeHandler"/>
+        <result column="workApply" property="workApply" javaType="com.model.service.work.WorkApply" typeHandler="com.middleware.JsonObjectTypeHandler"/>
+    </resultMap>
+    <insert id="insertPointReceipt" useGeneratedKeys="true" keyProperty="no">
+        insert into point_receipt(employee_no, point, type, reg_datetime, updated_datetime)
+        VALUES (#{employee_no}, #{point}, #{type}, now(), now())
+    </insert>
+    <select id="getEmployeePointReceipt" resultType="PointReceipt" resultMap="PointReceipt">
+        select *, prw.work_info as work, prw.work_apply_info as workApply
+        from point_receipt
+                 left join point_receipt_work prw on point_receipt.no = prw.point_receipt_no
+        WHERE employee_no = #{employee_no}
+          AND type = #{type}
+        ORDER BY reg_datetime DESC
+    </select>
+    <delete id="deletePointReceipt">
+        delete
+        from point_receipt
+        where no = #{no};
+    </delete>
 </mapper>
