@@ -1,27 +1,30 @@
-#header {
-
+body {
+    max-width: 375px;
+    min-width: 375px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-#header.l-header-white {
-
+.content-container {
+    position: relative;
 }
 
-#header.l-header-black {
-
+header {
+    z-index: 1;
+    background-color: var(--basic-white);
+    position: sticky;
+    top: 0;
+    left: 50%;
 }
 
-#footer {
-
+.container.common-container {
+    min-height: calc(100vh - 72px - 102px);
 }
 
-#footer.l-footer-fixed {
-
-}
-
-#content-wrapper {
-
-}
-
-#content-wrapper.l-content-wrapper {
-
+footer {
+    position: sticky;
+    bottom: 0;
+    left: 50%;
+    z-index: 1;
+    background-color: var(--basic-white);
 }

@@ -18,20 +18,26 @@
 
     <!--header-->
     <jsp:include page="../../view/common/header.jsp" flush="false">
-        <jsp:param name="title" value="일자리 정보" />
-        <jsp:param name="type" value="text-center" />
-        <jsp:param name="icon" value="declaration" />
+        <jsp:param name="title" value="일자리 정보"/>
+        <jsp:param name="type" value="text-center"/>
+        <jsp:param name="icon" value="declaration"/>
     </jsp:include>
 
     <!--content-->
-    <div class="container" style="padding-top: 72px; padding-bottom: 56px">
+    <div class="container common-container">
         <div class="row ">
             <div class="col-12 pl-24 pr-24 pt-8">
                 <div class="d-flex justify-content-between">
                     <div class="bold-h3">
                         운송 운반 잠실 운동장
                     </div>
-                    <img src="../../resources/assets/images/icon/icon-star-active.svg" alt="">
+                    <%--Active -> _like is-active --%>
+                    <%--InActive -> _like --%>
+                    <svg class="cursor-pointer _like is-active my-auto" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21.2841 8.27584L15.3333 7.411L12.6731 2.01803C12.6005 1.87037 12.4809 1.75084 12.3333 1.67818C11.963 1.49537 11.513 1.64771 11.3278 2.01803L8.66766 7.411L2.71688 8.27584C2.55282 8.29928 2.40281 8.37662 2.28797 8.49381C2.14913 8.63651 2.07262 8.8285 2.07526 9.02758C2.0779 9.22666 2.15946 9.41655 2.30203 9.55553L6.6075 13.7532L5.59032 19.6805C5.56646 19.8184 5.58172 19.9602 5.63436 20.0899C5.687 20.2195 5.77491 20.3318 5.88813 20.4141C6.00135 20.4963 6.13535 20.5452 6.27492 20.5551C6.4145 20.5651 6.55407 20.5357 6.67782 20.4704L12.0005 17.6719L17.3231 20.4704C17.4684 20.5477 17.6372 20.5735 17.7989 20.5454C18.2067 20.4751 18.4809 20.0883 18.4106 19.6805L17.3934 13.7532L21.6989 9.55553C21.8161 9.44068 21.8934 9.29068 21.9169 9.12662C21.9802 8.71646 21.6942 8.33678 21.2841 8.27584V8.27584Z"
+                              fill="#D5D8E1"/>
+                    </svg>
                 </div>
             </div>
             <div class="col-12 pt-1 regular-h6 pl-24 pr-24">
@@ -56,25 +62,20 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-12 p-0">
                 <div class="border-line-bold">
-
                 </div>
             </div>
-
-
         </div>
-
-
         <div class="row">
             <div class="col-12 pt-32 pr-0 pl-0">
                 <section id="tabs2" class="project-tab">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12 p-0">
-                                <nav>
-                                    <div class="nav nav-tabs nav-fill" id="nav-alarm-tab" role="tablist">
+                                <nav class="position-sticky"
+                                     style="top: 72px; left: 0; width: 100%; z-index: 1; background-color: var(--basic-white);">
+                                    <div class="nav nav-tabs nav-fill" id="nav-detail-tab" role="tablist">
                                         <a class="nav-item nav-link active" id="nav-alarm-work-details-tab"
                                            data-toggle="tab" href="#nav-alarm-work-details" role="tab"
                                            aria-controls="nav-alarm-work-details" aria-selected="true">근무 정보</a>
@@ -86,9 +87,8 @@
                                            aria-controls="nav-alarm-caution-details" aria-selected="false">유의 사항</a>
                                     </div>
                                 </nav>
-                                <div class="tab-content" id="nav-alarmContent">
-                                    <div class="tab-pane fade show active" id="nav-alarm-work-details" role="tabpanel"
-                                         aria-labelledby="nav-alarm-work-details-tab">
+                                <div id="nav-alarmContent">
+                                    <div id="nav-alarm-work-details">
                                         <div class="col-12 p-0 d-flex bd-highlight">
                                             <span class="regular-h6 c-gray-dark-light flex-fill pt-24 pr-24 pl-24"
                                                   style="white-space: nowrap">
@@ -100,7 +100,6 @@
 
                                             </sapn>
                                         </div>
-
                                         <div class="col-12 p-0 d-flex bd-highlight">
                                             <span class="regular-h6 c-gray-dark-light pt-24 pr-24 pl-24"
                                                   style="white-space: nowrap">
@@ -110,7 +109,6 @@
                                                 09:00 ~ 18:00
                                             </sapn>
                                         </div>
-
                                         <div class="col-12 p-0 d-flex bd-highlight">
                                             <span class="regular-h6 c-gray-dark-light pt-24 pr-24 pl-24"
                                                   style="white-space: nowrap">
@@ -120,7 +118,6 @@
                                                 없음
                                             </sapn>
                                         </div>
-
                                         <div class="col-12 p-0 d-flex bd-highlight">
                                             <span class="regular-h6 c-gray-dark-light pt-24 pr-24 pl-24"
                                                   style="white-space: nowrap">
@@ -130,6 +127,8 @@
                                                 150,000원
                                             </sapn>
                                         </div>
+                                    </div>
+                                    <div id="nav-alarm-location-details">
                                         <div class="col-12 p-0 d-flex bd-highlight">
                                             <span class="regular-h6 c-gray-dark-light pt-24 pr-24 pl-24"
                                                   style="white-space: nowrap">
@@ -140,7 +139,6 @@
                                                 점심도 주니까 그냥 먹고 가세요 :)
                                             </sapn>
                                         </div>
-
                                         <div class="col-12 p-0 d-flex bd-highlight">
                                             <span class="regular-h6 c-gray-dark-light pt-24 pr-24 pl-24"
                                                   style="white-space: nowrap">
@@ -150,22 +148,17 @@
                                                 창원시 마산합 영통구 신동구
                                             </sapn>
                                             <div class="pt-20 pl-16">
-                                                <button id="bottom-tab-kakao-trigger" type="button" class="btn btn-block btn-box opacity align-bottom">
+                                                <button id="bottom-tab-kakao-trigger" type="button"
+                                                        class="btn btn-block btn-box opacity align-bottom">
                                                     <span class="medium-h6 c-brand-blue my-auto ">
                                                         자세히
                                                     </span>
                                                 </button>
                                             </div>
                                         </div>
-
-                                        <div class="col-12 pl-24 pr-24 pt-16 pb-48">
+                                        <div class="col-12 pl-24 pr-24 pt-16 pb-16">
                                             <div id="map" style="width:100%;height:250px;"></div>
                                         </div>
-                                    </div>
-
-
-                                    <div class="tab-pane fade" id="nav-alarm-location-details" role="tabpanel"
-                                         aria-labelledby="nav-alarm-location-details-tab">
                                         <div class="col-12 p-0 d-flex bd-highlight">
                                             <span class="regular-h6 c-gray-dark-light pt-24 pr-24 pl-24"
                                                   style="white-space: nowrap">
@@ -184,12 +177,8 @@
                                                 유병준 소장
                                             </sapn>
                                         </div>
-
-
                                     </div>
-
-                                    <div class="tab-pane fade" id="nav-alarm--caution-details" role="tabpanel"
-                                         aria-labelledby="nav-alarm-location-details-tab">
+                                    <div id="nav-alarm--caution-details">
                                         <div class="col-12 p-24 d-flex bd-highlight ">
                                             <div class="bg-caution p-16 medium-h6 c-basic-black">
                                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -220,21 +209,18 @@
                 </section>
             </div>
         </div>
-        <div class="floating-bottom bottom-nav-animation" id="footer" style="z-index: 10">
+        <footer class="floating-bottom bottom-nav-animation" id="footer" style="z-index: 10">
             <div id="bottom-tab-application-trigger" class="row m-0">
                 <div class="col-12 p-24">
                     <button type="button" class="btn btn-block btn-blue justify-content-center">
-                <span class="medium-h5 ml-auto mr-auto">
-                    일자리 지원하기
-                </span>
+                        <span class="medium-h5 ml-auto mr-auto">
+                            일자리 지원하기
+                        </span>
                     </button>
                 </div>
             </div>
-        </div>
-
-
+        </footer>
         <div id="overlay">
-
         </div>
         <!--work application-->
         <div id="bottom-tab-application">
@@ -252,26 +238,27 @@
 
             <div class="row m-0">
                 <div class="col-12 pr-24 pl-24 pt-16">
-                    <button type="button" class="btn btn-block btn-box is-active">
-                <span class="regular-h6 c-brand-blue my-auto ">
-                    2022.12.23 (목) 오후 18:00 ~ 22:00
-                </span>
+                    <button type="button" class="btn btn-block btn-box is-active" data-time="오후 18:00 ~ 22:00"
+                            data-day="수" data-date="2022.12.21">
+                        <span class="regular-h6 my-auto">
+                            2022.12.21 (수) 오후 18:00 ~ 22:00
+                        </span>
                     </button>
                 </div>
-
                 <div class="col-12 pr-24 pl-24 pt-16">
-                    <button type="button" class="btn btn-block btn-box">
-                <span class="medium-h6 c-basic-black my-auto ">
-                    2022.12.23 (목) 오후 18:00 ~ 22:00
-                </span>
+                    <button type="button" class="btn btn-block btn-box" data-time="오후 18:00 ~ 22:00" data-day="목"
+                            data-date="2022.12.22">
+                        <span class="medium-h6 my-auto">
+                            2022.12.22 (목) 오후 18:00 ~ 22:00
+                        </span>
                     </button>
                 </div>
-
                 <div class="col-12 pr-24 pl-24 pt-16">
-                    <button type="button" class="btn btn-block btn-box">
-                <span class="medium-h6 c-basic-black my-auto ">
-                    2022.12.23 (목) 오후 18:00 ~ 22:00
-                </span>
+                    <button type="button" class="btn btn-block btn-box" data-time="오후 18:00 ~ 22:00" data-day="금"
+                            data-date="2022.12.23">
+                        <span class="medium-h6 my-auto">
+                            2022.12.23 (금) 오후 18:00 ~ 22:00
+                        </span>
                     </button>
                 </div>
             </div>
@@ -279,14 +266,13 @@
             <div class="row m-0">
                 <div class="col-12 pl-24 pr-24 pb-24 pt-24">
                     <button type="button" class="btn btn-block btn-blue justify-content-center">
-                <span class="medium-h5 ml-auto mr-auto">
-                    일자리 지원하기
-                </span>
+                        <span class="medium-h5 ml-auto mr-auto">
+                            일자리 지원하기
+                        </span>
                     </button>
                 </div>
             </div>
         </div>
-
         <!--work declaration-->
         <div id="bottom-tab-declaration">
             <div class="row m-0">
@@ -297,46 +283,44 @@
 
             <div id="declaration-modal" class="row m-0">
                 <div class="col-12 pr-24 pl-24">
-                    <button type="button" class="btn btn-block btn-box is-active">
-                <span class="regular-h6 c-brand-blue my-auto ">
-                    공고와 실제 내용이 다릅니다.
-                </span>
+                    <button type="button" class="btn btn-block btn-box is-active" data-report="공고와 실제 내용이 다릅니다.">
+                        <span class="regular-h6 my-auto ">
+                            공고와 실제 내용이 다릅니다.
+                        </span>
+                    </button>
+                </div>
+                <div class="col-12 pr-24 pl-24 pt-16">
+                    <button type="button" class="btn btn-block btn-box" data-report="너무 불친절 합니다.">
+                        <span class="medium-h6 my-auto ">
+                            너무 불친절 합니다.
+                        </span>
                     </button>
                 </div>
 
                 <div class="col-12 pr-24 pl-24 pt-16">
-                    <button type="button" class="btn btn-block btn-box">
-                <span class="medium-h6 c-basic-black my-auto ">
-                    너무 불친절 합니다.
-                </span>
+                    <button type="button" class="btn btn-block btn-box" data-report="연락이 되질 않습니다.">
+                        <span class="medium-h6 my-auto ">
+                            연락이 되질 않습니다.
+                        </span>
                     </button>
                 </div>
 
                 <div class="col-12 pr-24 pl-24 pt-16">
-                    <button type="button" class="btn btn-block btn-box">
-                <span class="medium-h6 c-basic-black my-auto ">
-                    연락이 되질 않습니다.
-                </span>
-                    </button>
-                </div>
-
-                <div class="col-12 pr-24 pl-24 pt-16">
-                    <button type="button" class="btn btn-block btn-box">
-                <span class="medium-h6 c-basic-black my-auto ">
-                    임금이 지급되지 않았습니다.
-                </span>
+                    <button type="button" class="btn btn-block btn-box" data-report="임금이 지급되지 않았습니다.">
+                        <span class="medium-h6 my-auto ">
+                            임금이 지급되지 않았습니다.
+                        </span>
                     </button>
                 </div>
 
                 <div class="col-12 pr-24 pl-24 pt-16 pb-16">
                     <button id="declaration-btn" type="button" class="btn btn-block btn-box">
-                <span class="medium-h6 c-basic-black my-auto ">
-                    직접 입력
-                </span>
+                        <span class="medium-h6 my-auto ">
+                            직접 입력
+                        </span>
                     </button>
                 </div>
             </div>
-
             <div id="declaration-modal-myself" class="row m-0 d-none">
                 <div class="col-12 pl-24 pr-24 pb-16 regular-p1 c-basic-black">
                     신고 내용을 직접 입력해주세요.
@@ -347,8 +331,6 @@
                     </div>
                 </div>
             </div>
-
-
             <div class="row m-0">
                 <div class="col-12 pl-24 pr-24 pb-24 pt-24">
                     <button type="button" class="btn btn-block btn-blue justify-content-center">
@@ -359,8 +341,6 @@
                 </div>
             </div>
         </div>
-
-
         <!--kakao work info-->
         <div id="bottom-tab-kakao">
             <div class="row p-0">
@@ -389,11 +369,9 @@
                             창원시 마산합 영통구 신동구
                         </span>
                         </div>
-
                         <div class="pt-16 regular-p1">
                             <span class="bold-h4">150,000</span>원
                         </div>
-
                         <div class="pt-16 d-flex justify-content-start">
                             <div>
                                 <button type="button" class="btn btn-block btn-box opacity">
@@ -410,28 +388,79 @@
                                 </button>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
             </div>
-
             <div class="row m-0">
                 <div class="col-12 pl-24 pr-24 pb-24 pt-24">
                     <button type="button" class="btn btn-block btn-blue justify-content-center">
-                <span class="medium-h5 ml-auto mr-auto">
-                    일자리 지원하기
-                </span>
+                        <span class="medium-h5 ml-auto mr-auto">
+                            일자리 지원하기
+                        </span>
                     </button>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
-
 <jsp:include page="../../view/common/js.jsp"></jsp:include>
 <script src="../../../resources/js/details.js"></script>
+<script src="../../../resources/js/module/sticky-tab.js"></script>
+<script>
+    /**
+     * Static JS
+     * Static JS는 특정 페이지 에서만 작동하는 부분으로 Event 및 Element 생성 및 화면에 진입했을 때의
+     * 해당 화면만의 특정 로직을 수행하는 Javascript를 Static JS라고 한다.
+     * */
+    $(document).ready(function () {
+        console.log('Static JS is ready');
+        new StickyNavigation('nav-alarm-work-details-tab', 'nav-alarm-work-details', $('#nav-alarm-work-details-tab'));
+        let reports = document.querySelectorAll('.btn-box[data-report]');
+        reports.forEach(function (report) {
+            report.addEventListener('click', reportClickEventListener);
+        });
+        let like = document.querySelector('._like');
+        like.addEventListener('click', likeClickEventListener);
 
+        /*<button type="button" class="btn btn-block btn-box" data-time="오후 18:00 ~ 22:00" data-day="목" data-date="2022.12.22">*/
+        let supports = document.querySelectorAll('.btn-box[data-time][data-day][data-date]');
+        supports.forEach(function (support) {
+            support.addEventListener('click', supportClickEventListener);
+        });
+    });
+
+    function reportClickEventListener(event) {
+        let reports = document.querySelectorAll('.btn-box[data-report]');
+        reports.forEach(function (report) {
+            report.classList.remove('is-active');
+        });
+        this.classList.add('is-active');
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    function likeClickEventListener(event) {
+        if (!this.classList.contains('is-active')) {
+            /*TODO FETCH*/
+            this.classList.add('is-active');
+        } else {
+            /*TODO FETCH*/
+            this.classList.remove('is-active');
+        }
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    function supportClickEventListener(event) {
+        let supports = document.querySelectorAll('.btn-box[data-time][data-day][data-date]');
+        supports.forEach(function (support) {
+            support.classList.remove('is-active');
+        });
+        this.classList.add('is-active');
+        console.log(this.dataset.time, this.dataset.day, this.dataset.date);
+        event.preventDefault();
+        event.stopPropagation();
+    }
+</script>
 </body>
 </html>

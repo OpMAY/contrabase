@@ -9,8 +9,8 @@
 
 <c:choose>
     <c:when test="${type eq 'mypage'}">
-        <div class="main-bottom-nav bottom-nav-animation" id="footer">
-            <div class="row m-0">
+        <footer class="main-bottom-nav bottom-nav-animation" id="footer">
+            <div class="row m-0 pb-16 pt-16">
                 <div class="col-12 d-flex pt-16 pb-16">
                     <div class="flex-fill text-center">
                         <img src="../../resources/assets/images/icon/icon-home.svg" alt="">
@@ -33,12 +33,12 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </footer>
     </c:when>
 
     <c:when test="${type eq 'likes'}">
-        <div class="main-bottom-nav bottom-nav-animation" id="footer">
-            <div class="row m-0">
+        <footer class="main-bottom-nav bottom-nav-animation" id="footer">
+            <div class="row m-0 pb-16 pt-16">
                 <div class="col-12 d-flex pt-16 pb-16">
                     <div class="flex-fill text-center">
                         <img src="../../resources/assets/images/icon/icon-home.svg" alt="">
@@ -61,12 +61,12 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </footer>
     </c:when>
 
     <c:when test="${type eq 'location'}">
-        <div class="main-bottom-nav bottom-nav-animation" id="footer" style="z-index: 1">
-            <div class="row m-0">
+        <footer class="main-bottom-nav bottom-nav-animation" id="footer" style="z-index: 1">
+            <div class="row m-0 pb-16 pt-16">
                 <div class="col-12 d-flex pt-16 pb-16">
                     <div class="flex-fill text-center">
                         <img src="../../resources/assets/images/icon/icon-home.svg" alt="">
@@ -89,12 +89,12 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </footer>
     </c:when>
 
     <c:when test="${type eq 'work'}">
-        <div class="main-bottom-nav bottom-nav-animation" id="footer">
-            <div class="row m-0">
+        <footer class="main-bottom-nav bottom-nav-animation" id="footer">
+            <div class="row m-0 pb-16 pt-16">
                 <div class="col-12 d-flex pt-16 pb-16">
                     <div class="flex-fill text-center">
                         <img src="../../resources/assets/images/icon/icon-home.svg" alt="">
@@ -117,13 +117,13 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </footer>
     </c:when>
 
     <c:when test="${type eq 'main'}">
-        <div class="main-bottom-nav bottom-nav-animation" id="footer">
-            <div class="row m-0">
-                <div class="col-12 d-flex pt-16 pb-16">
+        <footer class="main-bottom-nav bottom-nav-animation" id="footer">
+            <div class="row m-0 pb-16 pt-16">
+                <div class="col-12 d-flex">
                     <div class="flex-fill text-center">
                         <img src="../../resources/assets/images/icon/icon-home-active.svg" alt="">
                     </div>
@@ -145,6 +145,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </footer>
     </c:when>
 </c:choose>

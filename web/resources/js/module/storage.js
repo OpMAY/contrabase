@@ -1,5 +1,7 @@
 class Storage {
-
+    /**
+     * console.log(JSON.parse(Storage.get('type')).data);
+     * */
     static get(key) {
         let value = localStorage.getItem(key);
         if (value === null) {
@@ -11,9 +13,13 @@ class Storage {
             } else {
                 return parse_value;
             }
+            return null;
         }
     }
 
+    /**
+     * Storage.set('type', JSON.stringify({data: 'user', date: new Date().getTime()}));
+     * */
     static set(key, value) {
         return localStorage.setItem(key, JSON.stringify(value));
     }
