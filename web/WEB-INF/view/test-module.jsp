@@ -98,12 +98,14 @@
                     </div>
                 </div>
             </div>
+
+            <button class="btn btn-lg" id="add">추가하기</button>
         </div>
     </div>
 </div>
 <jsp:include page="../view/common/js.jsp"></jsp:include>
 <script type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakao_javascript}&libraries=services,clusters,drawing"></script>
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakao_javascript}&libraries=services,clusterer,drawing"></script>
 <script type="text/javascript" src="/resources/js/module/api/kakao/kakao-map.js"></script>
 <script>
     /**
@@ -111,11 +113,13 @@
      * Static JS는 특정 페이지 에서만 작동하는 부분으로 Event 및 Element 생성 및 화면에 진입했을 때의
      * 해당 화면만의 특정 로직을 수행하는 Javascript를 Static JS라고 한다.
      * */
+
+    const geocoder = new kakao.maps.services.Geocoder();
     $(document).ready(function () {
         console.log('Static JS is ready');
 
 
-        var geocoder = new kakao.maps.services.Geocoder();
+
 
         // 주소로 좌표를 검색합니다
         geocoder.addressSearch('서울특별시 광진구 군자로 29', function (result, status) {
@@ -147,6 +151,20 @@
                 })
             }
         });
+
+        $('#add').on('click', function () {
+            geocoder.addressSearch('서울특별시 광진구 중곡동 천호대로 521', function (result, status) {
+
+                // 정상적으로 검색이 완료됐으면
+                if (status === kakao.maps.services.Status.OK) {
+                    createMarkerOnMap({
+                        map_x: result[0].x,
+                        map_y: result[0].y,
+                        no: 3,
+                    })
+                }
+            });
+        })
 
     });
 </script>

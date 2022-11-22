@@ -1,3 +1,11 @@
+/**
+ * !!! 주의 사항
+ * 해당 라이브러리는 map 객체가 하나만 있다고 가정하는 것이기에
+ * control 가능한 map을 여러 개 두려면 custom이 필요함
+ *
+ * TODO 객체 지향의 방식으로 변경하려면 Class 화
+ * */
+
 let map = null;
 let overlay_container = $('.map-overlay-container');
 let markers = [];
@@ -16,6 +24,10 @@ const marker_hover_image = new kakao.maps.MarkerImage(
     marker_image_size,
     marker_image_option
 )
+let bounds = new kakao.maps.LatLngBounds();
+let bound_points = [];
+
+let clusterer = null;
 
 /**
  * createKakaoMapElement,
@@ -26,6 +38,8 @@ const marker_hover_image = new kakao.maps.MarkerImage(
  * @param {number} map_x 기본 지도가 표시될 위치의 x좌표
  * @param {number} map_y 기본 지도가 표시될 위치의 y좌표
  * @param {number} level 지도 확대 레벨 (default : 3)
+ * @param {boolean} draggable 드래그 가능한지 여부 (default : true)
+ * @param {boolean} zoomable 확대 가능한지 여부 (default : true)
  * @example
  * createKakaoMapElement({map_id : 'map',
  *             map_x : 126.570667,
@@ -37,7 +51,9 @@ async function createKakaoMapElement({
                                          map_id,
                                          map_x,
                                          map_y,
-                                         level = 3
+                                         level = 3,
+                                         draggable = true,
+                                         zoomable = true,
                                      }) {
     // Container -> 무조건 pure javascript element
     let container = document.getElementById(map_id);
@@ -46,11 +62,22 @@ async function createKakaoMapElement({
         level: level //지도의 레벨(확대, 축소 정도)
     }
     map = new kakao.maps.Map(container, options);
+    map.setDraggable(draggable);
+    map.setZoomable(zoomable);
     kakao.maps.event.addListener(map, 'click', function () {
         removeMarkersClickedImage();
         closeOverlay();
     });
 
+
+    console.log('clusterer before : ', clusterer);
+    clusterer = new kakao.maps.MarkerClusterer({
+        map: map,
+        averageCenter: true,
+        minLevel: 6
+    })
+
+    console.log('clusterer : ', clusterer);
 }
 
 /**
@@ -86,12 +113,17 @@ const createMarkerOnMap = ({
                                no
                            }) => {
     if (map !== null) {
+        const position = new kakao.maps.LatLng(map_y, map_x);
         let marker = new kakao.maps.Marker({
-            position: new kakao.maps.LatLng(map_y, map_x),
+            position: position,
             image: marker_image
         })
+        bound_points.push(position);
+        bounds.extend(position);
         marker.setMap(map);
+        clusterer.addMarker(marker);
         markers.push(marker);
+        setBounds();
 
         kakao.maps.event.addListener(marker, 'click', onClick ? onClick : function () {
             removeMarkersClickedImage();
@@ -142,9 +174,19 @@ const showOverlay = (data) => {
 }
 
 const removeMarkersClickedImage = () => {
-    for (let i = 0; i < markers.length; i = i + 1) {
+    for (let i = 0; i < markers.length; i++) {
         markers[i].setImage(marker_image);
     }
+}
+
+const removeAllMarkers = () => {
+    for (let i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
+}
+
+const removeMarker = (marker) => {
+    marker?.setMap(null);
 }
 
 const setOverlayContainer = (container_id) => {
@@ -153,4 +195,10 @@ const setOverlayContainer = (container_id) => {
 
 const createOverlayElement = (data) => {
     // TODO Overlay Element Create By DATA
+}
+
+// 마커 기준으로 지도 확대 범위, 위치 조정
+// 모든 마커가 한 눈에 들어올 수 있게 해주는 함수
+const setBounds = () => {
+    map.setBounds(bounds);
 }
