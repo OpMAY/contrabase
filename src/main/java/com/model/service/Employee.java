@@ -10,7 +10,6 @@ public class Employee {
     private int no;
     private int user_no;
     private String car_code;
-    private MFile profile_img;
     private MFile driver_license;
     private MFile transport_license;
     private int point;
