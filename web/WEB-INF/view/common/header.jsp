@@ -56,17 +56,17 @@
     <c:when test="${type eq 'text-center'}">
         <header class="header-wrap" id="header">
             <div class="row m-0">
-                <div class="col-3 p-0">
-                    <div class="p-24 text-left">
+                <div class="col-auto p-0">
+                    <div class="p-24 text-left cursor-pointer">
                         <img src="/resources/assets/images/icon/icon-back.svg" alt="">
                     </div>
                 </div>
-                <div class="col-6 p-0 text-center">
+                <div class="col p-0 text-center">
                     <div class="p-24 bold-h5">
                         <%=title%>
                     </div>
                 </div>
-                <div class="col-3 p-0">
+                <div class="col-auto p-0">
                     <div class="p-24 bold-h5  text-right">
                         <c:choose>
                             <c:when test="${icon eq 'charge'}">
@@ -93,7 +93,7 @@
     <c:when test="${type eq 'auth'}">
         <header class="header-wrap" id="header">
             <div class="col-12 d-flex p-0">
-                <div class="mr-auto p-24">
+                <div class="mr-auto p-24 cursor-pointer">
                     <img src="/resources/assets/images/img/img-logo-black.svg" alt="">
                 </div>
             </div>
@@ -102,7 +102,7 @@
     <c:when test="${type eq 'location'}">
         <header class="header-wrap" id="header">
             <div class="col-12 d-flex justify-content-start p-0">
-                <div class="pt-24 pl-24 pr-8">
+                <div class="pt-24 pl-24 pr-8 cursor-pointer">
                     <img src="/resources/assets/images/icon/icon-back.svg" alt="">
                 </div>
                 <div class="pt-24 bold-h5">

@@ -99,7 +99,7 @@ $(document).ready(function () {
 
         let overlay = document.querySelector('#overlay');
 
-        if (bottom_tab.classList?.contains('is-active')) {
+        if (bottom_tab?.classList.contains('is-active')) {
             bottom_tab.classList.remove('is-active');
         }
 
@@ -162,7 +162,6 @@ $(document).ready(function () {
         if (overlay?.classList.contains('is-active')) {
             overlay.classList.remove('is-active');
         }
-
 
         event.stopPropagation();
         event.preventDefault();

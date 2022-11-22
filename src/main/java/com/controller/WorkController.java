@@ -27,7 +27,7 @@ public class WorkController {
         return VIEW;
     }
 
-    @RequestMapping(value = "/detail/location/{hash}", method = RequestMethod.GET)
+    @RequestMapping(value = "/detail/{hash}/location", method = RequestMethod.GET)
     public ModelAndView workDetailLocation(HttpServletRequest request, @PathVariable String hash, @PathVariable String user_type) {
         VIEW = new ModelAndView("user/detail-location");
         return VIEW;

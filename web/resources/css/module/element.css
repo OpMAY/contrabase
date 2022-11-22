@@ -300,8 +300,9 @@ input.form-control.dropdown-box {
     font-weight: 400;
 }
 
+.project-tab .nav-link:focus,
 .project-tab .nav-link:hover {
-    border: none;
+    border: 1px solid transparent;
 }
 
 .border-line-light {
@@ -590,4 +591,15 @@ input.form-control.dropdown-box {
 
 .work-container > .work:not(:last-child) {
     border-bottom: 1px solid var(--gray-high-light);
+}
+
+svg._like svg * {
+    fill: var(--gray-light);
+}
+
+svg._like:hover *,
+svg._like.is-active *,
+svg._like:hover svg *,
+svg._like.is-active svg * {
+    fill: var(--brand-blue);
 }

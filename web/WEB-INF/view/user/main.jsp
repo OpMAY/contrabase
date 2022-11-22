@@ -26,75 +26,76 @@
     <div class="container common-container">
         <div class="row border-line-light"></div>
         <div class="row border-line-bold"></div>
-        <div class="work-container col-padding">
-            <div class="row work">
-                <div class="col-12 pl-24 pr-24 pt-16 pb-16 d-inline-flex">
-                    <div class="_reload mr-8 cursor-pointer">
-                        <img src="/resources/assets/images/icon/icon-reload.svg" alt="">
+        <div class="row">
+            <div class="col-12 pl-24 pr-24 pt-16 pb-16 d-inline-flex">
+                <div class="_reload mr-8 cursor-pointer">
+                    <img src="/resources/assets/images/icon/icon-reload.svg" alt="">
+                </div>
+                <div class="dropdown input-dropdown">
+                    <div id="bottom-tab-car-trigger" aria-expanded="false"
+                         class="form-group form-inner-button dropdown form-md form-gray">
+                        <input
+                                type="text"
+                                placeholder="Input Box + Icon + lg"
+                                class="form-control dropdown-box regular-p1 dropdown-input"
+                                disabled value="전체">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.99955 7.45984L9.93936 3.75L10.5 4.27621L6.27806 8.25H5.71923L1.5 4.27621L2.05973 3.75L5.99955 7.45984Z"
+                                  fill="#021226"/>
+                        </svg>
                     </div>
-                    <div class="dropdown input-dropdown">
-                        <div id="bottom-tab-car-trigger" aria-expanded="false"
-                             class="form-group form-inner-button dropdown form-md form-gray">
-                            <input
-                                    type="text"
-                                    placeholder="Input Box + Icon + lg"
-                                    class="form-control dropdown-box regular-p1 dropdown-input"
-                                    disabled value="전체">
-                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                      d="M5.99955 7.45984L9.93936 3.75L10.5 4.27621L6.27806 8.25H5.71923L1.5 4.27621L2.05973 3.75L5.99955 7.45984Z"
-                                      fill="#021226"/>
-                            </svg>
-                        </div>
+                </div>
+                <div class="dropdown input-dropdown">
+                    <div id="bottom-tab-emergency-trigger" data-toggle="dropdown" aria-expanded="false"
+                         class="form-group form-inner-button dropdown form-md form-gray">
+                        <input type="text"
+                               placeholder="Input Box + Icon + lg"
+                               class="form-control dropdown-box regular-p1 dropdown-input"
+                               disabled value="긴급">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.99955 7.45984L9.93936 3.75L10.5 4.27621L6.27806 8.25H5.71923L1.5 4.27621L2.05973 3.75L5.99955 7.45984Z"
+                                  fill="#021226"/>
+                        </svg>
                     </div>
-                    <div class="dropdown input-dropdown">
-                        <div id="bottom-tab-emergency-trigger" data-toggle="dropdown" aria-expanded="false"
-                             class="form-group form-inner-button dropdown form-md form-gray">
-                            <input type="text"
-                                   placeholder="Input Box + Icon + lg"
-                                   class="form-control dropdown-box regular-p1 dropdown-input"
-                                   disabled value="긴급">
-                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                      d="M5.99955 7.45984L9.93936 3.75L10.5 4.27621L6.27806 8.25H5.71923L1.5 4.27621L2.05973 3.75L5.99955 7.45984Z"
-                                      fill="#021226"/>
-                            </svg>
-                        </div>
+                </div>
+                <div class="dropdown input-dropdown">
+                    <div id="bottom-tab-workday-trigger" data-toggle="dropdown" aria-expanded="false"
+                         class="form-group form-inner-button dropdown form-md form-gray">
+                        <input type="text"
+                               placeholder="Input Box + Icon + lg"
+                               class="form-control dropdown-box regular-p1 dropdown-input"
+                               disabled value="요일">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.99955 7.45984L9.93936 3.75L10.5 4.27621L6.27806 8.25H5.71923L1.5 4.27621L2.05973 3.75L5.99955 7.45984Z"
+                                  fill="#021226"/>
+                        </svg>
                     </div>
-                    <div class="dropdown input-dropdown">
-                        <div id="bottom-tab-workday-trigger" data-toggle="dropdown" aria-expanded="false"
-                             class="form-group form-inner-button dropdown form-md form-gray">
-                            <input type="text"
-                                   placeholder="Input Box + Icon + lg"
-                                   class="form-control dropdown-box regular-p1 dropdown-input"
-                                   disabled value="요일">
-                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                      d="M5.99955 7.45984L9.93936 3.75L10.5 4.27621L6.27806 8.25H5.71923L1.5 4.27621L2.05973 3.75L5.99955 7.45984Z"
-                                      fill="#021226"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="dropdown input-dropdown">
-                        <div id="bottom-tab-distance-trigger" data-toggle="dropdown" aria-expanded="false"
-                             class="form-group form-inner-button dropdown form-md form-gray">
-                            <input type="text"
-                                   placeholder="Input Box + Icon + lg"
-                                   class="form-control dropdown-box regular-p1 dropdown-input"
-                                   disabled value="거리">
-                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                      d="M5.99955 7.45984L9.93936 3.75L10.5 4.27621L6.27806 8.25H5.71923L1.5 4.27621L2.05973 3.75L5.99955 7.45984Z"
-                                      fill="#021226"/>
-                            </svg>
-                        </div>
+                </div>
+                <div class="dropdown input-dropdown">
+                    <div id="bottom-tab-distance-trigger" data-toggle="dropdown" aria-expanded="false"
+                         class="form-group form-inner-button dropdown form-md form-gray">
+                        <input type="text"
+                               placeholder="Input Box + Icon + lg"
+                               class="form-control dropdown-box regular-p1 dropdown-input"
+                               disabled value="거리">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.99955 7.45984L9.93936 3.75L10.5 4.27621L6.27806 8.25H5.71923L1.5 4.27621L2.05973 3.75L5.99955 7.45984Z"
+                                  fill="#021226"/>
+                        </svg>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row border-line-light"></div>
+        <div class="work-container">
             <div class="row work">
                 <div class="col-12 p-24">
                     <div class="d-flex flex-column">

@@ -9,7 +9,6 @@
 <!doctype html>
 <html lang="en">
 <head>
-
     <jsp:include page="../../view/common/css.jsp"></jsp:include>
     <title>Hello, world!</title>
 </head>
@@ -24,8 +23,7 @@
     </jsp:include>
 
     <!--content-->
-    <div class="container" style="padding-top: 72px; padding-bottom: 56px">
-
+    <div class="container common-container">
         <div class="row">
             <div class="col-12 pt-8 pr-0 pl-0">
                 <section id="tabs2" class="project-tab">
@@ -449,33 +447,32 @@
                                                     07:00 ~ 18:00
                                                 </div>
                                                 <div class="padding-top-4 ">
-                        <span class="regular-p1">
-                            창원시 마산합 영통구 신동구
-                        </span>
+                                                    <span class="regular-p1">
+                                                        창원시 마산합 영통구 신동구
+                                                    </span>
                                                     <img src="../../resources/assets/images/icon/icon-location-arrow.svg"
                                                          alt="">
                                                     <span class="regular-p1">
-                            창원시 마산합 영통구 신동구
-                        </span>
+                                                        창원시 마산합 영통구 신동구
+                                                    </span>
                                                 </div>
-
                                                 <div class="pt-16 regular-p1">
                                                     <span class="bold-h4">150,000</span>원
                                                 </div>
-
                                                 <div class="pt-16 d-flex justify-content-start">
                                                     <div>
                                                         <button type="button" class="btn btn-block btn-box opacity">
-                                <span class="medium-h6 c-brand-blue my-auto ">
-                                    동부123
-                                </span>
+                                                            <span class="medium-h6 c-brand-blue my-auto ">
+                                                                동부123
+                                                            </span>
                                                         </button>
                                                     </div>
-                                                    <div class="pl-16">
+                                                    <div class="pl-16"
+
                                                         <button type="button" class="btn btn-block btn-box opacity">
-                                <span class="medium-h6 c-brand-blue my-auto ">
-                                    동부
-                                </span>
+                                                            <span class="medium-h6 c-brand-blue my-auto ">
+                                                                동부
+                                                            </span>
                                                         </button>
                                                     </div>
                                                 </div>
@@ -502,33 +499,31 @@
                                                     07:00 ~ 18:00
                                                 </div>
                                                 <div class="padding-top-4 ">
-                        <span class="regular-p1">
-                            창원시 마산합 영통구 신동구
-                        </span>
+                                                    <span class="regular-p1">
+                                                        창원시 마산합 영통구 신동구
+                                                    </span>
                                                     <img src="../../resources/assets/images/icon/icon-location-arrow.svg"
                                                          alt="">
                                                     <span class="regular-p1">
-                            창원시 마산합 영통구 신동구
-                        </span>
+                                                        창원시 마산합 영통구 신동구
+                                                    </span>
                                                 </div>
-
                                                 <div class="pt-16 regular-p1">
                                                     <span class="bold-h4">150,000</span>원
                                                 </div>
-
                                                 <div class="pt-16 d-flex justify-content-start">
                                                     <div>
                                                         <button type="button" class="btn btn-block btn-box opacity">
-                                <span class="medium-h6 c-brand-blue my-auto ">
-                                    동부123
-                                </span>
+                                                            <span class="medium-h6 c-brand-blue my-auto ">
+                                                                동부123
+                                                            </span>
                                                         </button>
                                                     </div>
                                                     <div class="pl-16">
                                                         <button type="button" class="btn btn-block btn-box opacity">
-                                <span class="medium-h6 c-brand-blue my-auto ">
-                                    동부
-                                </span>
+                                                            <span class="medium-h6 c-brand-blue my-auto ">
+                                                                동부
+                                                            </span>
                                                         </button>
                                                     </div>
                                                 </div>

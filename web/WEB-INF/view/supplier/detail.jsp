@@ -41,28 +41,24 @@
                 <div class="pt-8 d-flex justify-content-start">
                     <div>
                         <button type="button" class="btn btn-block btn-box opacity">
-                                <span class="medium-h6 c-brand-blue my-auto ">
+                                <span class="medium-h6 c-brand-blue my-auto">
                                     동부123
                                 </span>
                         </button>
                     </div>
                     <div class="pl-16">
                         <button type="button" class="btn btn-block btn-box opacity">
-                                <span class="medium-h6 c-brand-blue my-auto ">
+                                <span class="medium-h6 c-brand-blue my-auto">
                                     동부
                                 </span>
                         </button>
                     </div>
                 </div>
             </div>
-
             <div class="col-12 p-0">
                 <div class="border-line-bold">
-
                 </div>
             </div>
-
-
         </div>
 
 

@@ -121,12 +121,12 @@
         let uploads = document.querySelectorAll('[data-type="upload"]');
         uploads.forEach(function (upload) {
             upload.addEventListener('click', fileUploadClickEventListener);
-            if (upload.getAttribute('name') === 'driver-license' && prev_data) {
+            if (upload.getAttribute('name') === 'driver-license' && prev_data && prev_data.driver.name != null) {
                 upload.value = prev_data.driver.name;
                 upload.setAttribute('data-name', prev_data.driver.name);
                 upload.setAttribute('data-size', prev_data.driver.size);
                 upload.setAttribute('data-type', prev_data.driver.type);
-            } else if (upload.getAttribute('name') === 'transfer-license' && prev_data) {
+            } else if (upload.getAttribute('name') === 'transfer-license' && prev_data && prev_data.transfer.name != null) {
                 upload.value = prev_data.transfer.name;
                 upload.setAttribute('data-name', prev_data.transfer.name);
                 upload.setAttribute('data-size', prev_data.transfer.size);

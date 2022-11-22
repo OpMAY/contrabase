@@ -36,7 +36,6 @@ $(document).ready(function () {
         event.preventDefault();
     });
     document.querySelector('#bottom-tab-kakao-trigger')?.addEventListener('click', function (event) {
-
         let bottom_kakao = document.querySelector('#bottom-tab-kakao');
         let overlay = document.querySelector('#overlay');
 
