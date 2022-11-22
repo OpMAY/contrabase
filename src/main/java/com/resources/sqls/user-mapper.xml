@@ -3,4 +3,45 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.UserMapper">
+    <insert id="registerUser" useGeneratedKeys="true" keyProperty="no">
+        insert into user(id, name, phone, profile_img, reg_datetime, updated_datetime, last_login_datetime)
+        VALUES (#{id}, #{name}, #{phone}, #{profile_img, typeHandler=com.middleware.JsonObjectTypeHandler}, now(),
+                now(), now())
+    </insert>
+    <select id="getUserType" resultType="UserType">
+        select IF(EXISTS(select * from employee WHERE user_no = #{no}), 'EMPLOYEE', 'SUPPLIER')
+    </select>
+    <select id="loginUser" resultType="User">
+        select *
+        from user
+        WHERE id = #{id}
+    </select>
+    <update id="updateUserLoginDate">
+        update user
+        SET last_login_datetime = now()
+        WHERE no = #{no}
+    </update>
+    <update id="updateUserName">
+        update user
+        SET name             = #{name},
+            updated_datetime = now()
+        WHERE no = #{no}
+    </update>
+    <update id="updateUserPhone">
+        update user
+        SET phone            = #{phone},
+            updated_datetime = now()
+        WHERE no = #{no}
+    </update>
+    <update id="updateUserProfileImage">
+        update user
+        SET profile_img      = #{profile_img, typeHandler=com.middleware.JsonObjectTypeHandler},
+            updated_datetime = now()
+        WHERE no = #{no}
+    </update>
+    <delete id="deleteUser">
+        delete
+        from user
+        WHERE no = #{no}
+    </delete>
 </mapper>
