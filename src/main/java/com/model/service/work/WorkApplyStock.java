@@ -9,4 +9,5 @@ public class WorkApplyStock {
     private int work_no;
     private LocalDate target_date;
     private int max_count;
+    private int left_count;
 }

@@ -3,4 +3,57 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.WorkApplyStockMapper">
+    <insert id="insertWorkStock">
+        insert into work_apply_stock(work_no, max_count, target_date)
+        VALUES (#{work_no}, #{max_count}, #{target_date})
+    </insert>
+    <select id="getWorkStocksLeftOnDate" resultType="int">
+        select max_count - (select COUNT(*)
+                            from work_apply
+                            WHERE work_no = #{work_no}
+                              AND target_date = #{target_date}
+                              AND status != 'CANCELED')
+        from work_apply_stock
+        WHERE work_no = #{work_no}
+          AND target_date = #{target_date}
+    </select>
+    <update id="updateWorkStock">
+        update work_apply_stock
+        SET max_count = #{max_count}
+        WHERE work_no = #{work_no}
+          AND target_date = #{target_date}
+    </update>
+    <delete id="deleteWorkStockByDate">
+        delete
+        from work_apply_stock
+        WHERE work_no = #{work_no}
+          AND target_date = #{target_date}
+    </delete>
+    <delete id="deleteAllWorkStocksByWork">
+        delete
+        from work_apply_stock
+        WHERE work_no = #{work_no}
+    </delete>
+    <select id="getWorkStocks" resultType="WorkApplyStock">
+        select *,
+               (max_count - (select COUNT(*)
+                             from work_apply
+                             WHERE work_no = #{work_no}
+                               AND target_date = work_apply_stock.target_date
+                               AND status != 'CANCELED')) as left_count
+        from work_apply_stock
+        WHERE work_no = #{work_no}
+    </select>
+    <select id="checkWorkStockLeft" resultType="_boolean">
+        select SUM(max_count - (select COUNT(*)
+                                from work_apply
+                                WHERE work_no = #{work_no}
+                                  AND target_date = work_apply_stock.target_date
+                                  AND status != 'CANCELED')) > 0
+        from work_apply_stock
+        WHERE work_no = #{work_no}
+    </select>
+    <select id="checkWorkStockExists" resultType="_boolean">
+        select EXISTS(select * from work_apply_stock WHERE work_no = #{work_no})
+    </select>
 </mapper>
