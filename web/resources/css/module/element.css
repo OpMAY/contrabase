@@ -271,7 +271,7 @@ input.form-control.dropdown-box {
 
 /*tabs*/
 .project-tab {
-    margin-top: -8%;
+    /*margin-top: -8%;*/
 }
 
 .project-tab #tabs h6.section-title {
@@ -537,16 +537,23 @@ input.form-control.dropdown-box {
 }
 
 .profile-image {
-    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
     width: 100px;
-    height: 100px;
-    left: 140px;
+    padding-top: 100px;
+    height: 0;
+    border-radius: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
 }
 
 .profile-edit {
-    position: relative;
-    top: 70px;
-    left: 70px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;
 }
 
 .custom-control-label::before {
@@ -593,6 +600,10 @@ input.form-control.dropdown-box {
     border-bottom: 1px solid var(--gray-high-light);
 }
 
+.point-container > .point:not(:last-child) {
+    border-bottom: 1px solid var(--gray-high-light);
+}
+
 svg._like svg * {
     fill: var(--gray-light);
 }
@@ -602,4 +613,13 @@ svg._like.is-active *,
 svg._like:hover svg *,
 svg._like.is-active svg * {
     fill: var(--brand-blue);
+}
+
+.license-container .license:not(:last-child) {
+    margin-bottom: 24px;
+}
+
+.license-container .license .bg-point {
+    width: 100%;
+    padding-top: 156px;
 }

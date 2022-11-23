@@ -23,7 +23,7 @@
     </jsp:include>
 
     <!--content-->
-    <div class="container" style="padding-top: 72px; padding-bottom: 56px">
+    <div class="container common-container">
         <div class="row">
             <div class="col-12 pt-32 pl-24 pr-24 medium-h5 c-basic-black">
                 <label class="medium-h6 c-gray-dark-low">차량 번호</label>

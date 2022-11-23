@@ -23,7 +23,7 @@
     </jsp:include>
 
     <!--content-->
-    <div class="container common-container">
+    <div class="container general-container">
         <div class="row border-line-light"></div>
         <div class="row border-line-bold"></div>
         <div class="row">
@@ -1061,6 +1061,7 @@
     </jsp:include>
 </div>
 <jsp:include page="../../view/common/js.jsp"></jsp:include>
+<script src="/resources/js/module/work.js"></script>
 <script src="/resources/js/module/work-filter.js"></script>
 <script>
     /**

@@ -25,7 +25,7 @@
 
     <div class="container" style="padding-top: 72px; padding-bottom: 100px">
         <div class="row">
-            <div class="col-12 pt-24 pr-0 pl-0">
+            <div class="col-12 pr-0 pl-0">
                 <section id="tabs2" class="project-tab">
                     <div class="container">
                         <div class="row">
@@ -512,9 +512,8 @@
         </div>
     </div>
 </div>
-
 <jsp:include page="../../view/common/js.jsp"></jsp:include>
-
-
+<script src="/resources/js/module/work.js"></script>
+<script src="/resources/js/module/work-filter.js"></script>
 </body>
 </html>

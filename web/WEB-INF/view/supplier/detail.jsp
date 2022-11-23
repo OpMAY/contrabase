@@ -63,7 +63,7 @@
 
 
         <div class="row">
-            <div class="col-12 pt-32 pr-0 pl-0">
+            <div class="col-12 pr-0 pl-0">
                 <section id="tabs2" class="project-tab">
                     <div class="container">
                         <div class="row">
