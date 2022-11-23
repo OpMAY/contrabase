@@ -360,6 +360,7 @@
 .datepicker table tr td.active.disabled[disabled],
 .datepicker table tr td.active.disabled:hover[disabled] {
     background-color: #0044cc;
+    color: var(--basic-white) !important;
 }
 
 .datepicker table tr td.active:active,
@@ -371,6 +372,7 @@
 .datepicker table tr td.active.disabled.active,
 .datepicker table tr td.active.disabled:hover.active {
     background-color: #003399 \9;
+    color: var(--basic-white) !important;
 }
 
 .datepicker table tr td span {

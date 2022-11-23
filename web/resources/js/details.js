@@ -63,26 +63,26 @@ $(document).ready(function () {
 
         let overlay = document.querySelector('#overlay');
 
-        if (bottom_applitcation_tab.classList.contains('is-active')) {
+        if (bottom_applitcation_tab?.classList.contains('is-active')) {
             bottom_applitcation_tab.classList.remove('is-active');
         }
 
-        if (bottom_declaration_tab.classList.contains('is-active')) {
+        if (bottom_declaration_tab?.classList.contains('is-active')) {
             bottom_declaration_tab.classList.remove('is-active');
         }
 
 
-        if (bottom_kakao_tab.classList.contains('is-active')) {
+        if (bottom_kakao_tab?.classList.contains('is-active')) {
             bottom_kakao_tab.classList.remove('is-active');
         }
 
 
-        if (overlay.classList.contains('is-active')) {
+        if (overlay?.classList.contains('is-active')) {
             overlay.classList.remove('is-active');
         }
 
-        declaration_modal.classList.remove('d-none');
-        declaration_modal_myself.classList.add('d-none');
+        declaration_modal?.classList.remove('d-none');
+        declaration_modal_myself?.classList.add('d-none');
 
         event.stopPropagation();
         event.preventDefault();
@@ -94,10 +94,6 @@ $(document).ready(function () {
         declaration_modal.classList.add('d-none');
         declaration_modal_myself.classList.remove('d-none');
     });
-    $('#start').datepicker({
-        container: '.start-datepicker-container',
-        language: 'ko'
-    }).on('input', datepickerInputEventListener).on('changeDate', datePickerChangeEventListener);
 });
 try {
     let container = document.getElementById('map');
@@ -114,12 +110,6 @@ try {
     });
 // 마커가 지도 위에 표시되도록 설정합니다
     marker.setMap(map);
-
-    function datepickerInputEventListener() {
-    }
-
-    function datePickerChangeEventListener() {
-    }
 } catch (error) {
     throw new Error(`javascript details.js kakao map error -> ${error}`);
 }

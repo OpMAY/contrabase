@@ -404,8 +404,8 @@
     </div>
 </div>
 <jsp:include page="../../view/common/js.jsp"></jsp:include>
-<script src="../../../resources/js/details.js"></script>
-<script src="../../../resources/js/module/sticky-tab.js"></script>
+<script src="/resources/js/details.js"></script>
+<script src="/resources/js/module/sticky-tab.js"></script>
 <script>
     /**
      * Static JS

@@ -157,6 +157,10 @@
     position: relative;
 }
 
+.form-group.form-inner-button input:focus {
+    border-color: var(--brand-blue);
+}
+
 .form-group.form-inner-button input {
     padding-top: 24px;
     padding-bottom: 24px;
@@ -622,4 +626,58 @@ svg._like.is-active svg * {
 .license-container .license .bg-point {
     width: 100%;
     padding-top: 156px;
+}
+
+.work .media {
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.media-container .media:first-child {
+    margin-top: 16px;
+    border-top: var(--border-1px) var(--gray-high-light);
+}
+
+.media-container .media:not(:last-child) {
+    border-bottom: var(--border-1px) var(--gray-high-light);
+}
+
+.work .media ._profile {
+    display: inline-block;
+    width: 42px;
+    padding-top: 42px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+}
+
+.work .media {
+    position: relative;
+}
+
+.work .media .transport {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: var(--translate-tb-center);
+}
+
+.transport ._cancel {
+    margin-top: auto;
+    margin-bottom: auto;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.hashs {
+    padding: 24px;
+    padding-top: 16px;
+    margin: -4px;
+}
+
+.hashs .hash {
+    display: inline-block;
+    white-space: nowrap;
+    margin: 4px;
 }
