@@ -3,4 +3,41 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.ReportMapper">
+    <insert id="insertReport" keyProperty="no" useGeneratedKeys="true">
+        insert into report(employee_no, work_no, content, reg_datetime, updated_datetime)
+        VALUES (#{employee_no}, #{work_no}, #{content}, now(), now())
+    </insert>
+    <select id="getReports" resultType="Report">
+        select *
+        from report
+        ORDER BY status, reg_datetime DESC;
+    </select>
+    <select id="getEmployeeReports" resultType="Report">
+        select *
+        from report
+        WHERE employee_no = #{employee_no}
+        ORDER BY status, reg_datetime DESC
+    </select>
+    <select id="getWorkReports" resultType="Report">
+        select *
+        from report
+        WHERE work_no = #{work_no}
+        ORDER BY status, reg_datetime DESC
+    </select>
+    <select id="getReportDetail" resultType="Report">
+        select *
+        from report
+        WHERE no = #{no}
+    </select>
+    <update id="updateReportStatus">
+        update report
+        SET status           = true,
+            updated_datetime = now()
+        WHERE no = #{no}
+    </update>
+    <delete id="deleteReport">
+        delete
+        from report
+        where no = #{no};
+    </delete>
 </mapper>

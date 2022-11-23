@@ -3,4 +3,21 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.WithdrawMapper">
+    <insert id="insertUserWithdraw" useGeneratedKeys="true" keyProperty="no">
+        insert into withdraw(user_no, reason, reg_datetime)
+        VALUES (#{user_no}, #{reason}, now())
+    </insert>
+    <select id="getUserWithdrawInfo" resultType="Withdraw">
+        select *
+        from withdraw
+        WHERE user_no = #{user_no}
+    </select>
+    <select id="checkUserWithdraw" resultType="_boolean">
+        select EXISTS(select * from withdraw WHERE user_no = #{user_no})
+    </select>
+    <delete id="deleteUserWithdraw">
+        delete
+        from withdraw
+        WHERE user_no = #{user_no}
+    </delete>
 </mapper>

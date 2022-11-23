@@ -3,4 +3,61 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.WorkMapper">
+    <resultMap id="Work" type="com.model.service.work.Work">
+        <result column="work_dates" property="work_dates" typeHandler="com.middleware.StringArrayListTypeHandler"/>
+        <result column="hashtag" property="hashtag" typeHandler="com.middleware.StringArrayListTypeHandler"/>
+    </resultMap>
+    <select id="getAllWorks" resultType="Work" resultMap="Work">
+        select *
+        from work
+        order by reg_datetime DESC
+    </select>
+    <insert id="createWork" keyProperty="no" useGeneratedKeys="true">
+        insert into work(supplier_no, name, vehicle_type, work_dates, start_place, start_place_x, start_place_y,
+                         end_place, end_place_x, end_place_y, distance, corp_name, corp_manager, parking_info,
+                         dishing_info, hashtag, start_time, end_time, work_condition, budget, details, notice,
+                         is_emergency, reg_datetime, updated_datetime)
+        VALUES (#{supplier_no}, #{name}, #{vehicle_type},
+                #{work_dates, typeHandler=com.middleware.StringArrayListTypeHandler}, #{start_place}, #{start_place_x},
+                #{start_place_y},
+                #{end_place}, #{end_place_x}, #{end_place_y}, #{distance}, #{corp_name}, #{corp_manager},
+                #{parking_info},
+                #{dishing_info}, #{hashtag, typeHandler=com.middleware.StringArrayListTypeHandler}, #{start_time},
+                #{end_time}, #{work_condition}, #{budget}, #{details}, #{notice},
+                #{is_emergency}, now(), now())
+    </insert>
+    <delete id="deleteWork">
+        delete
+        from work
+        WHERE no = #{no}
+    </delete>
+    <update id="updateWork">
+        update work
+        SET name             = IF(#{name} is null, name, #{name}),
+            vehicle_type     = IF(#{vehicle_type} is null, vehicle_type, #{vehicle_type}),
+            work_dates       = IF(#{work_dates} is null, work_dates,
+                                  #{work_dates, typeHandler=com.middleware.StringArrayListTypeHandler}),
+            start_place      = IF(#{start_place} is null, start_place, #{start_place}),
+            start_place_x    = IF(#{start_place_x} is null, start_place_x, #{start_place_x}),
+            start_place_y    = IF(#{start_place_y} is null, start_place_y, #{start_place_y}),
+            end_place        = IF(#{end_place} is null, end_place, #{end_place}),
+            end_place_x      = IF(#{end_place_x} is null, end_place_x, #{end_place_x}),
+            end_place_y      = IF(#{end_place_y} is null, end_place_y, #{end_place_y}),
+            distance         = IF(#{distance} is null, distance, #{distance}),
+            corp_name        = IF(#{corp_name} is null, corp_name, #{corp_name}),
+            corp_manager     = IF(#{corp_manager} is null, corp_manager, #{corp_manager}),
+            parking_info     = IF(#{parking_info} is null, parking_info, #{parking_info}),
+            dishing_info     = IF(#{dishing_info} is null, dishing_info, #{dishing_info}),
+            hashtag          = IF(#{hashtag} is null, hashtag,
+                                  #{hashtag, typeHandler=com.middleware.StringArrayListTypeHandler}),
+            start_time       = IF(#{start_time} is null, start_time, #{start_time}),
+            end_time         = IF(#{end_time} is null, end_time, #{end_time}),
+            work_condition   = IF(#{work_condition} is null, work_condition, #{work_condition}),
+            budget           = IF(#{budget} is null, budget, #{budget}),
+            details          = IF(#{details} is null, details, #{details}),
+            notice           = IF(#{notice} is null, notice, #{notice}),
+            is_emergency     = IF(#{is_emergency} is null, is_emergency, #{is_emergency}),
+            updated_datetime = now()
+        WHERE no = #{no}
+    </update>
 </mapper>

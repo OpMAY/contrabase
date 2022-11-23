@@ -4,7 +4,7 @@ import com.model.common.Time;
 import lombok.Data;
 
 @Data
-public class Alarm extends Time {
+public class EmployeeAlarm extends Time {
     private int no;
     private int employee_no;
     private AlarmType type;

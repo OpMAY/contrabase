@@ -19,6 +19,7 @@ public class User extends RootUser {
     private String access_token;
     private String name;
     private String phone;
+    private UserType userType;
     private MFile profile_img;
     private LocalDateTime last_login_date;
 }

@@ -3,4 +3,48 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.SupplierMapper">
+    <insert id="registerSupplier" useGeneratedKeys="true" keyProperty="no">
+        insert into supplier(user_no, business_file)
+        VALUES (#{user_no}, #{business_file, typeHandler=com.middleware.JsonObjectTypeHandler})
+    </insert>
+    <select id="getSupplierInfoByUserNo" resultType="Supplier" resultMap="Supplier">
+        select *
+        from supplier
+        WHERE user_no = #{user_no}
+    </select>
+    <select id="getSupplierInfoByNo" resultType="Supplier" resultMap="Supplier">
+        select *
+        from supplier
+        WHERE no = #{no}
+    </select>
+    <update id="applySupplier">
+        update supplier, user
+        SET status                = true,
+            user.updated_datetime = now()
+        WHERE supplier.no = #{no}
+          AND user.no = supplier.user_no
+    </update>
+    <update id="updateSupplier">
+        update supplier, user
+        SET business_file         = #{business_file, typeHandler=com.middleware.JsonObjectTypeHandler},
+            user.updated_datetime = now()
+        WHERE supplier.no = #{no}
+          AND user.no = #{user_no}
+    </update>
+    <select id="getSuppliers" resultType="Supplier" resultMap="Supplier">
+        select *
+        from supplier
+                 left join user u on supplier.user_no = u.no
+        order by reg_datetime DESC
+    </select>
+    <delete id="deleteSupplier">
+        delete
+        from supplier
+        WHERE no = #{no}
+    </delete>
+    <select id="checkSupplierApplied" resultType="_boolean">
+        select IF(EXISTS(select * from supplier WHERE no = #{no}), status, false)
+        from supplier
+        WHERE no = #{no}
+    </select>
 </mapper>

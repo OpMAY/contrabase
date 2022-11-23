@@ -3,6 +3,8 @@ package com.model.service.work;
 import com.model.common.Time;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 public class WorkApply extends Time {
     private int no;
@@ -10,4 +12,5 @@ public class WorkApply extends Time {
     private int work_no;
     private APPLY_STATUS status;
     private int point;
+    private LocalDate target_date;
 }

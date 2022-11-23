@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.PointReceiptWorkMapper">
+    <resultMap id="PointReceiptWork" type="com.model.service.point.receipt.PointReceiptWork">
+        <result column="work_info" property="work_info" javaType="com.model.service.work.Work" typeHandler="com.middleware.JsonObjectTypeHandler"/>
+        <result column="work_apply_info" property="work_apply_info" javaType="com.model.service.work.WorkApply" typeHandler="com.middleware.JsonObjectTypeHandler"/>
+    </resultMap>
+    <insert id="insertPointReceiptWork">
+        insert into point_receipt_work(point_receipt_no, work_info, work_apply_info)
+        VALUES (#{point_receipt_no}, #{work_info, typeHandler=com.middleware.JsonObjectTypeHandler},
+                #{work_apply_info, typeHandler=com.middleware.JsonObjectTypeHandler})
+    </insert>
+    <select id="getPointReceiptWork" resultType="PointReceiptWork" resultMap="PointReceiptWork">
+        select *
+        from point_receipt_work
+        WHERE point_receipt_no = #{receipt_no}
+    </select>
+    <delete id="deletePointReceiptWork">
+        delete
+        from point_receipt_work
+        where point_receipt_no = #{receipt_no};
+    </delete>
+</mapper>

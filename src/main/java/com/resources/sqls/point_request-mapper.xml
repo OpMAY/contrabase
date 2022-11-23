@@ -3,4 +3,40 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.PointRequestMapper">
+    <insert id="insertPointRequest" keyProperty="no" useGeneratedKeys="true">
+        insert into point_request(employee_no, point, status, reg_datetime, updated_datetime)
+        VALUES (#{employee_no}, #{point}, 'REQUESTED', now(), now())
+    </insert>
+    <select id="getAllPointRequests" resultType="PointRequest">
+        select *
+        from point_request
+        ORDER BY reg_datetime DESC
+    </select>
+    <select id="getPointRequestsByStatus" resultType="PointRequest">
+        select *
+        from point_request
+        WHERE status = #{status}
+        ORDER BY reg_datetime DESC
+    </select>
+    <select id="getPointRequestsByEmployeeNo" resultType="PointRequest">
+        select *
+        from point_request
+        WHERE employee_no = #{employee_no}
+    </select>
+    <select id="getPointRequestByNo" resultType="PointRequest">
+        select *
+        from point_request
+        WHERE no = #{no}
+    </select>
+    <update id="updatePointRequestStatus">
+        update point_request
+        SET status           = #{status},
+            updated_datetime = now()
+        WHERE no = #{no}
+    </update>
+    <delete id="deletePointRequest">
+        delete
+        from point_request
+        where no = #{no};
+    </delete>
 </mapper>

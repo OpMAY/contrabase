@@ -3,4 +3,27 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.WorkLikeMapper">
+    <resultMap id="Work" type="com.model.service.work.Work">
+        <result column="work_dates" property="work_dates" typeHandler="com.middleware.StringArrayListTypeHandler"/>
+        <result column="hashtag" property="hashtag" typeHandler="com.middleware.StringArrayListTypeHandler"/>
+    </resultMap>
+    <select id="checkEmployeeWorkLiked" resultType="_boolean">
+        select EXISTS(select * from work_like WHERE work_no = #{work_no} AND employee_no = #{employee_no})
+    </select>
+    <select id="getEmployeeLikedWorks" resultType="Work" resultMap="Work">
+        select *
+        from work
+        WHERE work.no in
+              (select work_no from work_like WHERE employee_no = #{employee_no} ORDER BY work_like.reg_datetime)
+    </select>
+    <insert id="insertWorkLike">
+        insert into work_like(employee_no, work_no, reg_datetime)
+        VALUES (#{employee_no}, #{work_no}, now())
+    </insert>
+    <delete id="deleteWorkLike">
+        delete
+        from work_like
+        WHERE employee_no = #{employee_no}
+          AND work_no = #{work_no}
+    </delete>
 </mapper>

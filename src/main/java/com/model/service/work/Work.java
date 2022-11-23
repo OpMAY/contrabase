@@ -13,7 +13,6 @@ public class Work extends Time {
     private String name;
     private VEHICLE_TYPE vehicle_type;
     private ArrayList<String> work_dates;
-    private int required_vehicles;
     private String start_place;
     private Double start_place_x;
     private Double start_place_y;
@@ -33,4 +32,8 @@ public class Work extends Time {
     private String details;
     private String notice;
     private boolean is_emergency;
+
+    private ArrayList<WorkApplyStock> stocks;
+    private boolean is_like;
+    private int stock_left;
 }
