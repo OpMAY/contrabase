@@ -3,4 +3,39 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.WorkApplyMapper">
+    <resultMap id="Work" type="com.model.service.work.Work">
+        <result column="work_dates" property="work_dates" typeHandler="com.middleware.StringArrayListTypeHandler"/>
+        <result column="hashtag" property="hashtag" typeHandler="com.middleware.StringArrayListTypeHandler"/>
+    </resultMap>
+    <insert id="insertWorkApply">
+        insert into work_apply(employee_no, work_no, status, target_date, reg_datetime, updated_datetime)
+        VALUES (#{employee_no}, #{work_no}, #{status}, #{target_date}, now(), now())
+    </insert>
+    <select id="getEmployeeApplyListByStatus" resultType="Work" resultMap="Work">
+        select *
+        from work
+        WHERE no in (select work_no
+                     from work_apply
+                     WHERE employee_no = #{employee_no}
+                       AND status = #{status}
+                     ORDER BY work_apply.reg_datetime DESC)
+    </select>
+    <update id="updateWorkApplyStatus">
+        update work_apply
+        SET status           = #{status},
+            updated_datetime = now()
+        WHERE no = #{no}
+    </update>
+    <select id="checkApplyExists" resultType="_boolean">
+        select EXISTS(select *
+                      from work_apply
+                      WHERE employee_no = #{employee_no}
+                        AND work_no = #{work_no}
+                        AND target_date = #{target_date})
+    </select>
+    <delete id="deleteWorkApply">
+        delete
+        from work_apply
+        WHERE no = #{no};
+    </delete>
 </mapper>
