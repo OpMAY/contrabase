@@ -17,4 +17,10 @@ public interface WorkApplyMapper {
     boolean checkApplyExists(WorkApply workApply);
 
     void deleteWorkApply(int no);
+
+    /**
+     * 예상 추가
+     * - work 에 지원한 employee list?
+     * - 내역 삭제?
+     * */
 }
