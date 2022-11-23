@@ -23,7 +23,7 @@
     </jsp:include>
 
     <!--content-->
-    <div class="container common-container">
+    <div class="container general-container">
         <div class="row border-line-light"></div>
         <div class="row border-line-bold"></div>
         <div class="row">
@@ -469,7 +469,7 @@
             </div>
         </div>
         <!--modal emergency car-->
-        <div id="bottom-tab-car" style="max-height: 500px; overflow: scroll">
+        <div id="bottom-tab-car" style="max-height: 500px; overflow-y: auto; overflow-x: hidden;">
             <div class="row m-0">
                 <div class="col-12 p-24 bold-h5">
                     운행 종류
@@ -826,9 +826,9 @@
             <div class="row m-0">
                 <div class="col-12 pl-24 pr-24 pb-24 pt-44">
                     <button type="button" class="btn btn-block btn-blue justify-content-center">
-                <span class="medium-h5 ml-auto mr-auto">
-                    운행 설정 완료
-                </span>
+                        <span class="medium-h5 ml-auto mr-auto">
+                            운행 설정 완료
+                        </span>
                     </button>
                 </div>
             </div>
@@ -1061,6 +1061,7 @@
     </jsp:include>
 </div>
 <jsp:include page="../../view/common/js.jsp"></jsp:include>
+<script src="/resources/js/module/work.js"></script>
 <script src="/resources/js/module/work-filter.js"></script>
 <script>
     /**

@@ -9,7 +9,6 @@
 <!doctype html>
 <html lang="en">
 <head>
-
     <jsp:include page="../../view/common/css.jsp"></jsp:include>
     <title>Hello, world!</title>
 </head>
@@ -23,7 +22,7 @@
     </jsp:include>
 
     <!--content-->
-    <div class="container" style="padding-top: 72px; padding-bottom: 100px">
+    <div class="container common-container">
         <div class="row">
             <div class="col-12 pt-16 pl-24 pr-24 ml-auto text-center">
                 <div class="d-table-row">
@@ -36,7 +35,6 @@
                 </div>
             </div>
         </div>
-
         <div class="row">
             <div class="col-12 pt-24 pl-24 pr-24 ml-auto text-left">
                 <div class="bold-h2 c-basic-black">
@@ -45,303 +43,76 @@
                 </div>
             </div>
         </div>
-
         <div class="row">
             <div class="col-12 pt-40 pl-24 pr-24 medium-h5 c-basic-black">
                 <label class="medium-h6 c-gray-dark-low">회사 명</label>
                 <div class="form-group form-inner-button">
-                    <input type="text" placeholder="회사 명을 입력해주세요." class="form-control input-box medium-h5">
+                    <input type="text" name="name" placeholder="회사 명을 입력해주세요." class="form-control input-box medium-h5">
                 </div>
             </div>
         </div>
-
         <div class="row">
             <div class="col-12 pt-32 pl-24 pr-24 medium-h5 c-basic-black">
                 <label class="medium-h6 c-gray-dark-low">담당자 명</label>
                 <div class="form-group form-inner-button">
-                    <input type="text" placeholder="담당자 명을 입력해주세요." class="form-control input-box medium-h5">
+                    <input type="text" name="manager" placeholder="담당자 명을 입력해주세요."
+                           class="form-control input-box medium-h5">
                 </div>
             </div>
         </div>
-
         <div class="row">
             <div class="col-12 pt-32 pl-24 pr-24 medium-h5 c-basic-black">
                 <label class="medium-h6 c-gray-dark-low">주차</label>
             </div>
             <div class=" pl-24">
-                <button type="button" class="btn btn-block btn-box is-active">
-                <span class="medium-h6 c-brand-blue my-auto ">
-                    주차 가능
-                </span>
+                <button type="button" class="btn btn-block btn-box is-active" data-parking="주차 가능">
+                    <span class="medium-h6 my-auto">
+                        주차 가능
+                    </span>
                 </button>
             </div>
 
             <div class=" pl-16">
-                <button type="button" class="btn btn-block btn-box">
-                <span class="medium-h6 c-basic-black my-auto ">
-                    주차 불가능
-                </span>
+                <button type="button" class="btn btn-block btn-box" data-parking="주차 불가능">
+                    <span class="medium-h6 my-auto">
+                        주차 불가능
+                    </span>
                 </button>
             </div>
         </div>
-
         <div class="row">
             <div class="col-12 pt-32 pl-24 pr-24 medium-h5 c-basic-black">
                 <label class="medium-h6 c-gray-dark-low">식사</label>
             </div>
             <div class=" pl-24">
-                <button type="button" class="btn btn-block btn-box is-active">
-                <span class="medium-h6 c-brand-blue my-auto ">
-                    식사 제공
-                </span>
+                <button type="button" class="btn btn-block btn-box is-active" data-meal="식사 제공">
+                    <span class="medium-h6 my-auto">
+                        식사 제공
+                    </span>
                 </button>
             </div>
 
             <div class=" pl-16">
-                <button type="button" class="btn btn-block btn-box">
-                <span class="medium-h6 c-basic-black my-auto ">
-                    식사 미제공
-                </span>
+                <button type="button" class="btn btn-block btn-box" data-meal="식사 미제공">
+                    <span class="medium-h6 my-auto">
+                        식사 미제공
+                    </span>
                 </button>
             </div>
         </div>
-
         <div class="row">
             <div class="col-12 pt-32 pl-24 pr-24 medium-h5 c-basic-black">
                 <label class="medium-h6 c-gray-dark-low">해쉬태그</label>
                 <div class="form-group form-inner-button">
-                    <input type="text" placeholder="해쉬 태그를 입력해주세요." class="form-control input-box medium-h5">
+                    <input type="text" name="hash" placeholder="해쉬 태그를 입력해주세요."
+                           class="form-control input-box medium-h5">
                 </div>
             </div>
-            <div class="pl-24 pt-16">
-                <button type="button" class="btn btn-block btn-box hashtag">
-                <span class="medium-h6 c-basic-black my-auto ">
-                    식사 미제공
-                </span>
-                    <img class="pl-8" src="../../resources/assets/images/icon/icon-delete-black.svg" alt="" style="padding-top: 2px">
-                </button>
-            </div>
-            <div class="pl-24 pt-16">
-                <button type="button" class="btn btn-block btn-box hashtag">
-                <span class="medium-h6 c-basic-black my-auto ">
-                    식사 미제공
-                </span>
-                    <img class="pl-8" src="../../resources/assets/images/icon/icon-delete-black.svg" alt="" style="padding-top: 2px">
-                </button>
-            </div>
-            <div class="pl-24 pt-16">
-                <button type="button" class="btn btn-block btn-box hashtag">
-                <span class="medium-h6 c-basic-black my-auto ">
-                    식사 미제공
-                </span>
-                    <img class="pl-8" src="../../resources/assets/images/icon/icon-delete-black.svg" alt="" style="padding-top: 2px">
-                </button>
-            </div>
-            <div class="pl-24 pt-16">
-                <button type="button" class="btn btn-block btn-box hashtag">
-                <span class="medium-h6 c-basic-black my-auto ">
-                    식사 미제공
-                </span>
-                    <img class="pl-8" src="../../resources/assets/images/icon/icon-delete-black.svg" alt="" style="padding-top: 2px">
-                </button>
-            </div>
-
-        </div>
-
-        <div id="overlay">
-
-        </div>
-
-        <div id="bottom-tab-car" style="max-height: 500px; overflow: scroll">
-            <div class="row m-0">
-                <div class="col-12 p-24 bold-h5">
-                    운행 종류
-                </div>
-            </div>
-
-            <div class="row m-0">
-                <div class="col-12 pl-24 pr-24 medium-h5 c-basic-black">
-                    공사
-                </div>
-            </div>
-
-            <div class="row m-0">
-                <div class="col-12 d-flex justify-content-between pr-24 pl-24 pt-24 pb-16">
-                    <div>
-                        <button type="button" class="btn btn-block btn-car">
-                            <div class="d-flex flex-column bd-highlight">
-                                <img class="mr-auto ml-auto mt-12"
-                                     src="../../resources/assets/images/sample/img-car-sample.svg" alt="">
-                                <span class="c-basic-black regular-p1 mt-8">
-                        고속 작업 크레인
-                    </span>
-                            </div>
-                        </button>
-                    </div>
-
-                    <div>
-                        <button type="button" class="btn btn-block btn-car">
-                            <div class="d-flex flex-column bd-highlight">
-                                <img class="mr-auto ml-auto mt-12"
-                                     src="../../resources/assets/images/sample/img-car-sample.svg" alt="">
-                                <span class="c-basic-black regular-p1 mt-8">
-                        고속 작업 크레인
-                    </span>
-                            </div>
-                        </button>
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-block btn-car">
-                            <div class="d-flex flex-column bd-highlight">
-                                <img class="mr-auto ml-auto mt-12"
-                                     src="../../resources/assets/images/sample/img-car-sample.svg" alt="">
-                                <span class="c-basic-black regular-p1 mt-8">
-                        고속 작업 크레인
-                    </span>
-                            </div>
-                        </button>
-                    </div>
-
-                </div>
-
-                <div class="col-12 d-flex justify-content-between pr-24 pl-24 pt-0">
-                    <div>
-                        <button type="button" class="btn btn-block btn-car">
-                            <div class="d-flex flex-column bd-highlight">
-                                <img class="mr-auto ml-auto mt-12"
-                                     src="../../resources/assets/images/sample/img-car-sample.svg" alt="">
-                                <span class="c-basic-black regular-p1 mt-8">
-                        고속 작업 크레인
-                    </span>
-                            </div>
-                        </button>
-                    </div>
-
-                    <div>
-                        <button type="button" class="btn btn-block btn-car">
-                            <div class="d-flex flex-column bd-highlight">
-                                <img class="mr-auto ml-auto mt-12"
-                                     src="../../resources/assets/images/sample/img-car-sample.svg" alt="">
-                                <span class="c-basic-black regular-p1 mt-8">
-                        고속 작업 크레인
-                    </span>
-                            </div>
-                        </button>
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-block btn-car">
-                            <div class="d-flex flex-column bd-highlight">
-                                <img class="mr-auto ml-auto mt-12"
-                                     src="../../resources/assets/images/sample/img-car-sample.svg" alt="">
-                                <span class="c-basic-black regular-p1 mt-8">
-                        고속 작업 크레인
-                    </span>
-                            </div>
-                        </button>
-                    </div>
-
-                </div>
-            </div>
-
-
-            <div class="row m-0 pt-48">
-                <div class="col-12 pl-24 pr-24 medium-h5 c-basic-black">
-                    운행
-                </div>
-            </div>
-
-            <div class="row m-0">
-                <div class="col-12 d-flex justify-content-between pr-24 pl-24 pt-24 pb-16">
-                    <div>
-                        <button type="button" class="btn btn-block btn-car">
-                            <div class="d-flex flex-column bd-highlight">
-                                <img class="mr-auto ml-auto mt-12"
-                                     src="../../resources/assets/images/sample/img-car-sample.svg" alt="">
-                                <span class="c-basic-black regular-p1 mt-8">
-                        고속 작업 크레인
-                    </span>
-                            </div>
-                        </button>
-                    </div>
-
-                    <div>
-                        <button type="button" class="btn btn-block btn-car">
-                            <div class="d-flex flex-column bd-highlight">
-                                <img class="mr-auto ml-auto mt-12"
-                                     src="../../resources/assets/images/sample/img-car-sample.svg" alt="">
-                                <span class="c-basic-black regular-p1 mt-8">
-                        고속 작업 크레인
-                    </span>
-                            </div>
-                        </button>
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-block btn-car">
-                            <div class="d-flex flex-column bd-highlight">
-                                <img class="mr-auto ml-auto mt-12"
-                                     src="../../resources/assets/images/sample/img-car-sample.svg" alt="">
-                                <span class="c-basic-black regular-p1 mt-8">
-                        고속 작업 크레인
-                    </span>
-                            </div>
-                        </button>
-                    </div>
-
-                </div>
-
-                <div class="col-12 d-flex justify-content-between pr-24 pl-24 pt-0">
-                    <div>
-                        <button type="button" class="btn btn-block btn-car">
-                            <div class="d-flex flex-column bd-highlight">
-                                <img class="mr-auto ml-auto mt-12"
-                                     src="../../resources/assets/images/sample/img-car-sample.svg" alt="">
-                                <span class="c-basic-black regular-p1 mt-8">
-                        고속 작업 크레인
-                    </span>
-                            </div>
-                        </button>
-                    </div>
-
-                    <div>
-                        <button type="button" class="btn btn-block btn-car">
-                            <div class="d-flex flex-column bd-highlight">
-                                <img class="mr-auto ml-auto mt-12"
-                                     src="../../resources/assets/images/sample/img-car-sample.svg" alt="">
-                                <span class="c-basic-black regular-p1 mt-8">
-                        고속 작업 크레인
-                    </span>
-                            </div>
-                        </button>
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-block btn-car">
-                            <div class="d-flex flex-column bd-highlight">
-                                <img class="mr-auto ml-auto mt-12"
-                                     src="../../resources/assets/images/sample/img-car-sample.svg" alt="">
-                                <span class="c-basic-black regular-p1 mt-8">
-                        고속 작업 크레인
-                    </span>
-                            </div>
-                        </button>
-                    </div>
-
-                </div>
-            </div>
-
-
-            <div class="row m-0">
-                <div class="col-12 pl-24 pr-24 pb-24 pt-44">
-                    <button type="button" class="btn btn-block btn-blue justify-content-center">
-                <span class="medium-h5 ml-auto mr-auto">
-                    운행 설정 완료
-                </span>
-                    </button>
-                </div>
+            <div class="hashs">
             </div>
         </div>
-
     </div>
-    <div class="floating-bottom bottom-nav-animation" id="footer">
+    <footer class="floating-bottom bottom-nav-animation" id="footer">
         <div class="row m-0">
             <div class="col-12 p-24 d-flex">
                 <div class="bd-highlight">
@@ -368,11 +139,150 @@
                 </div>
             </div>
         </div>
-    </div>
+    </footer>
 </div>
-
 <jsp:include page="../../view/common/js.jsp"></jsp:include>
+<script>
+    /**
+     * Static JS
+     * Static JS는 특정 페이지 에서만 작동하는 부분으로 Event 및 Element 생성 및 화면에 진입했을 때의
+     * 해당 화면만의 특정 로직을 수행하는 Javascript를 Static JS라고 한다.
+     * */
 
+    $(document).ready(function () {
+        console.log('Static JS is ready');
+        let prev_data = JSON.parse(Storage.get('second_register'))?.data;
+        console.log(prev_data);
+        if (prev_data !== undefined) {
+            let name = document.querySelector('[name="name"]');
+            name.value = prev_data.name;
+            let manager = document.querySelector('[name="manager"]');
+            manager.value = prev_data.manager;
+            let parkings = document.querySelectorAll('.btn-box[data-parking]');
+            parkings.forEach(function (parking) {
+                if (parking.dataset.parking === prev_data.parking) {
+                    if (!parking.classList.contains('is-active')) {
+                        parking.classList.add('is-active');
+                    }
+                } else {
+                    parking.classList.remove('is-active');
+                }
+            });
+            let meals = document.querySelectorAll('.btn-box[data-meal]');
+            meals.forEach(function (meal) {
+                if (meal.dataset.meal === prev_data.meal) {
+                    if (!meal.classList.contains('is-active')) {
+                        meal.classList.add('is-active');
+                    }
+                } else {
+                    meal.classList.remove('is-active');
+                }
+            });
+            let hash_container = document.querySelector('.hashs');
+            deleteChild(hash_container);
+            prev_data.hashs.forEach(function (hash) {
+                hash_container.appendChild(createHashTagElement(hash));
+            });
+        }
 
+        let parkings = document.querySelectorAll('[data-parking]');
+        parkings.forEach(function (parking) {
+            parking.addEventListener('click', parkingClickEventListener);
+        });
+        let meals = document.querySelectorAll('[data-meal]');
+        meals.forEach(function (meal) {
+            meal.addEventListener('click', mealClickEventListener);
+        });
+        let hash = document.querySelector('[name="hash"]');
+        hash.addEventListener('keyup', function (event) {
+            let value = this.value;
+            if (this.value.trim().length !== 0) {
+                if (event.keyCode === 13 || event.key === 'Enter' || event.code === 'Enter' || event.which === 13) {
+                    let container = document.querySelector('.hashs');
+                    container.appendChild(createHashTagElement(value));
+                    this.value = '';
+                }
+            } else {
+                viewAlert({content: '해시태그를 한글자 이상 입력해주세요.'});
+            }
+        });
+
+        let btn_previous = document.querySelector('.btn-previous');
+        btn_previous.addEventListener('click', previousButtonClickEventListener);
+        let btn_next = document.querySelector('.btn-next');
+        btn_next.addEventListener('click', nextButtonClickEventListener);
+    });
+
+    function parkingClickEventListener(event) {
+        let parkings = document.querySelectorAll('[data-parking]');
+        parkings.forEach(function (parking) {
+            parking.classList.remove('is-active');
+        });
+        this.classList.add('is-active');
+        event.stopPropagation();
+        event.preventDefault();
+    }
+
+    function mealClickEventListener(event) {
+        let meals = document.querySelectorAll('[data-meal]');
+        meals.forEach(function (meal) {
+            meal.classList.remove('is-active');
+        });
+        this.classList.add('is-active');
+        event.stopPropagation();
+        event.preventDefault();
+    }
+
+    function nextButtonClickEventListener(event) {
+        let name = document.querySelector('[name="name"]').value;
+        let manager = document.querySelector('[name="manager"]').value;
+        let parking = document.querySelector('.btn-box.is-active[data-parking]').dataset.parking;
+        let meal = document.querySelector('.btn-box.is-active[data-meal]').dataset.meal;
+        let hash_container = document.querySelector('.hashs');
+        let hash_elements = hash_container.querySelectorAll('.hash');
+        let hashs = new Array();
+        hash_elements.forEach(function (element) {
+            console.log(element.querySelector('span'));
+            hashs.push(element.querySelector('span').innerText);
+        });
+        let second_register = {
+            name,
+            manager,
+            parking,
+            meal,
+            hashs
+        }
+        Storage.set('second_register', JSON.stringify({data: second_register, date: new Date().getTime()}));
+        location.href = '/supplier/work/register/third';
+        event.stopPropagation();
+        event.preventDefault();
+    }
+
+    function previousButtonClickEventListener(event) {
+        location.href = '/supplier/work/register/first';
+        event.stopPropagation();
+        event.preventDefault();
+    }
+
+    function createHashTagElement(hash) {
+        const __buildHashTagInnerElement = (hash) => {
+            return `<button type="button" class="btn btn-block btn-box hashtag">
+                            <span class="medium-h6 c-basic-black my-auto ">
+                                \${hash}
+                            </span>
+                            <img class="pl-8 _cancel" src="/resources/assets/images/icon/icon-delete-black.svg" alt="" style="padding-top: 2px">
+                         </button>`;
+        }
+        let div = document.createElement('div');
+        div.classList.add('hash');
+        div.innerHTML = __buildHashTagInnerElement(hash);
+        /*TODO Add Event & Callback */
+        div.querySelector('._cancel').addEventListener('click', function (event) {
+            let hash = this.closest('.hash');
+            hash.remove();
+        });
+        return div;
+    }
+</script>
 </body>
 </html>

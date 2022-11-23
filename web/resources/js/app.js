@@ -1,4 +1,12 @@
 $(document).ready(function () {
+    let hrefs = document.querySelectorAll('[data-href]');
+    hrefs.forEach(function (href) {
+        href.addEventListener('click', function (event) {
+            location.href = this.dataset.href;
+            event.stopPropagation();
+            event.preventDefault();
+        });
+    });
     document.querySelector('#bottom-tab-car-trigger')?.addEventListener('click', function (event) {
         let bottom_tab = document.querySelector('#bottom-tab-car');
         let overlay = document.querySelector('#overlay');
@@ -165,6 +173,9 @@ $(document).ready(function () {
 
         event.stopPropagation();
         event.preventDefault();
+    });
+    document.querySelector('._logout')?.addEventListener('click', function (event) {
+        viewAlert({content: '로그아웃'});
     });
 });
 try {

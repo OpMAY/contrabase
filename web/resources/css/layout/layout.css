@@ -18,7 +18,11 @@ header {
 }
 
 .container.common-container {
-    min-height: calc(100vh - 72px - 102px);
+    min-height: calc(100vh - 73px - 102px);
+}
+
+.container.general-container {
+    min-height: calc(100vh - 73px - 58px);
 }
 
 footer {
@@ -26,5 +30,4 @@ footer {
     bottom: 0;
     left: 50%;
     z-index: 1;
-    background-color: var(--basic-white);
 }
