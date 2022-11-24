@@ -27,3 +27,53 @@ async function apiGetAlarms(user_type, alarm_type) {
         console.log(error);
     }
 }
+
+async function apiWorkLike(user_type, work_hash) {
+    function apiFetch(user_type, work_hash) {
+        const myHeaders = new Headers();
+        myHeaders.append('Content-Type', 'application/json');
+        myHeaders.append('Content-Api', tokenGenerator(8));
+
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+        };
+        const response = fetch(`/${user_type}/mypage/update/work/like/${work_hash}`, requestOptions);
+        return response.then((res) => res.json());
+    }
+
+    let result;
+    try {
+        result = await apiFetch(user_type, work_hash);
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function apiWorkReport(user_type, work_hash, content) {
+    function apiFetch(user_type, work_hash, content) {
+        const myHeaders = new Headers();
+        myHeaders.append('Content-Type', 'application/json');
+        myHeaders.append('Content-Api', tokenGenerator(8));
+        const raw = JSON.stringify({
+            content,
+            status: false,
+        });
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+        };
+        const response = fetch(`/${user_type}/mypage/create/report/work/${work_hash}`, requestOptions);
+        return response.then((res) => res.json());
+    }
+
+    let result;
+    try {
+        result = await apiFetch(user_type, work_hash, content);
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}

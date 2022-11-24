@@ -117,7 +117,7 @@
                         <span class="regular-p1">
                             창원시 마산합 영통구 신동구
                         </span>
-                            <img src="../../resources/assets/images/icon/icon-location-arrow.svg" alt="">
+                            <img src="/resources/assets/images/icon/icon-location-arrow.svg" alt="">
                             <span class="regular-p1">
                             창원시 마산합 영통구 신동구
                         </span>
@@ -156,7 +156,7 @@
                                 운송 운반 | 덤프트럭 2대
                             </div>
                             <div>
-                                <img src="../../resources/assets/images/icon/icon-star.svg" alt="">
+                                <img src="/resources/assets/images/icon/icon-star.svg" alt="">
                             </div>
                         </div>
                         <div class="pt-16 regular-p1">
@@ -169,7 +169,7 @@
                         <span class="regular-p1">
                             창원시 마산합 영통구 신동구
                         </span>
-                            <img src="../../resources/assets/images/icon/icon-location-arrow.svg" alt="">
+                            <img src="/resources/assets/images/icon/icon-location-arrow.svg" alt="">
                             <span class="regular-p1">
                             창원시 마산합 영통구 신동구
                         </span>
@@ -207,7 +207,7 @@
                                 운송 운반 | 덤프트럭 2대
                             </div>
                             <div>
-                                <img src="../../resources/assets/images/icon/icon-star.svg" alt="">
+                                <img src="/resources/assets/images/icon/icon-star.svg" alt="">
                             </div>
                         </div>
                         <div class="pt-16 regular-p1">
@@ -220,7 +220,7 @@
                         <span class="regular-p1">
                             창원시 마산합 영통구 신동구
                         </span>
-                            <img src="../../resources/assets/images/icon/icon-location-arrow.svg" alt="">
+                            <img src="/resources/assets/images/icon/icon-location-arrow.svg" alt="">
                             <span class="regular-p1">
                             창원시 마산합 영통구 신동구
                         </span>

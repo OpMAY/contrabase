@@ -2,15 +2,15 @@ package com.restcontroller;
 
 import com.model.ControllerEnum;
 import com.model.service.Employee;
+import com.model.service.Report;
 import com.model.service.Supplier;
 import com.model.service.alarm.AlarmType;
 import com.model.service.alarm.EmployeeAlarm;
 import com.model.service.alarm.SupplierAlarm;
+import com.model.service.work.WorkLike;
 import com.response.DefaultRes;
 import com.response.Message;
-import com.service.AlarmService;
-import com.service.EmployeeService;
-import com.service.SupplierService;
+import com.service.*;
 import com.util.Encryption.EncryptionService;
 import com.util.Encryption.JWTEnum;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Objects;
 
 @Slf4j
 @RestController
@@ -29,9 +28,11 @@ import java.util.Objects;
 @RequestMapping("/{user_type}/mypage")
 public class MyPageRestController {
     private final EncryptionService encryptionService;
+    private final WorkLikeService workLikeService;
     private final AlarmService alarmService;
     private final SupplierService supplierService;
     private final EmployeeService employeeService;
+    private final ReportService reportService;
 
     @RequestMapping(value = "/get/alarms/{alarm_type}", method = RequestMethod.GET)
     public ResponseEntity getAlarms(HttpServletRequest request, @PathVariable ControllerEnum user_type, @PathVariable AlarmType alarm_type) {
@@ -49,6 +50,47 @@ public class MyPageRestController {
             ArrayList<SupplierAlarm> alarms = alarmService.getAllAlarmsByType(user_type, supplier.getNo(), alarm_type);
             message.put("alarms", alarms);
         }
+        message.put("status", true);
+        return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, true), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/update/work/like/{work_hash}", method = RequestMethod.POST)
+    public ResponseEntity updateWorkLike(HttpServletRequest request, @PathVariable ControllerEnum user_type, @PathVariable String work_hash) {
+        Message message = new Message();
+        Integer user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
+        user_no = 1;
+        Employee employee = employeeService.getEmployeeByUserNo(user_no);
+
+        //int work_no = Integer.parseInt(encryptionService.decryptAESWithSlash("hash"));
+        int work_no = 1;
+
+        WorkLike workLike = new WorkLike();
+        workLike.setWork_no(work_no);
+        workLike.setEmployee_no(employee.getNo());
+        if (workLikeService.checkEmployeeWorkLiked(work_no, employee.getNo())) {
+            //Dislike
+            workLikeService.deleteWorkLike(workLike);
+            message.put("is_like", false);
+        } else {
+            //Like
+            workLikeService.insertWorkLike(workLike);
+            message.put("is_like", true);
+        }
+        message.put("status", true);
+        return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, true), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/create/report/work/{work_hash}", method = RequestMethod.POST)
+    public ResponseEntity createReport(HttpServletRequest request, @PathVariable ControllerEnum user_type, @PathVariable String work_hash, @RequestBody Report report) {
+        Message message = new Message();
+        Integer user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
+        user_no = 1;
+        Employee employee = employeeService.getEmployeeByUserNo(user_no);
+        //int work_no = Integer.parseInt(encryptionService.decryptAESWithSlash("hash"));
+        int work_no = 1;
+        report.setEmployee_no(employee.getNo());
+        report.setWork_no(work_no);
+        message.put("is_report", reportService.insertReport(report));
         message.put("status", true);
         return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, true), HttpStatus.OK);
     }

@@ -3,7 +3,9 @@ package com.util;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
@@ -108,5 +110,47 @@ public class Time {
             return diffTime + "개월 전";
         }
         return TimeFormatLongToString("yyyy-MM-dd HH:mm:ss", diffTime);
+    }
+
+    public static String TimeFormatDayOfWeek(LocalDateTime time) {
+        DayOfWeek dayOfWeek = time.getDayOfWeek();
+        return dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.KOREAN);
+    }
+
+    public static String StringDateFormatDayOfWeek(String date) {
+        Date time = null;
+        try {
+            time = new SimpleDateFormat("yyyy.MM.dd", Locale.KOREAN).parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(time);
+        int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+        String korDayOfWeek = null;
+        switch (dayOfWeek){
+            case 1:
+                korDayOfWeek = "일";
+                break;
+            case 2:
+                korDayOfWeek = "월";
+                break;
+            case 3:
+                korDayOfWeek = "화";
+                break;
+            case 4:
+                korDayOfWeek = "수";
+                break;
+            case 5:
+                korDayOfWeek = "목";
+                break;
+            case 6:
+                korDayOfWeek = "금";
+                break;
+            case 7:
+                korDayOfWeek = "토";
+                break;
+        }
+        return korDayOfWeek;
     }
 }

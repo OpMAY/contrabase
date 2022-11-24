@@ -67,8 +67,8 @@
     $(document).ready(function () {
         console.log('Static JS is ready');
         let content = document.querySelector('#nav-alarmContent .tab-pane.active');
-        let type = 'WORK';
-        apiGetAlarms('USER', type).then((result) => {
+        let type = 'work';
+        apiGetAlarms('user', type).then((result) => {
             console.log('apiGetAlarms', result);
             if (result.status === 'OK') {
                 result.data.alarms.forEach(function (alarm) {
@@ -87,7 +87,7 @@
             deleteChild(previous_content);
             deleteChild(newly_content);
             /*TODO Fetch And Display Item*/
-            apiGetAlarms('USER', type).then((result) => {
+            apiGetAlarms('user', type).then((result) => {
                 console.log('apiGetAlarms', result);
                 if (result.status === 'OK') {
                     result.data.alarms.forEach(function (alarm) {

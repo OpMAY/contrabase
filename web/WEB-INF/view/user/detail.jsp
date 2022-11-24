@@ -1,3 +1,6 @@
+<%@ page import="com.model.service.work.Work" %>
+<%@ taglib prefix="custom" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: zlzld
@@ -6,6 +9,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    Work work = (Work) request.getAttribute("work");
+    request.setAttribute("work", work);
+%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -29,11 +36,14 @@
             <div class="col-12 pl-24 pr-24 pt-8">
                 <div class="d-flex justify-content-between">
                     <div class="bold-h3">
-                        운송 운반 잠실 운동장
+                        ${work.name}
                     </div>
                     <%--Active -> _like is-active --%>
                     <%--InActive -> _like --%>
-                    <svg class="cursor-pointer _like is-active my-auto" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    <svg data-hash="${work.hash_no}"
+                         class="cursor-pointer _like ${work._like eq true?'is-active':''} my-auto" width="24"
+                         height="24" viewBox="0 0 24 24"
+                         fill="none"
                          xmlns="http://www.w3.org/2000/svg">
                         <path d="M21.2841 8.27584L15.3333 7.411L12.6731 2.01803C12.6005 1.87037 12.4809 1.75084 12.3333 1.67818C11.963 1.49537 11.513 1.64771 11.3278 2.01803L8.66766 7.411L2.71688 8.27584C2.55282 8.29928 2.40281 8.37662 2.28797 8.49381C2.14913 8.63651 2.07262 8.8285 2.07526 9.02758C2.0779 9.22666 2.15946 9.41655 2.30203 9.55553L6.6075 13.7532L5.59032 19.6805C5.56646 19.8184 5.58172 19.9602 5.63436 20.0899C5.687 20.2195 5.77491 20.3318 5.88813 20.4141C6.00135 20.4963 6.13535 20.5452 6.27492 20.5551C6.4145 20.5651 6.55407 20.5357 6.67782 20.4704L12.0005 17.6719L17.3231 20.4704C17.4684 20.5477 17.6372 20.5735 17.7989 20.5454C18.2067 20.4751 18.4809 20.0883 18.4106 19.6805L17.3934 13.7532L21.6989 9.55553C21.8161 9.44068 21.8934 9.29068 21.9169 9.12662C21.9802 8.71646 21.6942 8.33678 21.2841 8.27584V8.27584Z"
                               fill="#D5D8E1"/>
@@ -41,25 +51,33 @@
                 </div>
             </div>
             <div class="col-12 pt-1 regular-h6 pl-24 pr-24">
-                덤프트럭 2대
+                ${work.vehicle_type.keyword}
             </div>
             <div class="col-12 bold-h3 p-24 border-underline-bold">
-                150,000<span class="regular-h6">원</span>
+                <custom:formatPrice value="${work.budget}"/><span class="regular-h6">원</span>
                 <div class="pt-8 d-flex justify-content-start">
-                    <div>
-                        <button type="button" class="btn btn-block btn-box opacity">
-                                <span class="medium-h6 c-brand-blue my-auto ">
-                                    동부123
-                                </span>
-                        </button>
-                    </div>
-                    <div class="pl-16">
-                        <button type="button" class="btn btn-block btn-box opacity">
-                                <span class="medium-h6 c-brand-blue my-auto ">
-                                    동부
-                                </span>
-                        </button>
-                    </div>
+                    <c:forEach items="${work.hashtag}" var="hash" varStatus="status">
+                        <c:choose>
+                            <c:when test="${status.first}">
+                                <div>
+                                    <button type="button" class="btn btn-block btn-box opacity">
+                                        <span class="medium-h6 c-brand-blue my-auto ">
+                                                ${hash}
+                                        </span>
+                                    </button>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="pl-16">
+                                    <button type="button" class="btn btn-block btn-box opacity">
+                                        <span class="medium-h6 c-brand-blue my-auto ">
+                                                ${hash}
+                                        </span>
+                                    </button>
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
                 </div>
             </div>
             <div class="col-12 p-0">
@@ -90,14 +108,21 @@
                                 <div id="nav-alarmContent">
                                     <div id="nav-alarm-work-details">
                                         <div class="col-12 p-0 d-flex bd-highlight">
-                                            <span class="regular-h6 c-gray-dark-light flex-fill pt-24 pr-24 pl-24"
+                                            <span class="regular-h6 c-gray-dark-light pt-24 pr-24 pl-24"
                                                   style="white-space: nowrap">
                                                 근로 일자
                                             </span>
                                             <sapn class="regular-h6 c-basic-black flex-fill pr-24 pt-24">
-                                                9월 21일 (수), 9월 22일 (목)9월 21일 (수), 9월 21일 (수), 9월 22일 (목)9월 21일 (수),
-                                                9월 21일 (수), 9월 22일 (목)9월 21일 (수), 9월 21일 (수), 9월 22일 (목)9월 21일 (수),
-
+                                                <c:forEach items="${work.work_dates}" var="date" varStatus="status">
+                                                    <c:choose>
+                                                        <c:when test="${status.last}">
+                                                            ${date}
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            ${date},
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </c:forEach>
                                             </sapn>
                                         </div>
                                         <div class="col-12 p-0 d-flex bd-highlight">
@@ -106,7 +131,7 @@
                                                 근로 시간
                                             </span>
                                             <sapn class="regular-h6 c-basic-black pr-24 pt-24">
-                                                09:00 ~ 18:00
+                                                ${work.start_time} ~ ${work.end_time}
                                             </sapn>
                                         </div>
                                         <div class="col-12 p-0 d-flex bd-highlight">
@@ -115,7 +140,7 @@
                                                 근로 조건
                                             </span>
                                             <sapn class="regular-h6 c-basic-black flex-fill pr-24 pt-24">
-                                                없음
+                                                ${work.work_condition.keyword}
                                             </sapn>
                                         </div>
                                         <div class="col-12 p-0 d-flex bd-highlight">
@@ -124,7 +149,7 @@
                                                 실 지급액
                                             </span>
                                             <sapn class="regular-h6 c-basic-black pr-24 pt-24">
-                                                150,000원
+                                                <custom:formatPrice value="${work.budget}"/>원
                                             </sapn>
                                         </div>
                                     </div>
@@ -135,37 +160,80 @@
                                                 근로 내용
                                             </span>
                                             <sapn class="regular-h6 c-basic-black pr-24 pt-24">
-                                                하는거 별로 없이 오셔서 꿀빠시면 됩니다.
-                                                점심도 주니까 그냥 먹고 가세요 :)
+                                                ${work.details}
                                             </sapn>
                                         </div>
-                                        <div class="col-12 p-0 d-flex bd-highlight">
-                                            <span class="regular-h6 c-gray-dark-light pt-24 pr-24 pl-24"
-                                                  style="white-space: nowrap">
-                                                근로 장소
-                                            </span>
-                                            <sapn class="regular-h6 c-basic-black pr-24 pt-24">
-                                                창원시 마산합 영통구 신동구
-                                            </sapn>
-                                            <div class="pt-20 pl-16">
-                                                <button id="bottom-tab-kakao-trigger" type="button"
-                                                        class="btn btn-block btn-box opacity align-bottom">
-                                                    <span class="medium-h6 c-brand-blue my-auto ">
-                                                        자세히
-                                                    </span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 pl-24 pr-24 pt-16 pb-16">
-                                            <div id="map" style="width:100%;height:250px;"></div>
-                                        </div>
+                                        <c:choose>
+                                            <c:when test="${work.end_place ne null}">
+                                                <div class="col-12 p-0 d-flex bd-highlight">
+                                                    <span class="regular-h6 c-gray-dark-light pt-24 pr-24 pl-24"
+                                                          style="white-space: nowrap">시작 근로 장소</span>
+                                                    <sapn class="regular-h6 c-basic-black pr-24 pt-24">
+                                                            ${work.start_place}
+                                                    </sapn>
+                                                    <div class="pt-20 pl-16">
+                                                        <button type="button" data-href="/user/work/detail/${work.hash_no}/location"
+                                                                class="btn btn-block btn-box opacity align-bottom">
+                                                            <span class="medium-h6 c-brand-blue my-auto"
+                                                                  style="white-space: nowrap;">
+                                                                자세히
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 pl-24 pr-24 pt-16 pb-16">
+                                                    <div class="map" style="width:100%;height:250px;"></div>
+                                                </div>
+                                                <div class="col-12 p-0 d-flex bd-highlight">
+                                                    <span class="regular-h6 c-gray-dark-light pt-24 pr-24 pl-24"
+                                                          style="white-space: nowrap">종료 근로 장소</span>
+                                                    <sapn class="regular-h6 c-basic-black pr-24 pt-24">
+                                                            ${work.end_place}
+                                                    </sapn>
+                                                    <div class="pt-20 pl-16">
+                                                        <button type="button" data-href="/user/work/detail/${work.hash_no}/location"
+                                                                class="btn btn-block btn-box opacity align-bottom">
+                                                            <span class="medium-h6 c-brand-blue my-auto"
+                                                                  style="white-space: nowrap;">
+                                                                자세히
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 pl-24 pr-24 pt-16 pb-16">
+                                                    <div class="map" style="width:100%;height:250px;"></div>
+                                                </div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="col-12 p-0 d-flex bd-highlight">
+                                                    <span class="regular-h6 c-gray-dark-light pt-24 pr-24 pl-24"
+                                                          style="white-space: nowrap">근로 장소</span>
+                                                    <sapn class="regular-h6 c-basic-black pr-24 pt-24">
+                                                            ${work.start_place}
+                                                    </sapn>
+                                                    <div class="pt-20 pl-16">
+                                                        <button type="button"
+                                                                data-href="/user/work/detail/${work.hash_no}/location"
+                                                                class="btn btn-block btn-box opacity align-bottom bottom-tab-kakao-trigger">
+                                                            <span class="medium-h6 c-brand-blue my-auto"
+                                                                  style="white-space: nowrap;">
+                                                                자세히
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 pl-24 pr-24 pt-16 pb-16">
+                                                    <div class="map" style="width:100%;height:250px;"></div>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose>
                                         <div class="col-12 p-0 d-flex bd-highlight">
                                             <span class="regular-h6 c-gray-dark-light pt-24 pr-24 pl-24"
                                                   style="white-space: nowrap">
                                                 현장 정보
                                             </span>
                                             <sapn class="regular-h6 c-basic-black pr-24 pt-24">
-                                                대덕 업체
+                                                ${work.corp_name}
                                             </sapn>
                                         </div>
                                         <div class="col-12 p-0 d-flex bd-highlight">
@@ -174,7 +242,7 @@
                                                 담당자 명
                                             </span>
                                             <sapn class="regular-h6 c-basic-black pr-24 pt-24">
-                                                유병준 소장
+                                                ${work.corp_manager}
                                             </sapn>
                                         </div>
                                     </div>
@@ -197,7 +265,7 @@
                                                 </svg>
                                                 <span class="pl-8">유의 사항</span>
                                                 <div class="regular-h6 pt-16">
-                                                    유의 사항 샘플 1유의 사항 샘플 1유의 사항 샘플 1유의 사항 샘플 1유의 사항 샘플 1유의 사항 샘플 1
+                                                    ${work.notice}
                                                 </div>
                                             </div>
                                         </div>
@@ -237,30 +305,18 @@
             </div>
 
             <div class="row m-0">
-                <div class="col-12 pr-24 pl-24 pt-16">
-                    <button type="button" class="btn btn-block btn-box is-active" data-time="오후 18:00 ~ 22:00"
-                            data-day="수" data-date="2022.12.21">
-                        <span class="regular-h6 my-auto">
-                            2022.12.21 (수) 오후 18:00 ~ 22:00
-                        </span>
-                    </button>
-                </div>
-                <div class="col-12 pr-24 pl-24 pt-16">
-                    <button type="button" class="btn btn-block btn-box" data-time="오후 18:00 ~ 22:00" data-day="목"
-                            data-date="2022.12.22">
-                        <span class="medium-h6 my-auto">
-                            2022.12.22 (목) 오후 18:00 ~ 22:00
-                        </span>
-                    </button>
-                </div>
-                <div class="col-12 pr-24 pl-24 pt-16">
-                    <button type="button" class="btn btn-block btn-box" data-time="오후 18:00 ~ 22:00" data-day="금"
-                            data-date="2022.12.23">
-                        <span class="medium-h6 my-auto">
-                            2022.12.23 (금) 오후 18:00 ~ 22:00
-                        </span>
-                    </button>
-                </div>
+                <c:forEach items="${work.work_dates}" var="date" varStatus="status">
+                    <div class="col-12 pr-24 pl-24 pt-16">
+                        <button type="button" class="btn btn-block btn-box"
+                                data-time="${work.start_time} ~ ${work.end_time}"
+                                data-day="<custom:formatDayOfWeek value="${date}"/>" data-date="${date}">
+                            <span class="regular-h6 my-auto">
+                                ${date} (<custom:formatDayOfWeek
+                                    value="${date}"/>) ${work.start_time} ~ ${work.end_time}
+                            </span>
+                        </button>
+                    </div>
+                </c:forEach>
             </div>
 
             <div class="row m-0">
@@ -333,69 +389,10 @@
             </div>
             <div class="row m-0">
                 <div class="col-12 pl-24 pr-24 pb-24 pt-24">
-                    <button type="button" class="btn btn-block btn-blue justify-content-center">
-                <span class="medium-h5 ml-auto mr-auto">
-                    신고하기
-                </span>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <!--kakao work info-->
-        <div id="bottom-tab-kakao">
-            <div class="row p-0">
-                <div class="col-12 pl-40 pr-40 pt-24 pt-24">
-                    <div class="d-flex flex-column">
-                        <div class="d-flex justify-content-between">
-                            <div class="bold-h5">
-                                운송 운반 | 덤프트럭 2대
-                            </div>
-                            <div>
-                                <img src="../../resources/assets/images/icon/icon-star.svg" alt="">
-                            </div>
-                        </div>
-                        <div class="pt-16 regular-p1">
-                            9월 21일 (수), 9월22일 (목)
-                        </div>
-                        <div class="pt-8 regular-p1">
-                            07:00 ~ 18:00
-                        </div>
-                        <div class="padding-top-4 ">
-                        <span class="regular-p1">
-                            창원시 마산합 영통구 신동구
-                        </span>
-                            <img src="../../resources/assets/images/icon/icon-location-arrow.svg" alt="">
-                            <span class="regular-p1">
-                            창원시 마산합 영통구 신동구
-                        </span>
-                        </div>
-                        <div class="pt-16 regular-p1">
-                            <span class="bold-h4">150,000</span>원
-                        </div>
-                        <div class="pt-16 d-flex justify-content-start">
-                            <div>
-                                <button type="button" class="btn btn-block btn-box opacity">
-                                <span class="medium-h6 c-brand-blue my-auto ">
-                                    동부123
-                                </span>
-                                </button>
-                            </div>
-                            <div class="pl-16">
-                                <button type="button" class="btn btn-block btn-box opacity">
-                                <span class="medium-h6 c-brand-blue my-auto ">
-                                    동부
-                                </span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row m-0">
-                <div class="col-12 pl-24 pr-24 pb-24 pt-24">
-                    <button type="button" class="btn btn-block btn-blue justify-content-center">
+                    <button type="button" class="btn btn-block btn-blue justify-content-center _report"
+                            data-hash="${work.hash_no}">
                         <span class="medium-h5 ml-auto mr-auto">
-                            일자리 지원하기
+                            신고하기
                         </span>
                     </button>
                 </div>
@@ -427,6 +424,28 @@
         supports.forEach(function (support) {
             support.addEventListener('click', supportClickEventListener);
         });
+
+        let report = document.querySelector('._report');
+        report.addEventListener('click', function (event) {
+            let work_hash = this.dataset.hash;
+            let report_content = document.querySelector('.btn-box.is-active[data-report]').dataset.report;
+            apiWorkReport('user', work_hash, report_content).then((result) => {
+                console.log('apiWorkReport', result);
+                if (result.status === 'OK') {
+                    if (!result.data.is_report) {
+                        viewAlert({content: '이미 신고를 하신 일자리 입니다.'});
+                        let overlay = document.querySelector('#overlay');
+                        overlay.click();
+                    }
+                    let overlay = document.querySelector('#overlay');
+                    overlay.click();
+                } else {
+                    viewAlert({content: '신고를 할 수 없습니다. 다시 시도해주세요.'});
+                }
+            });
+            event.stopPropagation();
+            event.preventDefault();
+        });
     });
 
     function reportClickEventListener(event) {
@@ -440,12 +459,27 @@
     }
 
     function likeClickEventListener(event) {
+        let work_hash = this.dataset.hash;
         if (!this.classList.contains('is-active')) {
             /*TODO FETCH*/
-            this.classList.add('is-active');
+            apiWorkLike('user', work_hash).then((result) => {
+                console.log('apiWorkLike', result);
+                if (result.status === 'OK') {
+                    this.classList.add('is-active');
+                } else {
+                    viewAlert({content: '좋아요를 할 수 없습니다. 다시 시도해주세요.'});
+                }
+            });
         } else {
             /*TODO FETCH*/
-            this.classList.remove('is-active');
+            apiWorkLike('user', work_hash).then((result) => {
+                console.log('apiWorkLike', result);
+                if (result.status === 'OK') {
+                    this.classList.remove('is-active');
+                } else {
+                    viewAlert({content: '좋아요를 취소할 수 없습니다. 다시 시도해주세요.'});
+                }
+            });
         }
         event.preventDefault();
         event.stopPropagation();

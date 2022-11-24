@@ -31,4 +31,8 @@ public class WorkDao {
     public void updateWork(Work work) {
         mapper.updateWork(work);
     }
+
+    public Work getWorkByNo(int no) {
+        return mapper.getWorkByNo(no);
+    }
 }

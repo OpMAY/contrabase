@@ -44,7 +44,7 @@
                         <span class="regular-p1">
                             창원시 마산합 영통구 신동구
                         </span>
-                            <img src="../../resources/assets/images/icon/icon-location-arrow.svg" alt="">
+                            <img src="/resources/assets/images/icon/icon-location-arrow.svg" alt="">
                             <span class="regular-p1">
                             창원시 마산합 영통구 신동구
                         </span>
@@ -96,7 +96,7 @@
                         <span class="regular-p1">
                             창원시 마산합 영통구 신동구
                         </span>
-                            <img src="../../resources/assets/images/icon/icon-location-arrow.svg" alt="">
+                            <img src="/resources/assets/images/icon/icon-location-arrow.svg" alt="">
                             <span class="regular-p1">
                             창원시 마산합 영통구 신동구
                         </span>

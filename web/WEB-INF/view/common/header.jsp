@@ -71,17 +71,20 @@
                     <div class="p-24 bold-h5  text-right">
                         <c:choose>
                             <c:when test="${icon eq 'charge'}">
-                                <sapn class="c-brand-blue" data-href="/user/mypage/point/charge">충전</sapn>
+                                <sapn class="c-brand-blue" data-href="/user/mypage/point/charge" class="cursor-pointer">
+                                    충전
+                                </sapn>
                             </c:when>
                             <c:when test="${icon eq 'setting'}">
-                                <img src="/resources/assets/images/icon/icon-setting-black.svg" alt="">
+                                <img src="/resources/assets/images/icon/icon-setting-black.svg" class="cursor-pointer"
+                                     alt="">
                             </c:when>
                             <c:when test="${icon eq 'declaration'}">
-                                <img id="bottom-tab-declaration-trigger"
+                                <img id="bottom-tab-declaration-trigger" class="cursor-pointer"
                                      src="/resources/assets/images/icon/icon-declaration.svg" alt="">
                             </c:when>
                             <c:when test="${icon eq 'trash'}">
-                                <img src="/resources/assets/images/icon/icon-trash.svg" alt="">
+                                <img src="/resources/assets/images/icon/icon-trash.svg" class="cursor-pointer" alt="">
                             </c:when>
                             <c:otherwise>
                             </c:otherwise>

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 @Data
 public class Work extends Time {
     private int no;
+    private String hash_no;
     private int supplier_no;
     private String name;
     private VEHICLE_TYPE vehicle_type;

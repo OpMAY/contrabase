@@ -1,5 +1,7 @@
 package com.config;
 
+import com.converter.AlarmTypeConverter;
+import com.converter.ControllerEnumConverter;
 import com.filter.LogFilter;
 import com.interceptor.BaseInterceptor;
 import com.interceptor.LogInterceptor;
@@ -14,6 +16,7 @@ import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.ResourceHttpMessageConverter;
@@ -118,6 +121,13 @@ public class AppConfig implements WebApplicationInitializer, SchedulingConfigure
     }
 
     @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new ControllerEnumConverter());
+        registry.addConverter(new AlarmTypeConverter());
+        WebMvcConfigurer.super.addFormatters(registry);
+    }
+
+    @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         log.info("configureMessageConverters");
         StringHttpMessageConverter stringConverter = new StringHttpMessageConverter();
@@ -191,6 +201,7 @@ public class AppConfig implements WebApplicationInitializer, SchedulingConfigure
     private BaseInterceptor baseInterceptor;
     @Autowired
     private RecoverInterceptor recoverInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(logInterceptor).order(0)

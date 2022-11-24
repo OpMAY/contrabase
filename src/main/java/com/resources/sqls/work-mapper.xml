@@ -60,4 +60,9 @@
             updated_datetime = now()
         WHERE no = #{no}
     </update>
+    <select id="getWorkByNo" resultType="Work" resultMap="Work">
+        select *
+        from work
+        where no = #{no};
+    </select>
 </mapper>

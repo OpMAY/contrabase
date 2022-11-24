@@ -21,7 +21,7 @@ function createWorkElement(work) {
                                    <span class="regular-p1">
                                        창원시 마산합 영통구 신동구
                                    </span>
-                                   <img src="../../resources/assets/images/icon/icon-location-arrow.svg" alt="">
+                                   <img src="/resources/assets/images/icon/icon-location-arrow.svg" alt="">
                                    <span class="regular-p1">
                                        창원시 마산합 영통구 신동구
                                    </span>
@@ -128,7 +128,7 @@ function createWorkElementRow(work) {
                                   <span class="regular-p1">
                                       창원시 마산합 영통구 신동구
                                   </span>
-                                  <img src="../../resources/assets/images/icon/icon-location-arrow.svg" alt="">
+                                  <img src="/resources/assets/images/icon/icon-location-arrow.svg" alt="">
                                   <span class="regular-p1">
                                       창원시 마산합 영통구 신동구
                                   </span>
@@ -186,7 +186,7 @@ function createWorkRecruitElement(work) {
                           <span class="regular-p1">
                               창원시 마산합 영통구 신동구
                           </span>
-                              <img src="../../resources/assets/images/icon/icon-location-arrow.svg" alt="">
+                              <img src="/resources/assets/images/icon/icon-location-arrow.svg" alt="">
                               <span class="regular-p1">
                               창원시 마산합 영통구 신동구
                           </span>
@@ -229,7 +229,7 @@ function createWorkCompleteElement(work) {
                           <span class="regular-p1">
                               창원시 마산합 영통구 신동구
                           </span>
-                              <img src="../../resources/assets/images/icon/icon-location-arrow.svg" alt="">
+                              <img src="/resources/assets/images/icon/icon-location-arrow.svg" alt="">
                               <span class="regular-p1">
                               창원시 마산합 영통구 신동구
                           </span>
@@ -272,7 +272,7 @@ function createWorkCancelElement(work) {
                           <span class="regular-p1">
                               창원시 마산합 영통구 신동구
                           </span>
-                              <img src="../../resources/assets/images/icon/icon-location-arrow.svg" alt="">
+                              <img src="/resources/assets/images/icon/icon-location-arrow.svg" alt="">
                               <span class="regular-p1">
                               창원시 마산합 영통구 신동구
                           </span>
