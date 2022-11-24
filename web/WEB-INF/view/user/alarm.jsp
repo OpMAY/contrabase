@@ -32,9 +32,11 @@
                                 <nav>
                                     <div class="nav nav-tabs nav-fill" id="nav-alarm-tab" role="tablist">
                                         <a class="nav-item nav-link active" id="nav-alarm-work-tab" data-toggle="tab"
+                                           data-type="WORK"
                                            href="#nav-alarm-service" role="tab" aria-controls="nav-alarm-service"
                                            aria-selected="true">일감 관련</a>
                                         <a class="nav-item nav-link" id="nav-alarm-service-tab" data-toggle="tab"
+                                           data-type="SERVICE"
                                            href="#nav-alarm-work" role="tab" aria-controls="nav-alarm-work"
                                            aria-selected="false">서비스 관련</a>
                                     </div>
@@ -42,92 +44,9 @@
                                 <div class="tab-content" id="nav-alarmContent">
                                     <div class="tab-pane fade show active" id="nav-alarm-service" role="tabpanel"
                                          aria-labelledby="nav-alarm-work-tab">
-                                        <div class="d-flex flex-column p-24 ">
-                                            <div class="bold-h6 c-brand-blue">
-                                                [일자리]
-                                            </div>
-                                            <div class="c-basic-black regular-h6 mt-16">
-                                                유병준님이 작성하신 리뷰의 “리뷰 내용..”에서
-                                                다수의 신고가 확인되었습니다.
-                                            </div>
-
-                                            <div class="c-basic-black regular-h6 mt-16">
-                                                2021.01.12
-                                            </div>
-                                        </div>
-                                        <div class="d-flex flex-column p-24 ">
-                                            <div class="bold-h6 c-brand-blue">
-                                                [일자리]
-                                            </div>
-
-                                            <div class="c-basic-black regular-h6 mt-16">
-                                                유병준님이 작성하신 리뷰의 “리뷰 내용..”에서
-                                                다수의 신고가 확인되었습니다.
-                                            </div>
-
-                                            <div class="c-basic-black regular-h6 mt-16">
-                                                2021.01.12
-                                            </div>
-                                        </div>
-                                        <div class="d-flex flex-column p-24 ">
-                                            <div class="bold-h6 c-brand-blue">
-                                                [일자리]
-                                            </div>
-
-                                            <div class="c-basic-black regular-h6 mt-16">
-                                                유병준님이 작성하신 리뷰의 “리뷰 내용..”에서
-                                                다수의 신고가 확인되었습니다.
-                                            </div>
-
-                                            <div class="c-basic-black regular-h6 mt-16">
-                                                2021.01.12
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="tab-pane fade" id="nav-alarm-work" role="tabpanel"
                                          aria-labelledby="nav-alarm-service-tab">
-                                        <div class="d-flex flex-column p-24 ">
-                                            <div class="bold-h6 c-brand-blue">
-                                                [일자리]
-                                            </div>
-
-                                            <div class="c-basic-black regular-h6 mt-16">
-                                                유병준님이 작성하신 리뷰의 “리뷰 내용..”에서
-                                                다수의 신고가 확인되었습니다.
-                                            </div>
-
-                                            <div class="c-basic-black regular-h6 mt-16">
-                                                2021.01.12
-                                            </div>
-                                        </div>
-                                        <div class="d-flex flex-column p-24 ">
-                                            <div class="bold-h6 c-brand-blue">
-                                                [일자리]
-                                            </div>
-
-                                            <div class="c-basic-black regular-h6 mt-16">
-                                                유병준님이 작성하신 리뷰의 “리뷰 내용..”에서
-                                                다수의 신고가 확인되었습니다.
-                                            </div>
-
-                                            <div class="c-basic-black regular-h6 mt-16">
-                                                2021.01.12
-                                            </div>
-                                        </div>
-                                        <div class="d-flex flex-column p-24 ">
-                                            <div class="bold-h6 c-brand-blue">
-                                                [일자리]
-                                            </div>
-
-                                            <div class="c-basic-black regular-h6 mt-16">
-                                                유병준님이 작성하신 리뷰의 “리뷰 내용..”에서
-                                                다수의 신고가 확인되었습니다.
-                                            </div>
-
-                                            <div class="c-basic-black regular-h6 mt-16">
-                                                2021.01.12
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -147,35 +66,49 @@
      * */
     $(document).ready(function () {
         console.log('Static JS is ready');
+        let content = document.querySelector('#nav-alarmContent .tab-pane.active');
+        let type = 'WORK';
+        apiGetAlarms('USER', type).then((result) => {
+            console.log('apiGetAlarms', result);
+            if (result.status === 'OK') {
+                result.data.alarms.forEach(function (alarm) {
+                    content.append(createAlarmElement(alarm));
+                });
+            } else {
+                viewAlert({content: '알림을 가져오지 못했습니다. 다시 시도해주세요.'});
+            }
+        });
         $('a[data-toggle="tab"]').on('show.bs.tab', function (event) {
             event.target // newly activated tab
             event.relatedTarget // previous active tab
-            console.log(event.target);
-            console.log(event.relatedTarget);
-            console.log(event.target.getAttribute('aria-controls'));
             let newly_content = document.querySelector('#' + event.target.getAttribute('aria-controls'));
             let previous_content = document.querySelector('#' + event.relatedTarget.getAttribute('aria-controls'));
-            console.log(newly_content, previous_content);
+            let type = event.target.dataset.type;
             deleteChild(previous_content);
             deleteChild(newly_content);
             /*TODO Fetch And Display Item*/
-            for (let i = 0; i < 10; i++) {
-                let alarm = {}
-                newly_content.append(createAlarmElement(alarm));
-            }
+            apiGetAlarms('USER', type).then((result) => {
+                console.log('apiGetAlarms', result);
+                if (result.status === 'OK') {
+                    result.data.alarms.forEach(function (alarm) {
+                        newly_content.append(createAlarmElement(alarm));
+                    });
+                } else {
+                    viewAlert({content: '알림을 가져오지 못했습니다. 다시 시도해주세요.'});
+                }
+            });
         });
     });
     const createAlarmElement = (alarm) => {
         const __buildInnerAlarmElement = (alarm) => {
             return `<div class="bold-h6 c-brand-blue">
-                               [일자리]
+                               [\${alarm.type==='WORK'?'일자리':'서비스'}]
                            </div>
                            <div class="c-basic-black regular-h6 mt-16">
-                               유병준님이 작성하신 리뷰의 “리뷰 내용..”에서
-                               다수의 신고가 확인되었습니다.
+                               \${alarm.content}
                            </div>
                            <div class="c-basic-black regular-h6 mt-16">
-                               2021.01.12
+                               \${Time.formatLocalDate(alarm.reg_datetime)}
                            </div>`;
         }
         let div = document.createElement('div');
