@@ -7,12 +7,12 @@
         insert into supplier(user_no, business_file)
         VALUES (#{user_no}, #{business_file, typeHandler=com.middleware.JsonObjectTypeHandler})
     </insert>
-    <select id="getSupplierInfoByUserNo" resultType="Supplier" resultMap="Supplier">
+    <select id="getSupplierInfoByUserNo" resultType="Supplier">
         select *
         from supplier
         WHERE user_no = #{user_no}
     </select>
-    <select id="getSupplierInfoByNo" resultType="Supplier" resultMap="Supplier">
+    <select id="getSupplierInfoByNo" resultType="Supplier">
         select *
         from supplier
         WHERE no = #{no}
@@ -31,7 +31,7 @@
         WHERE supplier.no = #{no}
           AND user.no = #{user_no}
     </update>
-    <select id="getSuppliers" resultType="Supplier" resultMap="Supplier">
+    <select id="getSuppliers" resultType="Supplier">
         select *
         from supplier
                  left join user u on supplier.user_no = u.no
