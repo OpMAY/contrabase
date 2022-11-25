@@ -167,3 +167,29 @@ async function apiChangeUserLicense(user_type, type, file) {
         console.log(error);
     }
 }
+
+async function profileDefaultChange(user_type, name, phone, email) {
+    function apiFetch(user_type, name, phone, email) {
+        const myHeaders = new Headers();
+        myHeaders.append('Content-Type', 'application/json');
+        myHeaders.append('Content-Api', tokenGenerator(8));
+        const raw = JSON.stringify({
+            name, phone, email
+        });
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+        };
+        const response = fetch(`/${user_type}/mypage/update/default`, requestOptions);
+        return response.then((res) => res.json());
+    }
+
+    let result;
+    try {
+        result = await apiFetch(user_type, name, phone, email);
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}

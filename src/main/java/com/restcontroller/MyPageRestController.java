@@ -167,4 +167,18 @@ public class MyPageRestController {
         }
         return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, true), HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/update/default", method = POST)
+    public ResponseEntity profileDefaultChange(HttpServletRequest request, @PathVariable ControllerEnum user_type, @RequestBody User user) {
+        log.info("user -> {}", user);
+        String user_id = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.ID.name());
+        User update = userService.loginUser(user_id);
+        user.setName(user.getName());
+        user.setPhone(user.getPhone());
+        user.setEmail(user.getEmail());
+        userService.updateUserProfileDefault(update);
+        Message message = new Message();
+        message.put("status", true);
+        return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, true), HttpStatus.OK);
+    }
 }

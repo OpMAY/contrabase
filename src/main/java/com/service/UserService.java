@@ -18,4 +18,8 @@ public class UserService {
     public void updateUserProfileImage(User user){
         userDao.updateUserProfileImage(user);
     }
+    public void updateUserProfileDefault(User user){
+        userDao.updateUserName(user);
+        userDao.updateUserPhone(user);
+    }
 }
