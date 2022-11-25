@@ -100,3 +100,26 @@ async function apiGetWorks(user_type, work_type) {
         console.log(error);
     }
 }
+
+async function apiGetLikeWorks(user_type) {
+    function apiFetch(user_type) {
+        const myHeaders = new Headers();
+        myHeaders.append('Content-Type', 'application/json');
+        myHeaders.append('Content-Api', tokenGenerator(8));
+
+        const requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+        };
+        const response = fetch(`/${user_type}/mypage/get/like/works`, requestOptions);
+        return response.then((res) => res.json());
+    }
+
+    let result;
+    try {
+        result = await apiFetch(user_type);
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}

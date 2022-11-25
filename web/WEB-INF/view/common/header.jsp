@@ -23,7 +23,7 @@
                         </svg>
                     </span>
                 </div>
-                <div class="p-24">
+                <div class="p-24 cursor-pointer">
                     <c:choose>
                         <c:when test="${icon eq 'alarm'}">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
