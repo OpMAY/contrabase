@@ -1,4 +1,6 @@
 <%@ page import="com.model.service.work.Work" %>
+<%@ page import="com.model.service.work.PARKING_INFO" %>
+<%@ page import="com.model.service.work.DISHING_INFO" %>
 <%@ taglib prefix="custom" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
@@ -56,28 +58,29 @@
             <div class="col-12 bold-h3 p-24 border-underline-bold">
                 <custom:formatPrice value="${work.budget}"/><span class="regular-h6">원</span>
                 <div class="pt-8 d-flex justify-content-start">
-                    <c:forEach items="${work.hashtag}" var="hash" varStatus="status">
-                        <c:choose>
-                            <c:when test="${status.first}">
-                                <div>
-                                    <button type="button" class="btn btn-block btn-box opacity">
-                                        <span class="medium-h6 c-brand-blue my-auto ">
-                                                ${hash}
-                                        </span>
-                                    </button>
-                                </div>
-                            </c:when>
-                            <c:otherwise>
-                                <div class="pl-16">
-                                    <button type="button" class="btn btn-block btn-box opacity">
-                                        <span class="medium-h6 c-brand-blue my-auto ">
-                                                ${hash}
-                                        </span>
-                                    </button>
-                                </div>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
+                    <c:if test="${work._emergency eq true}">
+                        <div class="mr-16">
+                            <button type="button" class="btn btn-block btn-box opacity">
+                                <span class="medium-h6 c-brand-blue my-auto ">
+                                    긴급 모집
+                                </span>
+                            </button>
+                        </div>
+                    </c:if>
+                    <div class="mr-16">
+                        <button type="button" class="btn btn-block btn-box opacity">
+                                <span class="medium-h6 c-brand-blue my-auto ">
+                                    ${work.parking_info.keyword}
+                                </span>
+                        </button>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-block btn-box opacity">
+                                <span class="medium-h6 c-brand-blue my-auto ">
+                                    ${work.dishing_info.keyword}
+                                </span>
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="col-12 p-0">
@@ -172,7 +175,8 @@
                                                             ${work.start_place}
                                                     </sapn>
                                                     <div class="pt-20 pl-16">
-                                                        <button type="button" data-href="/user/work/detail/${work.hash_no}/location"
+                                                        <button type="button"
+                                                                data-href="/user/work/detail/${work.hash_no}/location"
                                                                 class="btn btn-block btn-box opacity align-bottom">
                                                             <span class="medium-h6 c-brand-blue my-auto"
                                                                   style="white-space: nowrap;">
@@ -191,7 +195,8 @@
                                                             ${work.end_place}
                                                     </sapn>
                                                     <div class="pt-20 pl-16">
-                                                        <button type="button" data-href="/user/work/detail/${work.hash_no}/location"
+                                                        <button type="button"
+                                                                data-href="/user/work/detail/${work.hash_no}/location"
                                                                 class="btn btn-block btn-box opacity align-bottom">
                                                             <span class="medium-h6 c-brand-blue my-auto"
                                                                   style="white-space: nowrap;">

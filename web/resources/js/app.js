@@ -1,3 +1,91 @@
+const APPLY_STATUS = {
+    WORK_APPLY: {
+        name: 'WORK_APPLY',
+        keyword: '운행 신청'
+    },
+    WORK_COMPLETE: {
+        name: 'WORK_COMPLETE',
+        keyword: '운행 완료'
+    },
+    WORK_CANCEL: {
+        name: 'WORK_CANCEL',
+        keyword: '배차 취소'
+    }
+}
+
+const VEHICLE_TYPE = {
+    TRUCK: {
+        name: 'TRUCK',
+        keyword: '트럭',
+    }
+}
+
+const DISHING_INFO = {
+    AVAILABLE: {
+        name: 'AVAILABLE',
+        keyword: '식사 제공',
+    },
+    UNAVAILABLE: {
+        name: 'UNAVAILABLE',
+        keyword: '식사 미제공',
+    },
+}
+
+const PARKING_INFO = {
+    AVAILABLE: {
+        name: 'AVAILABLE',
+        keyword: '주차 가능',
+    },
+    UNAVAILABLE: {
+        name: 'UNAVAILABLE',
+        keyword: '주차 불가',
+    },
+}
+
+Object.freeze(APPLY_STATUS);
+Object.freeze(VEHICLE_TYPE);
+Object.freeze(DISHING_INFO);
+const findApplyStatus = (name) => {
+    switch (name) {
+        case APPLY_STATUS.WORK_APPLY.name:
+            return APPLY_STATUS.WORK_APPLY;
+        case APPLY_STATUS.WORK_COMPLETE.name:
+            return APPLY_STATUS.WORK_COMPLETE;
+        case APPLY_STATUS.WORK_CANCEL.name:
+            return APPLY_STATUS.WORK_CANCEL;
+        default:
+            return undefined;
+    }
+}
+const findVehicleType = (name) => {
+    switch (name) {
+        case VEHICLE_TYPE.TRUCK.name:
+            return VEHICLE_TYPE.TRUCK;
+        default:
+            return undefined;
+    }
+}
+const findParkingType = (name) => {
+    switch (name) {
+        case PARKING_INFO.AVAILABLE.name:
+            return PARKING_INFO.AVAILABLE;
+        case PARKING_INFO.UNAVAILABLE.name:
+            return PARKING_INFO.UNAVAILABLE;
+        default:
+            return undefined;
+    }
+}
+const findDishingType = (name) => {
+    switch (name) {
+        case DISHING_INFO.AVAILABLE.name:
+            return DISHING_INFO.AVAILABLE;
+        case DISHING_INFO.UNAVAILABLE.name:
+            return DISHING_INFO.UNAVAILABLE;
+        default:
+            return undefined;
+    }
+}
+
 $(document).ready(function () {
     let hrefs = document.querySelectorAll('[data-href]');
     hrefs.forEach(function (href) {

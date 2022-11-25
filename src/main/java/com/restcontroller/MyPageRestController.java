@@ -7,6 +7,8 @@ import com.model.service.Supplier;
 import com.model.service.alarm.AlarmType;
 import com.model.service.alarm.EmployeeAlarm;
 import com.model.service.alarm.SupplierAlarm;
+import com.model.service.work.APPLY_STATUS;
+import com.model.service.work.Work;
 import com.model.service.work.WorkLike;
 import com.response.DefaultRes;
 import com.response.Message;
@@ -33,12 +35,12 @@ public class MyPageRestController {
     private final SupplierService supplierService;
     private final EmployeeService employeeService;
     private final ReportService reportService;
+    private final WorkService workService;
 
     @RequestMapping(value = "/get/alarms/{alarm_type}", method = RequestMethod.GET)
     public ResponseEntity getAlarms(HttpServletRequest request, @PathVariable ControllerEnum user_type, @PathVariable AlarmType alarm_type) {
         Message message = new Message();
         Integer user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
-        user_no = 1;
         if (user_type == ControllerEnum.USER) {
             log.info("USER");
             Employee employee = employeeService.getEmployeeByUserNo(user_no);
@@ -55,14 +57,11 @@ public class MyPageRestController {
     }
 
     @RequestMapping(value = "/update/work/like/{work_hash}", method = RequestMethod.POST)
-    public ResponseEntity updateWorkLike(HttpServletRequest request, @PathVariable ControllerEnum user_type, @PathVariable String work_hash) {
+    public ResponseEntity updateWorkLike(HttpServletRequest request, @PathVariable ControllerEnum user_type, @PathVariable String work_hash) throws Exception {
         Message message = new Message();
         Integer user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
-        user_no = 1;
         Employee employee = employeeService.getEmployeeByUserNo(user_no);
-
-        //int work_no = Integer.parseInt(encryptionService.decryptAESWithSlash("hash"));
-        int work_no = 1;
+        int work_no = Integer.parseInt(encryptionService.decryptAESWithSlash(work_hash));
 
         WorkLike workLike = new WorkLike();
         workLike.setWork_no(work_no);
@@ -81,16 +80,26 @@ public class MyPageRestController {
     }
 
     @RequestMapping(value = "/create/report/work/{work_hash}", method = RequestMethod.POST)
-    public ResponseEntity createReport(HttpServletRequest request, @PathVariable ControllerEnum user_type, @PathVariable String work_hash, @RequestBody Report report) {
+    public ResponseEntity createReport(HttpServletRequest request, @PathVariable ControllerEnum user_type, @PathVariable String work_hash, @RequestBody Report report) throws Exception {
         Message message = new Message();
         Integer user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
-        user_no = 1;
         Employee employee = employeeService.getEmployeeByUserNo(user_no);
-        //int work_no = Integer.parseInt(encryptionService.decryptAESWithSlash("hash"));
-        int work_no = 1;
+        int work_no = Integer.parseInt(encryptionService.decryptAESWithSlash("hash"));
         report.setEmployee_no(employee.getNo());
         report.setWork_no(work_no);
         message.put("is_report", reportService.insertReport(report));
+        message.put("status", true);
+        return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, true), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/get/works/{work_type}", method = RequestMethod.GET)
+    public ResponseEntity getWorks(HttpServletRequest request,
+                                   @PathVariable ControllerEnum user_type, @PathVariable APPLY_STATUS work_type) throws Exception {
+        Message message = new Message();
+        Integer user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
+        Employee employee = employeeService.getEmployeeByUserNo(user_no);
+        ArrayList<Work> works = workService.getWorks(employee.getNo(), work_type);
+        message.put("works", works);
         message.put("status", true);
         return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, true), HttpStatus.OK);
     }

@@ -34,14 +34,12 @@ public class WorkController {
 
     private ModelAndView VIEW;
 
-    @RequestMapping(value = "/detail/{hash}", method = RequestMethod.GET)
-    public ModelAndView workDetail(HttpServletRequest request, @PathVariable String hash, @PathVariable ControllerEnum user_type) throws Exception {
+    @RequestMapping(value = "/detail/{work_hash}", method = RequestMethod.GET)
+    public ModelAndView workDetail(HttpServletRequest request, @PathVariable String work_hash, @PathVariable ControllerEnum user_type) throws Exception {
         Integer user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
-        user_no = 1;
         if (user_type == ControllerEnum.USER) {
-            //int work_no = Integer.parseInt(encryptionService.decryptAESWithSlash("hash"));
+            int work_no = Integer.parseInt(encryptionService.decryptAESWithSlash(work_hash));
             VIEW = new ModelAndView("user/detail");
-            int work_no = 1;
             log.info("USER");
             Employee employee = employeeService.getEmployeeByUserNo(user_no);
             Work work = workService.getWorkByNo(work_no);
@@ -63,8 +61,14 @@ public class WorkController {
     }
 
     @RequestMapping(value = "/works", method = RequestMethod.GET)
-    public ModelAndView works(HttpServletRequest request, @PathVariable ControllerEnum user_type) {
-        VIEW = new ModelAndView("user/works");
+    public ModelAndView works(HttpServletRequest request, @PathVariable ControllerEnum user_type) throws Exception {
+        Integer user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
+        if (user_type == ControllerEnum.USER) {
+            VIEW = new ModelAndView("user/works");
+        } else {
+            log.info("SUPPLIER");
+            VIEW = new ModelAndView("user/works");
+        }
         return VIEW;
     }
 
