@@ -129,16 +129,6 @@ public class MyPageController {
         return VIEW;
     }
 
-    @RequestMapping(value = "/unregister", method = RequestMethod.POST)
-    public ModelAndView postMyPageUnRegister(HttpServletRequest request, @PathVariable String user_type) {
-        if (Objects.equals(user_type, ControllerEnum.USER.name().toLowerCase())) {
-            VIEW = new ModelAndView("user/mypage-unregister");
-        } else {
-            VIEW = new ModelAndView("user/mypage-unregister");
-        }
-        return VIEW;
-    }
-
     @RequestMapping(value = "/point/points", method = RequestMethod.GET)
     public ModelAndView myPagePoints(HttpServletRequest request, @PathVariable String user_type) {
         VIEW = new ModelAndView("user/mypage-point-manage");

@@ -1,5 +1,6 @@
 package com.mapper;
 
+import com.model.UnRegister;
 import com.model.User;
 import com.model.UserType;
 
@@ -19,4 +20,6 @@ public interface UserMapper {
     void updateUserProfileImage(User user);
 
     void deleteUser(int no);
+
+    void insertUnRegister(UnRegister unRegister);
 }

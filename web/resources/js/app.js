@@ -263,15 +263,27 @@ $(document).ready(function () {
         event.preventDefault();
     });
     document.querySelector('._logout')?.addEventListener('click', function (event) {
-        apiLogout().then((result) => {
-            if (result.status === 'OK') {
-                viewAlert({content: '로그아웃'});
-                setTimeout(function () {
-                    location.href = '/auth/login';
-                }, 500);
-            } else {
-                viewAlert({content: '로그아웃을 할 수 없습니다. 다시 시도해주세요.'});
+        viewModal({
+            vCenter: true,
+            wCenter: true,
+            btnCount: 2,
+            title: '로그아웃',
+            desc: '로그아웃 하시겠어요?',
+            confirm_text: '확인',
+            cancel_text: '취소',
+            onConfirm: () => {
+                apiLogout().then((result) => {
+                    if (result.status === 'OK') {
+                        setTimeout(function () {
+                            location.href = '/auth/login';
+                        }, 500);
+                    } else {
+                        viewAlert({content: '로그아웃을 할 수 없습니다. 다시 시도해주세요.'});
+                    }
+                });
+            },
+            onCancel: () => {
             }
-        })
+        });
     });
 });

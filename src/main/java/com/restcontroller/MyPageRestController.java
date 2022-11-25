@@ -3,6 +3,7 @@ package com.restcontroller;
 import com.aws.file.FileUploadUtility;
 import com.aws.model.CDNUploadPath;
 import com.model.ControllerEnum;
+import com.model.UnRegister;
 import com.model.User;
 import com.model.common.MFile;
 import com.model.service.Employee;
@@ -188,6 +189,19 @@ public class MyPageRestController {
         Employee update = employeeService.getEmployeeByUserNo(user_no);
         update.setCar_code(employee.getCar_code());
         employeeService.updateEmployee(update);
+        Message message = new Message();
+        message.put("status", true);
+        return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, true), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/unregister", method = POST)
+    public ResponseEntity unregister(HttpServletRequest request, @PathVariable ControllerEnum user_type, @RequestBody UnRegister unRegister) {
+        int user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
+        String user_id = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.ID.name());
+        unRegister.setUser_no(user_no);
+        unRegister.setUser_id(user_id);
+        userService.insertUnRegister(unRegister);
+        new AuthRestController().logout(request);
         Message message = new Message();
         message.put("status", true);
         return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, true), HttpStatus.OK);

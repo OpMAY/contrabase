@@ -1,6 +1,7 @@
 package com.dao;
 
 import com.mapper.UserMapper;
+import com.model.UnRegister;
 import com.model.User;
 import com.model.UserType;
 import lombok.extern.slf4j.Slf4j;
@@ -46,5 +47,9 @@ public class UserDao {
 
     public void deleteUser(int no) {
         mapper.deleteUser(no);
+    }
+
+    public void insertUnRegister(UnRegister unRegister) {
+        mapper.insertUnRegister(unRegister);
     }
 }

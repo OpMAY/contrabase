@@ -10,7 +10,7 @@
     <insert id="registerUser" useGeneratedKeys="true" keyProperty="no">
         insert into user(id, name, phone, profile_img, reg_datetime, updated_datetime, last_login_datetime, email)
         VALUES (#{id}, #{name}, #{phone}, #{profile_img, typeHandler=com.middleware.JsonObjectTypeHandler}, now(),
-                now(), now(),#{email})
+                now(), now(), #{email})
     </insert>
     <select id="getUserType" resultType="UserType">
         select IF(EXISTS(select * from employee WHERE user_no = #{no}), 'EMPLOYEE', 'SUPPLIER')
@@ -48,4 +48,8 @@
         from user
         WHERE no = #{no}
     </delete>
+    <insert id="insertUnRegister" parameterType="UnRegister">
+        insert into unregister(user_no, user_id, reason, reg_datetime, updated_datetime)
+        VALUES (#{user_no}, #{user_id}, #{reason}, now(), now());
+    </insert>
 </mapper>

@@ -219,3 +219,29 @@ async function profileCarCodeChange(user_type, car_code) {
         console.log(error);
     }
 }
+
+async function apiUnregister(user_type, reason) {
+    function apiFetch(user_type, reason) {
+        const myHeaders = new Headers();
+        myHeaders.append('Content-Type', 'application/json');
+        myHeaders.append('Content-Api', tokenGenerator(8));
+        const raw = JSON.stringify({
+            reason
+        });
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+        };
+        const response = fetch(`/${user_type}/mypage/unregister`, requestOptions);
+        return response.then((res) => res.json());
+    }
+
+    let result;
+    try {
+        result = await apiFetch(user_type, reason);
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}

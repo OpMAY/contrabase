@@ -1,6 +1,7 @@
 package com.service;
 
 import com.dao.UserDao;
+import com.model.UnRegister;
 import com.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,5 +22,9 @@ public class UserService {
     public void updateUserProfileDefault(User user){
         userDao.updateUserName(user);
         userDao.updateUserPhone(user);
+    }
+
+    public void insertUnRegister(UnRegister unRegister) {
+        userDao.insertUnRegister(unRegister);
     }
 }
