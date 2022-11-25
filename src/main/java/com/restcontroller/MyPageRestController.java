@@ -206,4 +206,33 @@ public class MyPageRestController {
         message.put("status", true);
         return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, true), HttpStatus.OK);
     }
+
+    /*/${user_type}/mypage/update/alarm/${type}*/
+    @RequestMapping(value = "/update/alarm/{type}", method = POST)
+    public ResponseEntity updateAlarm(HttpServletRequest request, @PathVariable ControllerEnum user_type, @PathVariable String type) {
+        int user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
+        Employee employee = employeeService.getEmployeeByUserNo(user_no);
+        log.info("type -> {}", type);
+        switch (type) {
+            case "new":
+                employee.setNew_work_alarm(!employee.isNew_work_alarm());
+                employeeService.updateEmployee(employee);
+                break;
+            case "emergency":
+                employee.setEmergency_work_alarm(!employee.isEmergency_work_alarm());
+                employeeService.updateEmployee(employee);
+                break;
+            case "report":
+                employee.setReport_alarm(!employee.isReport_alarm());
+                employeeService.updateEmployee(employee);
+                break;
+            case "marketing":
+                employee.setMarketing_alarm(!employee.isMarketing_alarm());
+                employeeService.updateEmployeeMarketingAgree(employee);
+                break;
+        }
+        Message message = new Message();
+        message.put("status", true);
+        return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, true), HttpStatus.OK);
+    }
 }

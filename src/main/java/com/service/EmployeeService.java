@@ -20,4 +20,8 @@ public class EmployeeService {
     public void updateEmployee(Employee employee) {
         employeeDao.updateEmployee(employee);
     }
+
+    public void updateEmployeeMarketingAgree(Employee employee) {
+        employeeDao.updateEmployeeMarketingAgree(employee);
+    }
 }

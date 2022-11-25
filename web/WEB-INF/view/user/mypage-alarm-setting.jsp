@@ -1,3 +1,6 @@
+<%@ page import="com.model.service.Employee" %>
+<%@ taglib prefix="custom" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: zlzld
@@ -6,6 +9,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    Employee employee = (Employee) request.getAttribute("employee");
+    request.setAttribute("employee", employee);
+%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -30,7 +37,8 @@
                     <div class="">신규 공고 알림</div>
                     <div class="ml-auto bd-highlight">
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" data-alarm="신규 공고 알림"
+                            <input type="checkbox" class="custom-control-input"
+                                   data-alarm="new" ${employee.new_work_alarm?'checked="true"':''}
                                    id="customSwitch1">
                             <label class="custom-control-label" for="customSwitch1"></label>
                         </div>
@@ -46,7 +54,8 @@
                     <div class="">긴급 공고 알림</div>
                     <div class="ml-auto bd-highlight">
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" data-alarm="긴급 공고 알림"
+                            <input type="checkbox" class="custom-control-input"
+                                   data-alarm="emergency" ${employee.emergency_work_alarm?'checked="true"':''}
                                    id="customSwitch2">
                             <label class="custom-control-label" for="customSwitch2"></label>
                         </div>
@@ -62,7 +71,9 @@
                     <div class="">신고 알림</div>
                     <div class="ml-auto bd-highlight">
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" data-alarm="신고 알림" id="customSwitch3">
+                            <input type="checkbox" class="custom-control-input"
+                                   data-alarm="report" ${employee.report_alarm?'checked="true"':''}
+                                   id="customSwitch3">
                             <label class="custom-control-label" for="customSwitch3"></label>
                         </div>
                     </div>
@@ -77,7 +88,8 @@
                     <div class="">이벤트 및 마케팅 알림</div>
                     <div class="ml-auto bd-highlight">
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" data-alarm="이벤트 및 마케팅 알림"
+                            <input type="checkbox" class="custom-control-input"
+                                   data-alarm="marketing" ${employee.marketing_alarm?'checked="true"':''}
                                    id="customSwitch4">
                             <label class="custom-control-label" for="customSwitch4"></label>
                         </div>
@@ -105,12 +117,82 @@
 
     function alarmChangeEventListener(event) {
         console.log('alarmChangeEventListener', this, event);
+        //new, emergency, report, marketing
+        let type = this.dataset.alarm;
         if ($(this).is(':checked')) {
             /*TODO Fetch*/
             console.log('checked');
+            apiUpdateAlarm('user', type).then((result) => {
+                console.log('apiUpdateAlarm', result);
+                if (result.status === 'OK') {
+                    switch (type) {
+                        case 'new':
+                            viewAlert({content: '신규 공고 알림을 설정하였습니다.'});
+                            break;
+                        case 'emergency':
+                            viewAlert({content: '긴급 공고 알림을 설정하였습니다.'});
+                            break;
+                        case 'report':
+                            viewAlert({content: '신고 알림을 설정하였습니다.'});
+                            break;
+                        case 'marketing':
+                            viewAlert({content: '이벤트 및 마케팅 알림을 설정 하였습니다.'});
+                            break;
+                    }
+                } else {
+                    switch (type) {
+                        case 'new':
+                            viewAlert({content: '신규 공고 알림을 설정할 수 없습니다. 다시 시도해주세요.'});
+                            break;
+                        case 'emergency':
+                            viewAlert({content: '긴급 공고 알림을 설정할 수 없습니다. 다시 시도해주세요.'});
+                            break;
+                        case 'report':
+                            viewAlert({content: '신고 알림을 설정할 수 없습니다. 다시 시도해주세요.'});
+                            break;
+                        case 'marketing':
+                            viewAlert({content: '이벤트 및 마케팅 알림을 설정할 수 없습니다. 다시 시도해주세요.'});
+                            break;
+                    }
+                }
+            });
         } else {
             /*TODO Fetch*/
             console.log('unchecked');
+            apiUpdateAlarm('user', type).then((result) => {
+                console.log('apiUpdateAlarm', result);
+                if (result.status === 'OK') {
+                    switch (type) {
+                        case 'new':
+                            viewAlert({content: '신규 공고 알림을 해제하였습니다.'});
+                            break;
+                        case 'emergency':
+                            viewAlert({content: '긴급 공고 알림을 해제하였습니다.'});
+                            break;
+                        case 'report':
+                            viewAlert({content: '신고 알림을 해제하였습니다.'});
+                            break;
+                        case 'marketing':
+                            viewAlert({content: '이벤트 및 마케팅 알림을 해제 하였습니다.'});
+                            break;
+                    }
+                } else {
+                    switch (type) {
+                        case 'new':
+                            viewAlert({content: '신규 공고 알림을 해제할 수 없습니다. 다시 시도해주세요.'});
+                            break;
+                        case 'emergency':
+                            viewAlert({content: '긴급 공고 알림을 해제할 수 없습니다. 다시 시도해주세요.'});
+                            break;
+                        case 'report':
+                            viewAlert({content: '신고 알림을 해제할 수 없습니다. 다시 시도해주세요.'});
+                            break;
+                        case 'marketing':
+                            viewAlert({content: '이벤트 및 마케팅 알림을 해제할 수 없습니다. 다시 시도해주세요.'});
+                            break;
+                    }
+                }
+            });
         }
         event.stopPropagation();
         event.preventDefault();

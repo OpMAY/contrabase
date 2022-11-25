@@ -37,16 +37,17 @@
             new_work_alarm        = #{new_work_alarm},
             emergency_work_alarm  = #{emergency_work_alarm},
             report_alarm          = #{report_alarm},
+            marketing_alarm       = #{marketing_alarm},
             user.updated_datetime = now()
-        WHERE employee.no = #{no}
-          AND user.no = #{user_no}
+            WHERE employee.no = #{no}
+                AND user.no = #{user_no}
     </update>
     <update id="updateEmployeeMarketingAgree">
         update employee, user
         SET marketing_alarm       = #{marketing_alarm},
             marketing_agree_date  = IF(#{marketing_alarm}, now(), null),
             user.updated_datetime = now()
-        WHERE no = #{no}
+        WHERE employee.no = #{no}
           AND user.no = #{user_no}
     </update>
     <update id="updateEmployeePoint">
