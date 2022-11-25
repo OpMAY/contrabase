@@ -17,7 +17,7 @@
                 <div id="bottom-tab-location-trigger" class="mr-auto p-24">
                     <span class="bold-h5 d-flex">
                         <span class="my-auto d-inline-block"><%=title%></span>
-                        <svg class="my-auto pl-8" width="12" height="7" viewBox="0 0 12 7" fill="none"
+                        <svg class="my-auto pl-8 cursor-pointer" width="12" height="7" viewBox="0 0 12 7" fill="none"
                              xmlns="http://www.w3.org/2000/svg">
                             <path d="M11 1L6 6L1 1" stroke="#021226" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
@@ -71,17 +71,20 @@
                     <div class="p-24 bold-h5  text-right">
                         <c:choose>
                             <c:when test="${icon eq 'charge'}">
-                                <sapn class="c-brand-blue" data-href="/user/mypage/point/charge">충전</sapn>
+                                <sapn class="c-brand-blue" data-href="/user/mypage/point/charge" class="cursor-pointer">
+                                    충전
+                                </sapn>
                             </c:when>
                             <c:when test="${icon eq 'setting'}">
-                                <img src="/resources/assets/images/icon/icon-setting-black.svg" alt="">
+                                <img src="/resources/assets/images/icon/icon-setting-black.svg" class="cursor-pointer"
+                                     alt="">
                             </c:when>
                             <c:when test="${icon eq 'declaration'}">
-                                <img id="bottom-tab-declaration-trigger"
+                                <img id="bottom-tab-declaration-trigger" class="cursor-pointer"
                                      src="/resources/assets/images/icon/icon-declaration.svg" alt="">
                             </c:when>
                             <c:when test="${icon eq 'trash'}">
-                                <img src="/resources/assets/images/icon/icon-trash.svg" alt="">
+                                <img src="/resources/assets/images/icon/icon-trash.svg" class="cursor-pointer" alt="">
                             </c:when>
                             <c:otherwise>
                             </c:otherwise>

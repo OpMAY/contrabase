@@ -13,5 +13,7 @@ public interface WorkMapper {
 
     void updateWork(Work work);
 
+    Work getWorkByNo(int no);
+
     // TODO Filters
 }

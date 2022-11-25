@@ -1,3 +1,5 @@
+<%@ page import="com.model.service.work.Work" %>
+<%@ taglib prefix="custom" tagdir="/WEB-INF/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: zlzld
@@ -6,6 +8,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    Work work = (Work) request.getAttribute("work");
+    request.setAttribute("work", work);
+%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -29,15 +35,16 @@
             <div class="col-12 pl-24 pr-24 pt-8">
                 <div class="d-flex justify-content-between">
                     <div class="bold-h3">
-                        운송 운반 잠실 운동장
+                        ${work.name}
                     </div>
                 </div>
             </div>
             <div class="col-12 pt-1 regular-h6 pl-24 pr-24">
-                덤프트럭 2대
+                ${work.vehicle_type.name()}
             </div>
             <div class="col-12 bold-h3 p-24 border-underline-bold">
-                150,000<span class="regular-h6">원</span>
+                <custom:formatPrice value="${work.budget}"/>
+                <span class="regular-h6">원</span>
                 <div class="pt-8 d-flex justify-content-start">
                     <div>
                         <button type="button" class="btn btn-block btn-box opacity">
@@ -225,7 +232,7 @@
                                 운송 운반 | 덤프트럭 2대
                             </div>
                             <div>
-                                <img src="../../resources/assets/images/icon/icon-star.svg" alt="">
+                                <img src="/resources/assets/images/icon/icon-star.svg" alt="">
                             </div>
                         </div>
                         <div class="pt-16 regular-p1">
@@ -238,7 +245,7 @@
                         <span class="regular-p1">
                             창원시 마산합 영통구 신동구
                         </span>
-                            <img src="../../resources/assets/images/icon/icon-location-arrow.svg" alt="">
+                            <img src="/resources/assets/images/icon/icon-location-arrow.svg" alt="">
                             <span class="regular-p1">
                             창원시 마산합 영통구 신동구
                         </span>

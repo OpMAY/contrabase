@@ -1,3 +1,91 @@
+const APPLY_STATUS = {
+    WORK_APPLY: {
+        name: 'WORK_APPLY',
+        keyword: '운행 신청'
+    },
+    WORK_COMPLETE: {
+        name: 'WORK_COMPLETE',
+        keyword: '운행 완료'
+    },
+    WORK_CANCEL: {
+        name: 'WORK_CANCEL',
+        keyword: '배차 취소'
+    }
+}
+
+const VEHICLE_TYPE = {
+    TRUCK: {
+        name: 'TRUCK',
+        keyword: '트럭',
+    }
+}
+
+const DISHING_INFO = {
+    AVAILABLE: {
+        name: 'AVAILABLE',
+        keyword: '식사 제공',
+    },
+    UNAVAILABLE: {
+        name: 'UNAVAILABLE',
+        keyword: '식사 미제공',
+    },
+}
+
+const PARKING_INFO = {
+    AVAILABLE: {
+        name: 'AVAILABLE',
+        keyword: '주차 가능',
+    },
+    UNAVAILABLE: {
+        name: 'UNAVAILABLE',
+        keyword: '주차 불가',
+    },
+}
+
+Object.freeze(APPLY_STATUS);
+Object.freeze(VEHICLE_TYPE);
+Object.freeze(DISHING_INFO);
+const findApplyStatus = (name) => {
+    switch (name) {
+        case APPLY_STATUS.WORK_APPLY.name:
+            return APPLY_STATUS.WORK_APPLY;
+        case APPLY_STATUS.WORK_COMPLETE.name:
+            return APPLY_STATUS.WORK_COMPLETE;
+        case APPLY_STATUS.WORK_CANCEL.name:
+            return APPLY_STATUS.WORK_CANCEL;
+        default:
+            return undefined;
+    }
+}
+const findVehicleType = (name) => {
+    switch (name) {
+        case VEHICLE_TYPE.TRUCK.name:
+            return VEHICLE_TYPE.TRUCK;
+        default:
+            return undefined;
+    }
+}
+const findParkingType = (name) => {
+    switch (name) {
+        case PARKING_INFO.AVAILABLE.name:
+            return PARKING_INFO.AVAILABLE;
+        case PARKING_INFO.UNAVAILABLE.name:
+            return PARKING_INFO.UNAVAILABLE;
+        default:
+            return undefined;
+    }
+}
+const findDishingType = (name) => {
+    switch (name) {
+        case DISHING_INFO.AVAILABLE.name:
+            return DISHING_INFO.AVAILABLE;
+        case DISHING_INFO.UNAVAILABLE.name:
+            return DISHING_INFO.UNAVAILABLE;
+        default:
+            return undefined;
+    }
+}
+
 $(document).ready(function () {
     let hrefs = document.querySelectorAll('[data-href]');
     hrefs.forEach(function (href) {
@@ -178,41 +266,3 @@ $(document).ready(function () {
         viewAlert({content: '로그아웃'});
     });
 });
-try {
-    let container = document.getElementById('map');
-    let options = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667),
-        level: 3
-    };
-    let map = new kakao.maps.Map(container, options);
-// 마커가 표시될 위치입니다
-    let markerPosition = new kakao.maps.LatLng(33.450701, 126.570667);
-// 마커를 생성합니다
-    let marker = new kakao.maps.Marker({
-        position: markerPosition
-    });
-// 마커가 지도 위에 표시되도록 설정합니다
-    marker.setMap(map);
-// 마커에 클릭이벤트를 등록합니다
-    kakao.maps.event.addListener(marker, 'click', kakaoMapMarkerClickEventListener);
-
-    function kakaoMapMarkerClickEventListener(event) {
-        // 마커 위에 인포윈도우를 표시합니다
-        let bottom_kakao = document.querySelector('#bottom-tab-kakao');
-        let overlay = document.querySelector('#overlay');
-        if (!bottom_kakao.classList.contains('is-active')) {
-            bottom_kakao.classList.add('is-active');
-        } else {
-            bottom_kakao.classList.remove('is-active');
-        }
-        if (!overlay.classList.contains('is-active')) {
-            overlay.classList.add('is-active');
-        } else {
-            overlay.classList.remove('is-active');
-        }
-        event.stopPropagation();
-        event.preventDefault();
-    }
-} catch (error) {
-    throw new Error(`javascript app.js kakao map error -> ${error}`);
-}
