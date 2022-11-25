@@ -12,6 +12,10 @@ import com.model.service.Supplier;
 import com.model.service.alarm.AlarmType;
 import com.model.service.alarm.EmployeeAlarm;
 import com.model.service.alarm.SupplierAlarm;
+import com.model.service.point.receipt.PointReceipt;
+import com.model.service.point.receipt.RECEIPT_TYPE;
+import com.model.service.point.request.PointRequest;
+import com.model.service.point.request.REQUEST_STATUS;
 import com.model.service.work.APPLY_STATUS;
 import com.model.service.work.Work;
 import com.model.service.work.WorkLike;
@@ -31,6 +35,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Slf4j
@@ -47,8 +52,10 @@ public class MyPageRestController {
     private final WorkService workService;
     private final FileUploadUtility fileUploadUtility;
     private final UserService userService;
+    private final PointReceiptService pointReceiptService;
+    private final PointRequestService pointRequestService;
 
-    @RequestMapping(value = "/get/alarms/{alarm_type}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get/alarms/{alarm_type}", method = GET)
     public ResponseEntity getAlarms(HttpServletRequest request, @PathVariable ControllerEnum user_type, @PathVariable AlarmType alarm_type) {
         Message message = new Message();
         Integer user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
@@ -103,7 +110,7 @@ public class MyPageRestController {
         return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, true), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/get/works/{work_type}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get/works/{work_type}", method = GET)
     public ResponseEntity getWorks(HttpServletRequest request,
                                    @PathVariable ControllerEnum user_type, @PathVariable APPLY_STATUS work_type) throws Exception {
         Message message = new Message();
@@ -115,7 +122,7 @@ public class MyPageRestController {
         return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, true), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/get/like/works", method = RequestMethod.GET)
+    @RequestMapping(value = "/get/like/works", method = GET)
     public ResponseEntity getLikeWorks(HttpServletRequest request, @PathVariable ControllerEnum user_type) throws Exception {
         Message message = new Message();
         Integer user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
@@ -207,7 +214,6 @@ public class MyPageRestController {
         return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, true), HttpStatus.OK);
     }
 
-    /*/${user_type}/mypage/update/alarm/${type}*/
     @RequestMapping(value = "/update/alarm/{type}", method = POST)
     public ResponseEntity updateAlarm(HttpServletRequest request, @PathVariable ControllerEnum user_type, @PathVariable String type) {
         int user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
@@ -234,5 +240,46 @@ public class MyPageRestController {
         Message message = new Message();
         message.put("status", true);
         return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, true), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/get/points/{type}", method = GET)
+    public ResponseEntity getPoints(HttpServletRequest request, @PathVariable ControllerEnum user_type, @PathVariable String type) throws Exception {
+        Message message = new Message();
+        int user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
+        Employee employee = employeeService.getEmployeeByUserNo(user_no);
+        log.info("type -> {}", type);
+        ArrayList<PointReceipt> pointReceipts = new ArrayList<>();
+        ArrayList<PointRequest> pointRequests = new ArrayList<>();
+        ArrayList<PointRequest> filteredRequests = new ArrayList<>();
+        switch (type) {
+            case "pay":
+                pointReceipts = pointReceiptService.getEmployeePointReceipt(employee.getNo(), RECEIPT_TYPE.USE);
+                message.put("points", pointReceipts);
+                break;
+            case "repayment":
+                pointReceipts = pointReceiptService.getEmployeePointReceipt(employee.getNo(), RECEIPT_TYPE.CANCEL);
+                message.put("points", pointReceipts);
+                break;
+            case "charge":
+                pointRequests = pointRequestService.getPointRequestsByEmployeeNo(employee.getNo());
+                for (PointRequest dump : pointRequests) {
+                    if (dump.getStatus() == REQUEST_STATUS.CHARGE || dump.getStatus() == REQUEST_STATUS.CHARGING) {
+                        filteredRequests.add(dump);
+                    }
+                }
+                message.put("points", filteredRequests);
+                break;
+            case "refund":
+                pointRequests = pointRequestService.getPointRequestsByEmployeeNo(employee.getNo());
+                for (PointRequest dump : pointRequests) {
+                    if (dump.getStatus() == REQUEST_STATUS.REFUND) {
+                        filteredRequests.add(dump);
+                    }
+                }
+                message.put("points", filteredRequests);
+                break;
+        }
+        message.put("status", true);
+        return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, false), HttpStatus.OK);
     }
 }

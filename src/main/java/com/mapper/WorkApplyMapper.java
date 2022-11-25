@@ -18,6 +18,8 @@ public interface WorkApplyMapper {
 
     void deleteWorkApply(int no);
 
+    WorkApply getWorkApply(@Param("employee_no") int employee_no, @Param("work_no") int work_no);
+
     /**
      * 예상 추가
      * - work 에 지원한 employee list?

@@ -38,4 +38,10 @@
         from work_apply
         WHERE no = #{no};
     </delete>
+    <select id="getWorkApply" resultType="WorkApply">
+        select *
+        from work_apply
+        where employee_no = #{employee_no}
+          and work_no = #{work_no}
+    </select>
 </mapper>

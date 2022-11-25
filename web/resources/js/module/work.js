@@ -118,49 +118,68 @@ function createWorkElement(work) {
     return div;
 }
 
-function createWorkPointElement(work) {
-    const __buildWorkInnerElement = (work) => {
+function createWorkPointElement(point) {
+    const __buildWorkInnerElement = (point) => {
+        let date_html = '';
+        point.work.work_dates.forEach(function (work_date, index, dates) {
+            let date = new Date(work_date);
+            let week = Time.StringDateFormatDayOfWeek(work_date);
+            if (index === dates.length - 1) {
+                date_html = `${(date.getMonth() - 1)}월 ${date.getDay()}일 (${week})`;
+            } else {
+                date_html = `${(date.getMonth() - 1)}월 ${date.getDay()}일 (${week}), `;
+            }
+        });
+        let place_html;
+        if (point.work.start_place !== undefined && point.work.start_place !== null) {
+            place_html = `<span class="regular-p1">
+                                       ${point.work.start_place}
+                                   </span>
+                                   <img src="/resources/assets/images/icon/icon-location-arrow.svg" alt="">
+                                   <span class="regular-p1">
+                                       ${point.work.end_place}
+                                   </span>`;
+        } else {
+            place_html = `<span class="regular-p1">
+                                       ${point.work.start_place}
+                                   </span>`;
+        }
         let unit = '+';
         let color = 'c-brand-blue';
-        if (work.type === 'pay') {
-            unit = '-';
+        let type = findReceiptType(point.type);
+        if (type == RECEIPT_TYPE.USE) {
+            unit = type.sign;
             color = 'c-brand-red';
-        } else if (work.type === 'repayment') {
-            unit = '+';
+        } else if (type == RECEIPT_TYPE.CANCEL) {
+            unit = type.sign;
             color = 'c-brand-blue';
         }
         return `<div class="d-flex flex-column">
                          <div class="d-flex justify-content-between">
                              <div class="bold-h5">
-                                 운송 운반 | 덤프트럭 2대
+                                 ${point.work.name} | ${findVehicleType(point.work.vehicle_type).keyword}
                              </div>
                              <div class="bold-h5 ${color}">
-                                 ${unit}300P
+                                 ${unit}${addComma(point.point)}P
                              </div>
                          </div>
                          <div class="pt-16 regular-p1">
-                             9월 21일 (수), 9월22일 (목)
+                             ${date_html}
                          </div>
                          <div class="pt-8 regular-p1">
-                             07:00 ~ 18:00
+                             ${point.work.start_time} ~ ${point.work.end_time}
                          </div>
                          <div class="padding-top-4 ">
-                             <span class="regular-p1">
-                                 창원시 마산합 영통구 신동구
-                             </span>
-                             <img src="/resources/assets/images/icon/icon-location-arrow.svg" alt="">
-                             <span class="regular-p1">
-                                 창원시 마산합 영통구 신동구
-                             </span>
+                              ${place_html}
                          </div>
                          <div class="pt-16 regular-p1">
-                             <span class="bold-h4">150,000</span>원
+                               <span class="bold-h4">${addComma(point.work.budget)}</span>원
                          </div>
                      </div>`;
     }
     let div = document.createElement('div');
     div.classList.add('col-12', 'p-24', 'work');
-    div.innerHTML = __buildWorkInnerElement(work);
+    div.innerHTML = __buildWorkInnerElement(point);
     /*TODO Add Event Listener & Callback*/
     return div;
 }
@@ -476,3 +495,811 @@ function createWorkMediaElement(user) {
     });
     return div;
 }
+
+let data = [
+    {
+        "reg_datetime": {
+            "month": "NOVEMBER",
+            "year": 2022,
+            "dayOfMonth": 25,
+            "hour": 21,
+            "minute": 24,
+            "monthValue": 11,
+            "nano": 0,
+            "second": 58,
+            "dayOfWeek": "FRIDAY",
+            "dayOfYear": 329,
+            "chronology": {
+                "id": "ISO",
+                "calendarType": "iso8601"
+            }
+        },
+        "updated_datetime": {
+            "month": "NOVEMBER",
+            "year": 2022,
+            "dayOfMonth": 25,
+            "hour": 21,
+            "minute": 25,
+            "monthValue": 11,
+            "nano": 0,
+            "second": 0,
+            "dayOfWeek": "FRIDAY",
+            "dayOfYear": 329,
+            "chronology": {
+                "id": "ISO",
+                "calendarType": "iso8601"
+            }
+        },
+        "no": 1,
+        "employee_no": 1,
+        "work_no": null,
+        "point": 1000,
+        "type": "USE",
+        "work": {
+            "reg_datetime": {
+                "month": "NOVEMBER",
+                "year": 2022,
+                "dayOfMonth": 24,
+                "hour": 13,
+                "minute": 44,
+                "monthValue": 11,
+                "nano": 0,
+                "second": 6,
+                "dayOfWeek": "THURSDAY",
+                "dayOfYear": 328,
+                "chronology": {
+                    "id": "ISO",
+                    "calendarType": "iso8601"
+                }
+            },
+            "updated_datetime": {
+                "month": "NOVEMBER",
+                "year": 2022,
+                "dayOfMonth": 24,
+                "hour": 13,
+                "minute": 44,
+                "monthValue": 11,
+                "nano": 0,
+                "second": 6,
+                "dayOfWeek": "THURSDAY",
+                "dayOfYear": 328,
+                "chronology": {
+                    "id": "ISO",
+                    "calendarType": "iso8601"
+                }
+            },
+            "no": 1,
+            "hash_no": null,
+            "supplier_no": 1,
+            "name": "일자리 명10",
+            "vehicle_type": "TRUCK",
+            "work_dates": [
+                "2022.11.24",
+                "2022.11.25",
+                "2022.11.26"
+            ],
+            "start_place": "경기도 수원시 장안구 대평로 25-2",
+            "start_place_x": 999.999,
+            "start_place_y": 999.999,
+            "end_place": "경기도 수원시 장안구 대평로 25-2",
+            "end_place_x": 999.999,
+            "end_place_y": 999.999,
+            "distance": 32.3845,
+            "corp_name": "오키위 컴퍼니",
+            "corp_manager": "김우식",
+            "parking_info": "AVAILABLE",
+            "dishing_info": "AVAILABLE",
+            "hashtag": [
+                "구성품 1",
+                "구성품 2"
+            ],
+            "start_time": "18:00:00",
+            "end_time": "22:00:00",
+            "work_condition": "LICENSE",
+            "budget": 10000,
+            "details": "상세 내용 테스트",
+            "notice": "유의사항 테스트",
+            "stocks": null,
+            "stock_left": 0,
+            "_emergency": true,
+            "_like": false
+        },
+        "workApply": {
+            "reg_datetime": {
+                "month": "NOVEMBER",
+                "year": 2022,
+                "dayOfMonth": 24,
+                "hour": 21,
+                "minute": 13,
+                "monthValue": 11,
+                "nano": 0,
+                "second": 56,
+                "dayOfWeek": "THURSDAY",
+                "dayOfYear": 328,
+                "chronology": {
+                    "id": "ISO",
+                    "calendarType": "iso8601"
+                }
+            },
+            "updated_datetime": {
+                "month": "NOVEMBER",
+                "year": 2022,
+                "dayOfMonth": 24,
+                "hour": 21,
+                "minute": 13,
+                "monthValue": 11,
+                "nano": 0,
+                "second": 58,
+                "dayOfWeek": "THURSDAY",
+                "dayOfYear": 328,
+                "chronology": {
+                    "id": "ISO",
+                    "calendarType": "iso8601"
+                }
+            },
+            "no": 1,
+            "employee_no": 1,
+            "work_no": 1,
+            "status": "WORK_APPLY",
+            "point": 301,
+            "target_date": {
+                "year": 2022,
+                "month": "NOVEMBER",
+                "dayOfMonth": 24,
+                "monthValue": 11,
+                "dayOfWeek": "THURSDAY",
+                "era": "CE",
+                "dayOfYear": 328,
+                "leapYear": false,
+                "chronology": {
+                    "id": "ISO",
+                    "calendarType": "iso8601"
+                }
+            }
+        }
+    },
+    {
+        "reg_datetime": {
+            "month": "NOVEMBER",
+            "year": 2022,
+            "dayOfMonth": 25,
+            "hour": 21,
+            "minute": 24,
+            "monthValue": 11,
+            "nano": 0,
+            "second": 58,
+            "dayOfWeek": "FRIDAY",
+            "dayOfYear": 329,
+            "chronology": {
+                "id": "ISO",
+                "calendarType": "iso8601"
+            }
+        },
+        "updated_datetime": {
+            "month": "NOVEMBER",
+            "year": 2022,
+            "dayOfMonth": 25,
+            "hour": 21,
+            "minute": 25,
+            "monthValue": 11,
+            "nano": 0,
+            "second": 0,
+            "dayOfWeek": "FRIDAY",
+            "dayOfYear": 329,
+            "chronology": {
+                "id": "ISO",
+                "calendarType": "iso8601"
+            }
+        },
+        "no": 2,
+        "employee_no": 1,
+        "work_no": null,
+        "point": 1200,
+        "type": "USE",
+        "work": {
+            "reg_datetime": {
+                "month": "NOVEMBER",
+                "year": 2022,
+                "dayOfMonth": 24,
+                "hour": 13,
+                "minute": 44,
+                "monthValue": 11,
+                "nano": 0,
+                "second": 6,
+                "dayOfWeek": "THURSDAY",
+                "dayOfYear": 328,
+                "chronology": {
+                    "id": "ISO",
+                    "calendarType": "iso8601"
+                }
+            },
+            "updated_datetime": {
+                "month": "NOVEMBER",
+                "year": 2022,
+                "dayOfMonth": 24,
+                "hour": 13,
+                "minute": 44,
+                "monthValue": 11,
+                "nano": 0,
+                "second": 6,
+                "dayOfWeek": "THURSDAY",
+                "dayOfYear": 328,
+                "chronology": {
+                    "id": "ISO",
+                    "calendarType": "iso8601"
+                }
+            },
+            "no": 1,
+            "hash_no": null,
+            "supplier_no": 1,
+            "name": "일자리 명10",
+            "vehicle_type": "TRUCK",
+            "work_dates": [
+                "2022.11.24",
+                "2022.11.25",
+                "2022.11.26"
+            ],
+            "start_place": "경기도 수원시 장안구 대평로 25-2",
+            "start_place_x": 999.999,
+            "start_place_y": 999.999,
+            "end_place": "경기도 수원시 장안구 대평로 25-2",
+            "end_place_x": 999.999,
+            "end_place_y": 999.999,
+            "distance": 32.3845,
+            "corp_name": "오키위 컴퍼니",
+            "corp_manager": "김우식",
+            "parking_info": "AVAILABLE",
+            "dishing_info": "AVAILABLE",
+            "hashtag": [
+                "구성품 1",
+                "구성품 2"
+            ],
+            "start_time": "18:00:00",
+            "end_time": "22:00:00",
+            "work_condition": "LICENSE",
+            "budget": 10000,
+            "details": "상세 내용 테스트",
+            "notice": "유의사항 테스트",
+            "stocks": null,
+            "stock_left": 0,
+            "_emergency": true,
+            "_like": false
+        },
+        "workApply": {
+            "reg_datetime": {
+                "month": "NOVEMBER",
+                "year": 2022,
+                "dayOfMonth": 24,
+                "hour": 21,
+                "minute": 13,
+                "monthValue": 11,
+                "nano": 0,
+                "second": 56,
+                "dayOfWeek": "THURSDAY",
+                "dayOfYear": 328,
+                "chronology": {
+                    "id": "ISO",
+                    "calendarType": "iso8601"
+                }
+            },
+            "updated_datetime": {
+                "month": "NOVEMBER",
+                "year": 2022,
+                "dayOfMonth": 24,
+                "hour": 21,
+                "minute": 13,
+                "monthValue": 11,
+                "nano": 0,
+                "second": 58,
+                "dayOfWeek": "THURSDAY",
+                "dayOfYear": 328,
+                "chronology": {
+                    "id": "ISO",
+                    "calendarType": "iso8601"
+                }
+            },
+            "no": 1,
+            "employee_no": 1,
+            "work_no": 1,
+            "status": "WORK_APPLY",
+            "point": 301,
+            "target_date": {
+                "year": 2022,
+                "month": "NOVEMBER",
+                "dayOfMonth": 24,
+                "monthValue": 11,
+                "dayOfWeek": "THURSDAY",
+                "era": "CE",
+                "dayOfYear": 328,
+                "leapYear": false,
+                "chronology": {
+                    "id": "ISO",
+                    "calendarType": "iso8601"
+                }
+            }
+        }
+    },
+    {
+        "reg_datetime": {
+            "month": "NOVEMBER",
+            "year": 2022,
+            "dayOfMonth": 25,
+            "hour": 21,
+            "minute": 24,
+            "monthValue": 11,
+            "nano": 0,
+            "second": 58,
+            "dayOfWeek": "FRIDAY",
+            "dayOfYear": 329,
+            "chronology": {
+                "id": "ISO",
+                "calendarType": "iso8601"
+            }
+        },
+        "updated_datetime": {
+            "month": "NOVEMBER",
+            "year": 2022,
+            "dayOfMonth": 25,
+            "hour": 21,
+            "minute": 25,
+            "monthValue": 11,
+            "nano": 0,
+            "second": 0,
+            "dayOfWeek": "FRIDAY",
+            "dayOfYear": 329,
+            "chronology": {
+                "id": "ISO",
+                "calendarType": "iso8601"
+            }
+        },
+        "no": 3,
+        "employee_no": 1,
+        "work_no": null,
+        "point": 1300,
+        "type": "USE",
+        "work": {
+            "reg_datetime": {
+                "month": "NOVEMBER",
+                "year": 2022,
+                "dayOfMonth": 24,
+                "hour": 13,
+                "minute": 44,
+                "monthValue": 11,
+                "nano": 0,
+                "second": 6,
+                "dayOfWeek": "THURSDAY",
+                "dayOfYear": 328,
+                "chronology": {
+                    "id": "ISO",
+                    "calendarType": "iso8601"
+                }
+            },
+            "updated_datetime": {
+                "month": "NOVEMBER",
+                "year": 2022,
+                "dayOfMonth": 24,
+                "hour": 13,
+                "minute": 44,
+                "monthValue": 11,
+                "nano": 0,
+                "second": 6,
+                "dayOfWeek": "THURSDAY",
+                "dayOfYear": 328,
+                "chronology": {
+                    "id": "ISO",
+                    "calendarType": "iso8601"
+                }
+            },
+            "no": 1,
+            "hash_no": null,
+            "supplier_no": 1,
+            "name": "일자리 명10",
+            "vehicle_type": "TRUCK",
+            "work_dates": [
+                "2022.11.24",
+                "2022.11.25",
+                "2022.11.26"
+            ],
+            "start_place": "경기도 수원시 장안구 대평로 25-2",
+            "start_place_x": 999.999,
+            "start_place_y": 999.999,
+            "end_place": "경기도 수원시 장안구 대평로 25-2",
+            "end_place_x": 999.999,
+            "end_place_y": 999.999,
+            "distance": 32.3845,
+            "corp_name": "오키위 컴퍼니",
+            "corp_manager": "김우식",
+            "parking_info": "AVAILABLE",
+            "dishing_info": "AVAILABLE",
+            "hashtag": [
+                "구성품 1",
+                "구성품 2"
+            ],
+            "start_time": "18:00:00",
+            "end_time": "22:00:00",
+            "work_condition": "LICENSE",
+            "budget": 10000,
+            "details": "상세 내용 테스트",
+            "notice": "유의사항 테스트",
+            "stocks": null,
+            "stock_left": 0,
+            "_emergency": true,
+            "_like": false
+        },
+        "workApply": {
+            "reg_datetime": {
+                "month": "NOVEMBER",
+                "year": 2022,
+                "dayOfMonth": 24,
+                "hour": 21,
+                "minute": 13,
+                "monthValue": 11,
+                "nano": 0,
+                "second": 56,
+                "dayOfWeek": "THURSDAY",
+                "dayOfYear": 328,
+                "chronology": {
+                    "id": "ISO",
+                    "calendarType": "iso8601"
+                }
+            },
+            "updated_datetime": {
+                "month": "NOVEMBER",
+                "year": 2022,
+                "dayOfMonth": 24,
+                "hour": 21,
+                "minute": 13,
+                "monthValue": 11,
+                "nano": 0,
+                "second": 58,
+                "dayOfWeek": "THURSDAY",
+                "dayOfYear": 328,
+                "chronology": {
+                    "id": "ISO",
+                    "calendarType": "iso8601"
+                }
+            },
+            "no": 1,
+            "employee_no": 1,
+            "work_no": 1,
+            "status": "WORK_APPLY",
+            "point": 301,
+            "target_date": {
+                "year": 2022,
+                "month": "NOVEMBER",
+                "dayOfMonth": 24,
+                "monthValue": 11,
+                "dayOfWeek": "THURSDAY",
+                "era": "CE",
+                "dayOfYear": 328,
+                "leapYear": false,
+                "chronology": {
+                    "id": "ISO",
+                    "calendarType": "iso8601"
+                }
+            }
+        }
+    },
+    {
+        "reg_datetime": {
+            "month": "NOVEMBER",
+            "year": 2022,
+            "dayOfMonth": 25,
+            "hour": 21,
+            "minute": 24,
+            "monthValue": 11,
+            "nano": 0,
+            "second": 58,
+            "dayOfWeek": "FRIDAY",
+            "dayOfYear": 329,
+            "chronology": {
+                "id": "ISO",
+                "calendarType": "iso8601"
+            }
+        },
+        "updated_datetime": {
+            "month": "NOVEMBER",
+            "year": 2022,
+            "dayOfMonth": 25,
+            "hour": 21,
+            "minute": 25,
+            "monthValue": 11,
+            "nano": 0,
+            "second": 0,
+            "dayOfWeek": "FRIDAY",
+            "dayOfYear": 329,
+            "chronology": {
+                "id": "ISO",
+                "calendarType": "iso8601"
+            }
+        },
+        "no": 4,
+        "employee_no": 1,
+        "work_no": null,
+        "point": 1400,
+        "type": "USE",
+        "work": {
+            "reg_datetime": {
+                "month": "NOVEMBER",
+                "year": 2022,
+                "dayOfMonth": 24,
+                "hour": 13,
+                "minute": 44,
+                "monthValue": 11,
+                "nano": 0,
+                "second": 6,
+                "dayOfWeek": "THURSDAY",
+                "dayOfYear": 328,
+                "chronology": {
+                    "id": "ISO",
+                    "calendarType": "iso8601"
+                }
+            },
+            "updated_datetime": {
+                "month": "NOVEMBER",
+                "year": 2022,
+                "dayOfMonth": 24,
+                "hour": 13,
+                "minute": 44,
+                "monthValue": 11,
+                "nano": 0,
+                "second": 6,
+                "dayOfWeek": "THURSDAY",
+                "dayOfYear": 328,
+                "chronology": {
+                    "id": "ISO",
+                    "calendarType": "iso8601"
+                }
+            },
+            "no": 1,
+            "hash_no": null,
+            "supplier_no": 1,
+            "name": "일자리 명10",
+            "vehicle_type": "TRUCK",
+            "work_dates": [
+                "2022.11.24",
+                "2022.11.25",
+                "2022.11.26"
+            ],
+            "start_place": "경기도 수원시 장안구 대평로 25-2",
+            "start_place_x": 999.999,
+            "start_place_y": 999.999,
+            "end_place": "경기도 수원시 장안구 대평로 25-2",
+            "end_place_x": 999.999,
+            "end_place_y": 999.999,
+            "distance": 32.3845,
+            "corp_name": "오키위 컴퍼니",
+            "corp_manager": "김우식",
+            "parking_info": "AVAILABLE",
+            "dishing_info": "AVAILABLE",
+            "hashtag": [
+                "구성품 1",
+                "구성품 2"
+            ],
+            "start_time": "18:00:00",
+            "end_time": "22:00:00",
+            "work_condition": "LICENSE",
+            "budget": 10000,
+            "details": "상세 내용 테스트",
+            "notice": "유의사항 테스트",
+            "stocks": null,
+            "stock_left": 0,
+            "_emergency": true,
+            "_like": false
+        },
+        "workApply": {
+            "reg_datetime": {
+                "month": "NOVEMBER",
+                "year": 2022,
+                "dayOfMonth": 24,
+                "hour": 21,
+                "minute": 13,
+                "monthValue": 11,
+                "nano": 0,
+                "second": 56,
+                "dayOfWeek": "THURSDAY",
+                "dayOfYear": 328,
+                "chronology": {
+                    "id": "ISO",
+                    "calendarType": "iso8601"
+                }
+            },
+            "updated_datetime": {
+                "month": "NOVEMBER",
+                "year": 2022,
+                "dayOfMonth": 24,
+                "hour": 21,
+                "minute": 13,
+                "monthValue": 11,
+                "nano": 0,
+                "second": 58,
+                "dayOfWeek": "THURSDAY",
+                "dayOfYear": 328,
+                "chronology": {
+                    "id": "ISO",
+                    "calendarType": "iso8601"
+                }
+            },
+            "no": 1,
+            "employee_no": 1,
+            "work_no": 1,
+            "status": "WORK_APPLY",
+            "point": 301,
+            "target_date": {
+                "year": 2022,
+                "month": "NOVEMBER",
+                "dayOfMonth": 24,
+                "monthValue": 11,
+                "dayOfWeek": "THURSDAY",
+                "era": "CE",
+                "dayOfYear": 328,
+                "leapYear": false,
+                "chronology": {
+                    "id": "ISO",
+                    "calendarType": "iso8601"
+                }
+            }
+        }
+    },
+    {
+        "reg_datetime": {
+            "month": "NOVEMBER",
+            "year": 2022,
+            "dayOfMonth": 25,
+            "hour": 21,
+            "minute": 24,
+            "monthValue": 11,
+            "nano": 0,
+            "second": 58,
+            "dayOfWeek": "FRIDAY",
+            "dayOfYear": 329,
+            "chronology": {
+                "id": "ISO",
+                "calendarType": "iso8601"
+            }
+        },
+        "updated_datetime": {
+            "month": "NOVEMBER",
+            "year": 2022,
+            "dayOfMonth": 25,
+            "hour": 21,
+            "minute": 25,
+            "monthValue": 11,
+            "nano": 0,
+            "second": 0,
+            "dayOfWeek": "FRIDAY",
+            "dayOfYear": 329,
+            "chronology": {
+                "id": "ISO",
+                "calendarType": "iso8601"
+            }
+        },
+        "no": 5,
+        "employee_no": 1,
+        "work_no": null,
+        "point": 1500,
+        "type": "USE",
+        "work": {
+            "reg_datetime": {
+                "month": "NOVEMBER",
+                "year": 2022,
+                "dayOfMonth": 24,
+                "hour": 13,
+                "minute": 44,
+                "monthValue": 11,
+                "nano": 0,
+                "second": 6,
+                "dayOfWeek": "THURSDAY",
+                "dayOfYear": 328,
+                "chronology": {
+                    "id": "ISO",
+                    "calendarType": "iso8601"
+                }
+            },
+            "updated_datetime": {
+                "month": "NOVEMBER",
+                "year": 2022,
+                "dayOfMonth": 24,
+                "hour": 13,
+                "minute": 44,
+                "monthValue": 11,
+                "nano": 0,
+                "second": 6,
+                "dayOfWeek": "THURSDAY",
+                "dayOfYear": 328,
+                "chronology": {
+                    "id": "ISO",
+                    "calendarType": "iso8601"
+                }
+            },
+            "no": 1,
+            "hash_no": null,
+            "supplier_no": 1,
+            "name": "일자리 명10",
+            "vehicle_type": "TRUCK",
+            "work_dates": [
+                "2022.11.24",
+                "2022.11.25",
+                "2022.11.26"
+            ],
+            "start_place": "경기도 수원시 장안구 대평로 25-2",
+            "start_place_x": 999.999,
+            "start_place_y": 999.999,
+            "end_place": "경기도 수원시 장안구 대평로 25-2",
+            "end_place_x": 999.999,
+            "end_place_y": 999.999,
+            "distance": 32.3845,
+            "corp_name": "오키위 컴퍼니",
+            "corp_manager": "김우식",
+            "parking_info": "AVAILABLE",
+            "dishing_info": "AVAILABLE",
+            "hashtag": [
+                "구성품 1",
+                "구성품 2"
+            ],
+            "start_time": "18:00:00",
+            "end_time": "22:00:00",
+            "work_condition": "LICENSE",
+            "budget": 10000,
+            "details": "상세 내용 테스트",
+            "notice": "유의사항 테스트",
+            "stocks": null,
+            "stock_left": 0,
+            "_emergency": true,
+            "_like": false
+        },
+        "workApply": {
+            "reg_datetime": {
+                "month": "NOVEMBER",
+                "year": 2022,
+                "dayOfMonth": 24,
+                "hour": 21,
+                "minute": 13,
+                "monthValue": 11,
+                "nano": 0,
+                "second": 56,
+                "dayOfWeek": "THURSDAY",
+                "dayOfYear": 328,
+                "chronology": {
+                    "id": "ISO",
+                    "calendarType": "iso8601"
+                }
+            },
+            "updated_datetime": {
+                "month": "NOVEMBER",
+                "year": 2022,
+                "dayOfMonth": 24,
+                "hour": 21,
+                "minute": 13,
+                "monthValue": 11,
+                "nano": 0,
+                "second": 58,
+                "dayOfWeek": "THURSDAY",
+                "dayOfYear": 328,
+                "chronology": {
+                    "id": "ISO",
+                    "calendarType": "iso8601"
+                }
+            },
+            "no": 1,
+            "employee_no": 1,
+            "work_no": 1,
+            "status": "WORK_APPLY",
+            "point": 301,
+            "target_date": {
+                "year": 2022,
+                "month": "NOVEMBER",
+                "dayOfMonth": 24,
+                "monthValue": 11,
+                "dayOfWeek": "THURSDAY",
+                "era": "CE",
+                "dayOfYear": 328,
+                "leapYear": false,
+                "chronology": {
+                    "id": "ISO",
+                    "calendarType": "iso8601"
+                }
+            }
+        }
+    }
+]

@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -26,12 +27,9 @@
     <div class="container common-container">
         <div class="row">
             <div class="col-12 pt-16 pl-24 pr-24 medium-h5 c-basic-black">
-                <label class="medium-h6 c-gray-dark-low">포인트가 <span class="c-brand-blue">10,000P 미만</span>인 경우, 이용이
-                    불가능합니다.</label>
+                <label class="medium-h6 c-gray-dark-low">포인트가 운행 비용의 <span class="c-brand-blue">10%미만</span>인 경우,  서비스 이용이 불가능합니다.</label>
             </div>
         </div>
-
-
         <div class="row">
             <div class="col-12 pt-16 pl-24 pr-24">
                 <div class="bg-point">
@@ -58,7 +56,6 @@
                 </div>
             </div>
         </div>
-
         <div class="row">
             <div class="col-12 pt-24 pl-24 pr-24">
                 <div class="bg-point">
@@ -74,7 +71,6 @@
                 </div>
             </div>
         </div>
-
         <div class="row">
             <div class="col-12 pt-24 pr-24 pl-24">
                 <div class="row m-0">
@@ -86,9 +82,7 @@
                 </div>
             </div>
         </div>
-
     </div>
-
     <div class="floating-bottom bottom-nav-animation" id="footer" style="z-index: 10">
         <div id="bottom-tab-application-trigger" class="row m-0">
             <div class="col-12 p-24">
@@ -101,9 +95,6 @@
         </div>
     </div>
 </div>
-
 <jsp:include page="../../view/common/js.jsp"></jsp:include>
-
-
 </body>
 </html>

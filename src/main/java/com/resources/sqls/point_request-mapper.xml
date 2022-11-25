@@ -22,6 +22,7 @@
         select *
         from point_request
         WHERE employee_no = #{employee_no}
+        order by updated_datetime DESC;
     </select>
     <select id="getPointRequestByNo" resultType="PointRequest">
         select *

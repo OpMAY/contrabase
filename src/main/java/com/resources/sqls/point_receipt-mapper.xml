@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.PointReceiptMapper">
     <resultMap id="PointReceipt" type="com.model.service.point.receipt.PointReceipt">
-        <result column="work" property="work" javaType="com.model.service.work.Work" typeHandler="com.middleware.JsonObjectTypeHandler"/>
-        <result column="workApply" property="workApply" javaType="com.model.service.work.WorkApply" typeHandler="com.middleware.JsonObjectTypeHandler"/>
+        <result column="work" property="work" javaType="com.model.service.work.Work" typeHandler="com.middleware.WorkJsonObjectTypeHandler"/>
+        <result column="workApply" property="workApply" javaType="com.model.service.work.WorkApply" typeHandler="com.middleware.WorkApplyJsonObjectTypeHandler"/>
     </resultMap>
     <insert id="insertPointReceipt" useGeneratedKeys="true" keyProperty="no">
         insert into point_receipt(employee_no, point, type, reg_datetime, updated_datetime)
