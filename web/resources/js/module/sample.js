@@ -193,3 +193,29 @@ async function profileDefaultChange(user_type, name, phone, email) {
         console.log(error);
     }
 }
+
+async function profileCarCodeChange(user_type, car_code) {
+    function apiFetch(user_type, car_code) {
+        const myHeaders = new Headers();
+        myHeaders.append('Content-Type', 'application/json');
+        myHeaders.append('Content-Api', tokenGenerator(8));
+        const raw = JSON.stringify({
+            car_code
+        });
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+        };
+        const response = fetch(`/${user_type}/mypage/update/car`, requestOptions);
+        return response.then((res) => res.json());
+    }
+
+    let result;
+    try {
+        result = await apiFetch(user_type, car_code);
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}

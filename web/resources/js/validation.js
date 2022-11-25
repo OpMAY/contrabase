@@ -107,3 +107,12 @@ const verifyDefaultSubmit = () => {
         failed_text: '휴대폰 번호를 정확히 입력해주세요. (3자리, 3~4자리, 4자리, 띄어쓰기나 \'-\' 허용)',
     });
 }
+
+const verifyCarCodeSubmit = () => {
+    return inspection({
+        selector: '[name="car_code"]',
+        regex_type: 'car_code',
+        empty_text: '차량 번호를 입력해주세요.',
+        failed_text: '차량 번호를 정확히 입력해주세요. (예:12가 1234 또는 123가 1234)',
+    });
+}

@@ -181,4 +181,15 @@ public class MyPageRestController {
         message.put("status", true);
         return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, true), HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/update/car", method = POST)
+    public ResponseEntity profileCarCodeChange(HttpServletRequest request, @PathVariable ControllerEnum user_type, @RequestBody Employee employee) {
+        int user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
+        Employee update = employeeService.getEmployeeByUserNo(user_no);
+        update.setCar_code(employee.getCar_code());
+        employeeService.updateEmployee(update);
+        Message message = new Message();
+        message.put("status", true);
+        return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, true), HttpStatus.OK);
+    }
 }

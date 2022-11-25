@@ -105,8 +105,14 @@ public class MyPageController {
 
     @RequestMapping(value = "/car/edit", method = RequestMethod.GET)
     public ModelAndView myPageCarNumberEdit(HttpServletRequest request, @PathVariable String user_type) {
+        Integer user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
+        String user_id = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.ID.name());
         if (Objects.equals(user_type, ControllerEnum.USER.name().toLowerCase())) {
             VIEW = new ModelAndView("user/mypage-car-number");
+            Employee employee = employeeService.getEmployeeByUserNo(user_no);
+            User user = userService.loginUser(user_id);
+            employee.setUser(user);
+            VIEW.addObject("employee", employee);
         } else {
             VIEW = new ModelAndView("user/mypage-car-number");
         }
