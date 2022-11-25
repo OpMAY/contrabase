@@ -28,10 +28,12 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         log.debug("Auth Interceptor preHandle");
 
+        /*TODO [Test] User 1 Login Logic*/
         User user = new User();
         user.setNo(1);
+        user.setId("asdfasdfasdf");
         user.setGrant(GRANT_TYPE.USER);
-        user.setAccess_token("access_token");
+        user.setAccess_token("asdfasdfasdf");
         user.setEmail("zlzldntlr@naver.com");
         user.setName("김우식");
 

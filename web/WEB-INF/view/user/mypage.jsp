@@ -1,3 +1,6 @@
+<%@ page import="com.model.service.Employee" %>
+<%@ taglib prefix="custom" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: zlzld
@@ -6,6 +9,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    Employee employee = (Employee) request.getAttribute("employee");
+    request.setAttribute("employee", employee);
+%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -26,11 +33,11 @@
             <div class="col-12 p-24">
                 <div class="d-flex">
                     <div>
-                        <img src="../../resources/assets/images/icon/icon-user.svg" alt="">
+                        <img src="/resources/assets/images/icon/icon-user.svg" alt="">
                     </div>
                     <div class="medium-h5 pl-16" style="padding-top: 2px">계정 설정</div>
                     <div class="ml-auto" style="padding-top: 2px">
-                        <img src="../../resources/assets/images/icon/icon-angle-right.svg" alt="">
+                        <img src="/resources/assets/images/icon/icon-angle-right.svg" alt="">
                     </div>
                 </div>
             </div>
@@ -55,7 +62,7 @@
                         </div>
                         <div class="medium-h6 pl-16" style="padding-top: 2px">내 포인트</div>
                         <div class="ml-auto bold-h6 c-brand-blue" style="padding-top: 2px">
-                            4,400P
+                            <custom:formatPrice value="${employee.point}"/>P
                         </div>
                     </div>
                 </div>
@@ -69,11 +76,11 @@
             <div class="col-12 pr-24 pl-24 pt-32 pb-16">
                 <div class="d-flex">
                     <div>
-                        <img src="../../resources/assets/images/icon/icon-setting.svg" alt="">
+                        <img src="/resources/assets/images/icon/icon-setting.svg" alt="">
                     </div>
                     <div class="medium-h5 pl-16" style="padding-top: 2px">알림 설정</div>
                     <div class="ml-auto" style="padding-top: 2px">
-                        <img src="../../resources/assets/images/icon/icon-angle-right.svg" alt="">
+                        <img src="/resources/assets/images/icon/icon-angle-right.svg" alt="">
                     </div>
                 </div>
             </div>
@@ -82,11 +89,11 @@
             <div class="col-12 pr-24 pl-24 pt-16 pb-16">
                 <div class="d-flex">
                     <div>
-                        <img src="../../resources/assets/images/icon/icon-bell.svg" alt="">
+                        <img src="/resources/assets/images/icon/icon-bell.svg" alt="">
                     </div>
                     <div class="medium-h5 pl-16" style="padding-top: 2px">공지사항</div>
                     <div class="ml-auto" style="padding-top: 2px">
-                        <img src="../../resources/assets/images/icon/icon-angle-right.svg" alt="">
+                        <img src="/resources/assets/images/icon/icon-angle-right.svg" alt="">
                     </div>
                 </div>
             </div>
@@ -95,11 +102,11 @@
             <div class="col-12 pr-24 pl-24 pt-16 pb-16">
                 <div class="d-flex">
                     <div>
-                        <img src="../../resources/assets/images/icon/icon-faq.svg" alt="">
+                        <img src="/resources/assets/images/icon/icon-faq.svg" alt="">
                     </div>
                     <div class="medium-h5 pl-16" style="padding-top: 2px">자주 묻는 질문</div>
                     <div class="ml-auto" style="padding-top: 2px">
-                        <img src="../../resources/assets/images/icon/icon-angle-right.svg" alt="">
+                        <img src="/resources/assets/images/icon/icon-angle-right.svg" alt="">
                     </div>
                 </div>
             </div>
@@ -108,11 +115,11 @@
             <div class="col-12 pr-24 pl-24 pt-16 pb-16">
                 <div class="d-flex">
                     <div>
-                        <img src="../../resources/assets/images/icon/icon-privacy.svg" alt="">
+                        <img src="/resources/assets/images/icon/icon-privacy.svg" alt="">
                     </div>
                     <div class="medium-h5 pl-16" style="padding-top: 2px">개인정보 처리 방침</div>
                     <div class="ml-auto" style="padding-top: 2px">
-                        <img src="../../resources/assets/images/icon/icon-angle-right.svg" alt="">
+                        <img src="/resources/assets/images/icon/icon-angle-right.svg" alt="">
                     </div>
                 </div>
             </div>
@@ -121,11 +128,11 @@
             <div class="col-12 pr-24 pl-24 pt-16 pb-16">
                 <div class="d-flex">
                     <div>
-                        <img src="../../resources/assets/images/icon/icon-usage.svg" alt="">
+                        <img src="/resources/assets/images/icon/icon-usage.svg" alt="">
                     </div>
                     <div class="medium-h5 pl-16" style="padding-top: 2px">서비스 이용 약관</div>
                     <div class="ml-auto" style="padding-top: 2px">
-                        <img src="../../resources/assets/images/icon/icon-angle-right.svg" alt="">
+                        <img src="/resources/assets/images/icon/icon-angle-right.svg" alt="">
                     </div>
                 </div>
             </div>
@@ -134,11 +141,11 @@
             <div class="col-12 pr-24 pl-24 pt-16 pb-16">
                 <div class="d-flex">
                     <div>
-                        <img src="../../resources/assets/images/icon/icon-helper.svg" alt="">
+                        <img src="/resources/assets/images/icon/icon-helper.svg" alt="">
                     </div>
                     <div class="medium-h5 pl-16" style="padding-top: 2px">도움말</div>
                     <div class="ml-auto" style="padding-top: 2px">
-                        <img src="../../resources/assets/images/icon/icon-angle-right.svg" alt="">
+                        <img src="/resources/assets/images/icon/icon-angle-right.svg" alt="">
                     </div>
                 </div>
             </div>
