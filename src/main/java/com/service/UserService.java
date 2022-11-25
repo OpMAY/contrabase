@@ -15,4 +15,7 @@ public class UserService {
     public User loginUser(String id) {
         return userDao.loginUser(id);
     }
+    public void updateUserProfileImage(User user){
+        userDao.updateUserProfileImage(user);
+    }
 }

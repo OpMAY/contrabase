@@ -3,15 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.UserMapper">
+    <resultMap id="User" type="com.model.User">
+        <result column="profile_img" property="profile_img" javaType="com.model.common.MFile"
+                typeHandler="com.middleware.JsonObjectTypeHandler"/>
+    </resultMap>
     <insert id="registerUser" useGeneratedKeys="true" keyProperty="no">
-        insert into user(id, name, phone, profile_img, reg_datetime, updated_datetime, last_login_datetime)
+        insert into user(id, name, phone, profile_img, reg_datetime, updated_datetime, last_login_datetime, email)
         VALUES (#{id}, #{name}, #{phone}, #{profile_img, typeHandler=com.middleware.JsonObjectTypeHandler}, now(),
-                now(), now())
+                now(), now(),#{email})
     </insert>
     <select id="getUserType" resultType="UserType">
         select IF(EXISTS(select * from employee WHERE user_no = #{no}), 'EMPLOYEE', 'SUPPLIER')
     </select>
-    <select id="loginUser" resultType="User">
+    <select id="loginUser" resultType="User" resultMap="User">
         select *
         from user
         WHERE id = #{id}

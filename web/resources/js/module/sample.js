@@ -123,3 +123,47 @@ async function apiGetLikeWorks(user_type) {
         console.log(error);
     }
 }
+
+async function apiChangeUserProfile(user_type, file) {
+    function apiFetch(user_type, file) {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        let requestOptions = {
+            method: 'POST',
+            body: formData,
+        };
+        const response = fetch(`/${user_type}/mypage/profile/upload`, requestOptions);
+        return response.then(res => res.json());
+    }
+
+    let result;
+    try {
+        result = await apiFetch(user_type, file);
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function apiChangeUserLicense(user_type, type, file) {
+    function apiFetch(user_type, type, file) {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        let requestOptions = {
+            method: 'POST',
+            body: formData,
+        };
+        const response = fetch(`/${user_type}/mypage/license/upload/${type}`, requestOptions);
+        return response.then(res => res.json());
+    }
+
+    let result;
+    try {
+        result = await apiFetch(user_type, type, file);
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}

@@ -1,6 +1,10 @@
 package com.restcontroller;
 
+import com.aws.file.FileUploadUtility;
+import com.aws.model.CDNUploadPath;
 import com.model.ControllerEnum;
+import com.model.User;
+import com.model.common.MFile;
 import com.model.service.Employee;
 import com.model.service.Report;
 import com.model.service.Supplier;
@@ -17,12 +21,16 @@ import com.util.Encryption.EncryptionService;
 import com.util.Encryption.JWTEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.fileupload.FileUpload;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Slf4j
 @RestController
@@ -36,6 +44,8 @@ public class MyPageRestController {
     private final EmployeeService employeeService;
     private final ReportService reportService;
     private final WorkService workService;
+    private final FileUploadUtility fileUploadUtility;
+    private final UserService userService;
 
     @RequestMapping(value = "/get/alarms/{alarm_type}", method = RequestMethod.GET)
     public ResponseEntity getAlarms(HttpServletRequest request, @PathVariable ControllerEnum user_type, @PathVariable AlarmType alarm_type) {
@@ -112,6 +122,49 @@ public class MyPageRestController {
         ArrayList<Work> works = workLikeService.getEmployeeLikedWorks(employee.getNo());
         message.put("works", works);
         message.put("status", true);
+        return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, true), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/profile/upload", method = POST)
+    public ResponseEntity profileUpload(HttpServletRequest request, @PathVariable String user_type, @RequestBody MultipartFile file) {
+        String user_id = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.ID.name());
+        Message message = new Message();
+        if (file.getSize() != 0) {
+            log.info("file -> {},{},{}", file.getOriginalFilename(), file.getName(), file.getSize());
+            MFile mFile = fileUploadUtility.uploadFile(file, CDNUploadPath.USER_PROFILE.getPath());
+            User user = userService.loginUser(user_id);
+            user.setProfile_img(mFile);
+            userService.updateUserProfileImage(user);
+            message.put("profile", mFile);
+            message.put("status", true);
+        } else {
+            message.put("status", false);
+        }
+        return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, true), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/license/upload/{type}", method = POST)
+    public ResponseEntity licenseUpload(HttpServletRequest request, @PathVariable String user_type, @PathVariable String type, @RequestBody MultipartFile file) {
+        String user_id = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.ID.name());
+        Message message = new Message();
+        User user = userService.loginUser(user_id);
+        Employee employee = employeeService.getEmployeeByUserNo(user.getNo());
+        MFile mFile = null;
+        if (file.getSize() != 0) {
+            log.info("file -> {},{},{}", file.getOriginalFilename(), file.getName(), file.getSize());
+            mFile = fileUploadUtility.uploadFile(file, CDNUploadPath.USER_LICENSE.getPath());
+            if (type.equals("transfer")) {
+                employee.setTransport_license(mFile);
+                employeeService.updateEmployee(employee);
+            } else {
+                employee.setDriver_license(mFile);
+                employeeService.updateEmployee(employee);
+            }
+            message.put("license", mFile);
+            message.put("status", true);
+        } else {
+            message.put("status", false);
+        }
         return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, true), HttpStatus.OK);
     }
 }

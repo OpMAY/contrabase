@@ -4,7 +4,9 @@ public enum CDNUploadPath {
     TEST("test/"),
     BANNER("admin/banner/"),
     ADMIN("admin/"),
-    USER("user/");
+    USER("user/"),
+    USER_LICENSE("user/license/"),
+    USER_PROFILE("user/profile/");
 
     private final String path;
 

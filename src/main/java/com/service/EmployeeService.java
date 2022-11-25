@@ -16,4 +16,8 @@ public class EmployeeService {
     public Employee getEmployeeByUserNo(int user_no) {
         return employeeDao.getEmployeeInfoByUserNo(user_no);
     }
+
+    public void updateEmployee(Employee employee) {
+        employeeDao.updateEmployee(employee);
+    }
 }

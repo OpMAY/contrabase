@@ -32,7 +32,6 @@ public class MyPageController {
     public ModelAndView myPageHome(HttpServletRequest request, @PathVariable String user_type) {
         Integer user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
         String user_id = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.ID.name());
-
         if (Objects.equals(user_type, ControllerEnum.USER.name().toLowerCase())) {
             VIEW = new ModelAndView("user/mypage");
             Employee employee = employeeService.getEmployeeByUserNo(user_no);
@@ -74,8 +73,14 @@ public class MyPageController {
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public ModelAndView myPageProfile(HttpServletRequest request, @PathVariable String user_type) {
+        Integer user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
+        String user_id = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.ID.name());
         if (Objects.equals(user_type, ControllerEnum.USER.name().toLowerCase())) {
             VIEW = new ModelAndView("user/mypage-profile");
+            Employee employee = employeeService.getEmployeeByUserNo(user_no);
+            User user = userService.loginUser(user_id);
+            employee.setUser(user);
+            VIEW.addObject("employee", employee);
         } else {
             VIEW = new ModelAndView("user/mypage-profile");
         }

@@ -263,6 +263,15 @@ $(document).ready(function () {
         event.preventDefault();
     });
     document.querySelector('._logout')?.addEventListener('click', function (event) {
-        viewAlert({content: '로그아웃'});
+        apiLogout().then((result) => {
+            if (result.status === 'OK') {
+                viewAlert({content: '로그아웃'});
+                setTimeout(function () {
+                    location.href = '/auth/login';
+                }, 500);
+            } else {
+                viewAlert({content: '로그아웃을 할 수 없습니다. 다시 시도해주세요.'});
+            }
+        })
     });
 });
