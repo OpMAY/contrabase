@@ -18,4 +18,8 @@ public class PointRequestService {
     public ArrayList<PointRequest> getPointRequestsByEmployeeNo(int employee_no) {
         return pointRequestDao.getPointRequestsByEmployeeNo(employee_no);
     }
+
+    public void insertPointRequest(PointRequest pointRequest) {
+        pointRequestDao.insertPointRequest(pointRequest);
+    }
 }

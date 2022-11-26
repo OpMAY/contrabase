@@ -34,6 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -279,6 +280,23 @@ public class MyPageRestController {
                 message.put("points", filteredRequests);
                 break;
         }
+        message.put("status", true);
+        return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, false), HttpStatus.OK);
+    }
+
+    /*charge/point/*/
+    @RequestMapping(value = "/charge/point", method = POST)
+    public ResponseEntity chargePoint(HttpServletRequest request, @PathVariable ControllerEnum user_type, HashMap<String, Object> map) throws Exception {
+        Message message = new Message();
+        int user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
+        int point = Integer.parseInt(map.get("point").toString());
+        Employee employee = employeeService.getEmployeeByUserNo(user_no);
+        PointRequest pointRequest = new PointRequest();
+        pointRequest.setEmployee_no(employee.getNo());
+        pointRequest.setStatus(REQUEST_STATUS.CHARGING);
+        pointRequest.setPoint(point);
+        log.info("pointRequest -> {}", pointRequest);
+        pointRequestService.insertPointRequest(pointRequest);
         message.put("status", true);
         return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, false), HttpStatus.OK);
     }

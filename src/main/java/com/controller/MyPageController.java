@@ -1,8 +1,10 @@
 package com.controller;
 
+import com.model.Admin;
 import com.model.ControllerEnum;
 import com.model.User;
 import com.model.service.Employee;
+import com.service.AdminService;
 import com.service.EmployeeService;
 import com.service.UserService;
 import com.util.Encryption.EncryptionService;
@@ -26,13 +28,14 @@ public class MyPageController {
     private final EncryptionService encryptionService;
     private final EmployeeService employeeService;
     private final UserService userService;
+    private final AdminService adminService;
     private ModelAndView VIEW;
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public ModelAndView myPageHome(HttpServletRequest request, @PathVariable String user_type) {
+    public ModelAndView myPageHome(HttpServletRequest request, @PathVariable ControllerEnum user_type) {
         Integer user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
         String user_id = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.ID.name());
-        if (Objects.equals(user_type, ControllerEnum.USER.name().toLowerCase())) {
+        if (user_type == ControllerEnum.USER) {
             VIEW = new ModelAndView("user/mypage");
             Employee employee = employeeService.getEmployeeByUserNo(user_no);
             User user = userService.loginUser(user_id);
@@ -45,16 +48,15 @@ public class MyPageController {
     }
 
     @RequestMapping(value = "/likes", method = RequestMethod.GET)
-    public ModelAndView myPageLikes(HttpServletRequest request, @PathVariable String user_type) {
+    public ModelAndView myPageLikes(HttpServletRequest request, @PathVariable ControllerEnum user_type) {
         VIEW = new ModelAndView("user/likes");
         return VIEW;
     }
 
     @RequestMapping(value = "/alarm/alarms", method = RequestMethod.GET)
-    public ModelAndView myPageAlarms(HttpServletRequest request, @PathVariable String user_type) {
-        if (Objects.equals(user_type, ControllerEnum.USER.name().toLowerCase())) {
+    public ModelAndView myPageAlarms(HttpServletRequest request, @PathVariable ControllerEnum user_type) {
+        if (user_type == ControllerEnum.USER) {
             VIEW = new ModelAndView("user/alarm");
-
         } else {
             VIEW = new ModelAndView("user/alarm");
         }
@@ -62,10 +64,10 @@ public class MyPageController {
     }
 
     @RequestMapping(value = "/alarm/setting", method = RequestMethod.GET)
-    public ModelAndView myPageAlarmSetting(HttpServletRequest request, @PathVariable String user_type) {
+    public ModelAndView myPageAlarmSetting(HttpServletRequest request, @PathVariable ControllerEnum user_type) {
         Integer user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
         String user_id = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.ID.name());
-        if (Objects.equals(user_type, ControllerEnum.USER.name().toLowerCase())) {
+        if (user_type == ControllerEnum.USER) {
             VIEW = new ModelAndView("user/mypage-alarm-setting");
             Employee employee = employeeService.getEmployeeByUserNo(user_no);
             User user = userService.loginUser(user_id);
@@ -78,10 +80,10 @@ public class MyPageController {
     }
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public ModelAndView myPageProfile(HttpServletRequest request, @PathVariable String user_type) {
+    public ModelAndView myPageProfile(HttpServletRequest request, @PathVariable ControllerEnum user_type) {
         Integer user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
         String user_id = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.ID.name());
-        if (Objects.equals(user_type, ControllerEnum.USER.name().toLowerCase())) {
+        if (user_type == ControllerEnum.USER) {
             VIEW = new ModelAndView("user/mypage-profile");
             Employee employee = employeeService.getEmployeeByUserNo(user_no);
             User user = userService.loginUser(user_id);
@@ -94,10 +96,10 @@ public class MyPageController {
     }
 
     @RequestMapping(value = "/profile/edit", method = RequestMethod.GET)
-    public ModelAndView myPageProfileEdit(HttpServletRequest request, @PathVariable String user_type) {
+    public ModelAndView myPageProfileEdit(HttpServletRequest request, @PathVariable ControllerEnum user_type) {
         Integer user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
         String user_id = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.ID.name());
-        if (Objects.equals(user_type, ControllerEnum.USER.name().toLowerCase())) {
+        if (user_type == ControllerEnum.USER) {
             VIEW = new ModelAndView("user/mypage-profile-edit");
             Employee employee = employeeService.getEmployeeByUserNo(user_no);
             User user = userService.loginUser(user_id);
@@ -110,10 +112,10 @@ public class MyPageController {
     }
 
     @RequestMapping(value = "/car/edit", method = RequestMethod.GET)
-    public ModelAndView myPageCarNumberEdit(HttpServletRequest request, @PathVariable String user_type) {
+    public ModelAndView myPageCarNumberEdit(HttpServletRequest request, @PathVariable ControllerEnum user_type) {
         Integer user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
         String user_id = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.ID.name());
-        if (Objects.equals(user_type, ControllerEnum.USER.name().toLowerCase())) {
+        if (user_type == ControllerEnum.USER) {
             VIEW = new ModelAndView("user/mypage-car-number");
             Employee employee = employeeService.getEmployeeByUserNo(user_no);
             User user = userService.loginUser(user_id);
@@ -126,8 +128,8 @@ public class MyPageController {
     }
 
     @RequestMapping(value = "/unregister", method = RequestMethod.GET)
-    public ModelAndView getMyPageUnRegister(HttpServletRequest request, @PathVariable String user_type) {
-        if (Objects.equals(user_type, ControllerEnum.USER.name().toLowerCase())) {
+    public ModelAndView getMyPageUnRegister(HttpServletRequest request, @PathVariable ControllerEnum user_type) {
+        if (user_type == ControllerEnum.USER) {
             VIEW = new ModelAndView("user/mypage-unregister");
         } else {
             VIEW = new ModelAndView("user/mypage-unregister");
@@ -136,14 +138,26 @@ public class MyPageController {
     }
 
     @RequestMapping(value = "/point/points", method = RequestMethod.GET)
-    public ModelAndView myPagePoints(HttpServletRequest request, @PathVariable String user_type) {
+    public ModelAndView myPagePoints(HttpServletRequest request, @PathVariable ControllerEnum user_type) {
         VIEW = new ModelAndView("user/mypage-point-manage");
         return VIEW;
     }
 
     @RequestMapping(value = "/point/charge", method = RequestMethod.GET)
-    public ModelAndView myPagePointCharge(HttpServletRequest request, @PathVariable String user_type) {
-        VIEW = new ModelAndView("user/mypage-point-charge");
+    public ModelAndView myPagePointCharge(HttpServletRequest request, @PathVariable ControllerEnum user_type) {
+        Integer user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
+        String user_id = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.ID.name());
+        if (user_type == ControllerEnum.USER) {
+            VIEW = new ModelAndView("user/mypage-point-charge");
+            Employee employee = employeeService.getEmployeeByUserNo(user_no);
+            User user = userService.loginUser(user_id);
+            employee.setUser(user);
+            Admin admin = adminService.getAdmin(1);
+            VIEW.addObject("admin", admin);
+            VIEW.addObject("employee", employee);
+        } else {
+            VIEW = new ModelAndView("user/mypage-point-charge");
+        }
         return VIEW;
     }
 }

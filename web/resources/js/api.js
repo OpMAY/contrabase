@@ -53,7 +53,7 @@ async function apiLogout() {
     }
 }
 
-async function getKakaoKey() {
+async function getKey() {
     function apiGetKakaoKey() {
         const myHeaders = new Headers();
         myHeaders.append('Content-Type', 'application/json');

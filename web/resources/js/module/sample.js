@@ -290,3 +290,29 @@ async function apiGetPoints(user_type, type) {
         console.log(error);
     }
 }
+
+async function apiChargePoint(user_type, point) {
+    function apiFetch(user_type, point) {
+        const myHeaders = new Headers();
+        myHeaders.append('Content-Type', 'application/json');
+        myHeaders.append('Content-Api', tokenGenerator(8));
+        const raw = JSON.stringify({
+            point
+        });
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+        };
+        const response = fetch(`/${user_type}/mypage/charge/point`, requestOptions);
+        return response.then((res) => res.json());
+    }
+
+    let result;
+    try {
+        result = await apiFetch(user_type, point);
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}

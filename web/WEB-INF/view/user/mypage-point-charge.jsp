@@ -1,3 +1,7 @@
+<%@ page import="com.model.service.Employee" %>
+<%@ page import="com.model.Admin" %>
+<%@ taglib prefix="custom" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: zlzld
@@ -6,7 +10,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    Employee employee = (Employee) request.getAttribute("employee");
+    request.setAttribute("employee", employee);
 
+    Admin admin = (Admin) request.getAttribute("admin");
+    request.setAttribute("admin", admin);
+%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -27,7 +37,8 @@
     <div class="container common-container">
         <div class="row">
             <div class="col-12 pt-16 pl-24 pr-24 medium-h5 c-basic-black">
-                <label class="medium-h6 c-gray-dark-low">포인트가 운행 비용의 <span class="c-brand-blue">10%미만</span>인 경우,  서비스 이용이 불가능합니다.</label>
+                <label class="medium-h6 c-gray-dark-low">포인트가 운행 비용의 <span class="c-brand-blue">10%미만</span>인 경우, 서비스
+                    이용이 불가능합니다.</label>
             </div>
         </div>
         <div class="row">
@@ -50,7 +61,7 @@
                         </div>
                         <div class="medium-h6 pl-16 my-auto">내 포인트</div>
                         <div class="ml-auto bold-h6 c-brand-blue my-auto">
-                            4,400P
+                            <custom:formatPrice value="${employee.point}"/>P
                         </div>
                     </div>
                 </div>
@@ -61,11 +72,11 @@
                 <div class="bg-point">
                     <div class="d-flex p-16">
                         <div class="medium-h6 c-basic-black">
-                            신한은행
+                            ${admin.bank}
                         </div>
-                        <div class="medium-h6 c-basic-black pl-16" style="padding-top: 2px">110-372-455105</div>
-                        <div class="ml-auto medium-h6 c-basic-black" style="padding-top: 2px">
-                            예금주 유병준
+                        <div class="medium-h6 c-basic-black my-auto ml-16">${admin.account_number}</div>
+                        <div class="ml-auto medium-h6 c-basic-black my-auto">
+                            예금주 ${admin.account_name}
                         </div>
                     </div>
                 </div>
@@ -76,7 +87,8 @@
                 <div class="row m-0">
                     <div class="col-12 p-0 medium-h5 c-basic-black">
                         <div class="form-group form-inner-button" style="white-space: nowrap">
-                            <input type="text" placeholder="충전 금액을 입력해주세요." class="form-control input-box medium-h5">
+                            <input type="text" placeholder="충전 금액을 입력해주세요." name="charge_price"
+                                   class="form-control input-box medium-h5">
                         </div>
                     </div>
                 </div>
@@ -86,15 +98,53 @@
     <div class="floating-bottom bottom-nav-animation" id="footer" style="z-index: 10">
         <div id="bottom-tab-application-trigger" class="row m-0">
             <div class="col-12 p-24">
-                <button type="button" class="btn btn-block btn-blue justify-content-center">
-                <span class="medium-h5 ml-auto mr-auto">
-                    충전 요청
-                </span>
+                <button type="button" class="btn btn-block btn-blue justify-content-center _charge">
+                    <span class="medium-h5 ml-auto mr-auto">
+                        충전 요청
+                    </span>
                 </button>
             </div>
         </div>
     </div>
 </div>
 <jsp:include page="../../view/common/js.jsp"></jsp:include>
+<script>
+    /**
+     * Static JS
+     * Static JS는 특정 페이지 에서만 작동하는 부분으로 Event 및 Element 생성 및 화면에 진입했을 때의
+     * 해당 화면만의 특정 로직을 수행하는 Javascript를 Static JS라고 한다.
+     * */
+    $(document).ready(function () {
+        console.log('Static JS is ready');
+        let btn_charge = document.querySelector('._charge');
+        btn_charge.addEventListener('click', function (event) {
+            let price = document.querySelector('[name="charge_price"]').value;
+            apiChargePoint('user', (price.value * 1)).then((result) => {
+                console.log('apiChargePoint', result);
+                if (result.status === 'OK') {
+                    viewModal({
+                        vCenter: true,
+                        wCenter: true,
+                        backDrop: true,
+                        btnCount: 1,
+                        title: '포인트 충전',
+                        desc: '포인트 충전 요청을 완료 하였습니다. 잠시 후 포인트가 충전됩니다.',
+                        confirm_text: '확인',
+                        onConfirm: () => {
+                            location.href = '/user/mypage/point/points';
+                        },
+                        onHidden: () => {
+                            location.href = '/user/mypage/point/points';
+                        }
+                    });
+                } else {
+                    viewAlert({content: '포인트 충전을 할 수 없습니다. 다시 시도해주세요.'});
+                }
+            });
+            event.stopPropagation();
+            event.preventDefault();
+        });
+    });
+</script>
 </body>
 </html>

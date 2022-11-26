@@ -6,31 +6,10 @@
  * kakaoJSLoginFunction => 팝업 창으로 로그인 하여 프론트 단에 바로 로그인 정보 호출할 때
  * kakaoRestLoginFunction => oauth 로 Request 띄워서 call back url에 연동하여 로그인 정보 호출할 때
  * **/
-async function getKey(type) {
-    function apiGetKey(type) {
-        const myHeaders = new Headers();
-        myHeaders.append('Content-Type', 'application/json');
-
-        const requestOptions = {
-            method: 'GET',
-            headers: myHeaders,
-        };
-        const response = fetch(`/auth/get/key?type=${type}`, requestOptions);
-        return response.then((res) => res.json());
-    }
-
-    let result;
-    try {
-        result = await apiGetKey(type);
-        return result;
-    } catch (error) {
-        console.log(error);
-    }
-}
 
 $(document).ready(function () {
     getKey('kakao').then((result) => {
-        console.log('getKey', result);
+        console.log(result);
         if (result.status === 'OK') {
             if (result.data.status) {
                 if (typeof Kakao === 'undefined') {
@@ -38,7 +17,7 @@ $(document).ready(function () {
                     $.getScript('https://developers.kakao.com/sdk/js/kakao.js', function () {
                         // Stuff to do after someScript has loaded
                         kakaoInit(result.data.key);
-                        document.getElementById('kakao')?.addEventListener('click', function () {
+                        document.getElementById('kakao').addEventListener('click', function () {
                             kakaoRestLoginFunction(result.data.key);
                         });
                     });
