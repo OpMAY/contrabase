@@ -59,28 +59,34 @@
                     desc: '로그인에 성공하였습니다.',
                     confirm_text: '홈으로 이동',
                     onConfirm: function () {
-                        if (${user_type eq UserType.EMPLOYEE}) {
-
+                        if (${is_register eq false}) {
+                            location.href = '/user/onboard/first';
                         } else {
-
+                            if (${user_type eq UserType.EMPLOYEE}) {
+                                location.href = '/user/home';
+                            } else if (${user_type eq UserType.SUPPLIER}) {
+                                location.href = '/supplier/home';
+                            } else {
+                                viewAlert({content: '로그인에 실패하였습니다.'});
+                            }
                         }
                     },
                     onHidden: function (e) {
-                        if (${user_type eq UserType.EMPLOYEE}) {
-
+                        if (${is_register eq false}) {
+                            location.href = '/user/onboard/first';
                         } else {
-
+                            if (${user_type eq UserType.EMPLOYEE}) {
+                                location.href = '/user/home';
+                            } else if (${user_type eq UserType.SUPPLIER}) {
+                                location.href = '/supplier/home';
+                            } else {
+                                viewAlert({content: '로그인에 실패하였습니다.'});
+                            }
                         }
                     }
                 });
             } else {
-                if (${withdrawal ne null}) {
-                    if (${withdrawal ne true}) {
-                        viewAlert({content: '로그인에 실패하였습니다.'});
-                    }
-                } else {
-                    viewAlert({content: '로그인에 실패하였습니다.'});
-                }
+                console.log('회원 탈퇴하신 회원입니다. 관리자에게 문의하세요.');
             }
         } else {
             console.log('status null');

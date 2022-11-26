@@ -219,12 +219,13 @@ public class AppConfig implements WebApplicationInitializer, SchedulingConfigure
                 .addPathPatterns("/**")
                 .excludePathPatterns("/resources/**")
                 .excludePathPatterns("/files/**");
-        registry.addInterceptor(authInterceptor).order(3).addPathPatterns("/**")
+        registry.addInterceptor(authInterceptor).order(3)
+                .addPathPatterns("/**")
+                .excludePathPatterns("/api/key/kakao")
                 .excludePathPatterns("/")
                 .excludePathPatterns("/auth/**")
                 .excludePathPatterns("/resources/**")
                 .excludePathPatterns("/files/**");
-
     }
 
     @Bean

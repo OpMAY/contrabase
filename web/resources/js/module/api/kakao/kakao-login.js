@@ -12,12 +12,17 @@ $(document).ready(function () {
         console.log(result);
         if (result.status === 'OK') {
             if (result.data.status) {
+                console.log('???1');
+                console.log(typeof Kakao);
                 if (typeof Kakao === 'undefined') {
+                    console.log('???2');
                     // CALL kakao login script
                     $.getScript('https://developers.kakao.com/sdk/js/kakao.js', function () {
                         // Stuff to do after someScript has loaded
                         kakaoInit(result.data.key);
-                        document.getElementById('kakao').addEventListener('click', function () {
+                        console.log('???3');
+                        document.getElementById('kakao').addEventListener('click', function (event) {
+                            console.log(event, this);
                             kakaoRestLoginFunction(result.data.key);
                         });
                     });

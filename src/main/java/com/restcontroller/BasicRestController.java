@@ -23,6 +23,7 @@ public class BasicRestController {
     public ResponseEntity GetKakaoJavascriptKey() {
         Message message = new Message();
         message.put("key", KAKAO_JAVASCRIPT);
+        message.put("status", true);
         return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, true), HttpStatus.OK);
     }
 }

@@ -3,6 +3,7 @@ package com.controller;
 import com.api.LoginAPI;
 import com.model.User;
 import com.model.UserType;
+import com.model.grant.GRANT_TYPE;
 import com.model.service.Employee;
 import com.model.service.Supplier;
 import com.service.EmployeeService;
@@ -44,8 +45,9 @@ public class AuthController {
 
     @RequestMapping(value = "/oauth/callback", method = RequestMethod.GET)
     public ModelAndView snsLoginCallBack(HttpServletRequest request, HttpServletResponse response) {
-        ModelAndView VIEW = new ModelAndView("user/login");
+        ModelAndView VIEW = new ModelAndView("auth/login");
         User user = loginAPI.apiLoginInit(request);
+        user.setGrant(GRANT_TYPE.USER);
         /**
          * 1. User ID Check 후 없으면 회원가입 후 session에 유저 정보 넣고 로그인
          * 2. User ID check 후 있으면 Session에 유저 정보 넣고 로그인
