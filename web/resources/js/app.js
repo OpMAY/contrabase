@@ -16,6 +16,10 @@ const VEHICLE_TYPE = {
     TRUCK: {
         name: 'TRUCK',
         keyword: '트럭',
+    },
+    CRANE: {
+        name: 'CRANE',
+        keyword: '고속 작업 크레인',
     }
 }
 const DISHING_INFO = {
@@ -89,6 +93,8 @@ const findVehicleType = (name) => {
     switch (name) {
         case VEHICLE_TYPE.TRUCK.name:
             return VEHICLE_TYPE.TRUCK;
+        case VEHICLE_TYPE.CRANE.name:
+            return VEHICLE_TYPE.CRANE;
         default:
             return undefined;
     }

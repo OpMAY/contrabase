@@ -46,7 +46,7 @@
                 <div class="form-group form-inner-button">
                     <input type="text" placeholder="파일을 업로드해주새요." readonly
                            class="form-control input-box medium-h5 cursor-pointer" name="driver-license"
-                           data-type="upload">
+                           data-type="upload" data-license="driver">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5.33325 2.66675L10.6666 8.00008L5.33325 13.3334" stroke="#D5D8E1" stroke-width="2"
                               stroke-linecap="round" stroke-linejoin="round"/>
@@ -60,7 +60,7 @@
                 <div class="form-group form-inner-button">
                     <input type="text" placeholder="파일을 업로드해주새요." readonly
                            class="form-control input-box medium-h5 cursor-pointer" name="transfer-license"
-                           data-type="upload">
+                           data-type="upload" data-license="transfer">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5.33325 2.66675L10.6666 8.00008L5.33325 13.3334" stroke="#D5D8E1" stroke-width="2"
                               stroke-linecap="round" stroke-linejoin="round"/>
@@ -126,11 +126,13 @@
                 upload.setAttribute('data-name', prev_data.driver.name);
                 upload.setAttribute('data-size', prev_data.driver.size);
                 upload.setAttribute('data-type', prev_data.driver.type);
+                upload.setAttribute('data-url', prev_data.driver.url);
             } else if (upload.getAttribute('name') === 'transfer-license' && prev_data && prev_data.transfer.name != null) {
                 upload.value = prev_data.transfer.name;
                 upload.setAttribute('data-name', prev_data.transfer.name);
                 upload.setAttribute('data-size', prev_data.transfer.size);
                 upload.setAttribute('data-type', prev_data.transfer.type);
+                upload.setAttribute('data-url', prev_data.driver.url);
             }
         });
 
@@ -150,12 +152,14 @@
         let driver = {
             name: input_driver.dataset.name,
             size: input_driver.dataset.size,
-            type: input_driver.dataset.type
+            type: input_driver.dataset.type,
+            url: input_transfer.dataset.url
         }
         let transfer = {
             name: input_transfer.dataset.name,
             size: input_transfer.dataset.size,
-            type: input_transfer.dataset.type
+            type: input_transfer.dataset.type,
+            url: input_transfer.dataset.url
         }
         let license = {
             driver,
@@ -177,18 +181,29 @@
     function fileUploadClickEventListener(event) {
         console.log('fileUploadClickEventListener', this, event);
         let btn_file = this;
+        let type = btn_file.dataset.license;
         let input = document.createElement('input');
         input.type = 'file';
         input.name = this.dataset.name;
         input.addEventListener('change', function (event) {
             console.log('change', event, this);
             let file = this.files[0];
-            console.log('file', file);
             /*TODO File Upload*/
-            btn_file.value = file.name;
-            btn_file.setAttribute('data-name', file.name);
-            btn_file.setAttribute('data-size', file.size);
-            btn_file.setAttribute('data-type', file.type);
+            apiUploadUserTempLicense('user', type, file).then((result) => {
+                console.log('apiUploadUserTempLicense', result);
+                if (result.status === 'OK') {
+                    type === 'transfer' ? viewAlert({content: '자격증을 등록 하였습니다.'}) :
+                        viewAlert({content: '운전면허증을 등록 하였습니다.'});
+                    btn_file.value = result.data.license.name;
+                    btn_file.setAttribute('data-name', result.data.license.name);
+                    btn_file.setAttribute('data-size', result.data.license.size);
+                    btn_file.setAttribute('data-type', result.data.license.type);
+                    btn_file.setAttribute('data-url', result.data.license.url);
+                } else {
+                    type === 'transfer' ? viewAlert({content: '자격증을 등록 할 수 없습니다. 다시 시도해주세요.'}) :
+                        viewAlert({content: '운전면허증을 등록 할 수 없습니다. 다시 시도해주세요.'});
+                }
+            });
         });
         input.click();
     }

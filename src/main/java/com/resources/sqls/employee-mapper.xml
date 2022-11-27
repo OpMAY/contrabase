@@ -8,13 +8,13 @@
                 typeHandler="com.middleware.JsonObjectTypeHandler"/>
         <result column="transport_license" property="transport_license" javaType="com.model.common.MFile"
                 typeHandler="com.middleware.JsonObjectTypeHandler"/>
-        <result column="work_places" property="work_places" typeHandler="com.middleware.StringArrayListTypeHandler"/>
+        <result column="work_places" property="work_places" typeHandler="com.middleware.JsonObjectTypeHandler"/>
     </resultMap>
     <insert id="registerEmployee" keyProperty="no" useGeneratedKeys="true">
         insert into employee(user_no, car_code, driver_license, transport_license, work_places, vehicle_type)
         VALUES (#{user_no}, #{car_code}, #{driver_license, typeHandler=com.middleware.JsonObjectTypeHandler},
                 #{transport_license, typeHandler=com.middleware.JsonObjectTypeHandler},
-                #{work_places, typeHandler=com.middleware.StringArrayListTypeHandler},
+                #{work_places, typeHandler=com.middleware.JsonObjectTypeHandler},
                 #{vehicle_type})
     </insert>
     <select id="getEmployeeInfoByUserNo" resultType="Employee" resultMap="Employee">
@@ -32,7 +32,7 @@
         SET car_code              = #{car_code},
             driver_license        = #{driver_license, typeHandler=com.middleware.JsonObjectTypeHandler},
             transport_license     = #{transport_license, typeHandler=com.middleware.JsonObjectTypeHandler},
-            work_places           = #{work_places, typeHandler=com.middleware.StringArrayListTypeHandler},
+            work_places           = #{work_places, typeHandler=com.middleware.JsonObjectTypeHandler},
             vehicle_type          = #{vehicle_type},
             new_work_alarm        = #{new_work_alarm},
             emergency_work_alarm  = #{emergency_work_alarm},

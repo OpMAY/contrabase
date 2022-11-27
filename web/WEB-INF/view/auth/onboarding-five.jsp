@@ -76,7 +76,48 @@
         console.log(JSON.parse(Storage.get('regions'))?.data);
         console.log(JSON.parse(Storage.get('car'))?.data);
         console.log(JSON.parse(Storage.get('license'))?.data);
-        location.href = '/user/home';
+
+        let type = JSON.parse(Storage.get('type'))?.data;
+        let regions = JSON.parse(Storage.get('regions'))?.data;
+        let car = JSON.parse(Storage.get('car'))?.data;
+        let license = JSON.parse(Storage.get('license'))?.data;
+
+        let employee = {
+            car_code: license.car_number,
+            driver_license: license.driver,
+            transport_license: license.transfer,
+            work_places: {
+                seoul: regions.seoul,
+                gyeonggi: regions.gyeonggi,
+                other: regions.other,
+            },
+            vehicle_type: findVehicleType(car.car).name,
+        }
+        apiEmployeeRegister(type, employee).then((result) => {
+            console.log('apiEmployeeRegister', result);
+            if (result.status === 'OK') {
+                if (result.data.status) {
+                    viewModal({
+                        vCenter: true,
+                        btnCount: 1,
+                        wCenter: true,
+                        title: '회원가입',
+                        desc: '회원가입에 성공하였습니다.',
+                        confirm_text: '홈으로 이동',
+                        onConfirm: function () {
+                            location.href = '/user/home';
+                        },
+                        onHidden: function (e) {
+                            location.href = '/user/home';
+                        }
+                    });
+                } else {
+                    viewAlert({content: result.data.message});
+                }
+            } else {
+                viewAlert({content: '등록에 실패하였습니다. 다시 시도해주세요.'});
+            }
+        });
         event.stopPropagation();
         event.preventDefault();
     }

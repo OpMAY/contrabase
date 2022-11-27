@@ -12,6 +12,7 @@ import java.util.ArrayList;
 @Slf4j
 public class EmployeeDao {
     private final EmployeeMapper mapper;
+
     private EmployeeDao(SqlSession sqlSession) {
         this.mapper = sqlSession.getMapper(EmployeeMapper.class);
     }

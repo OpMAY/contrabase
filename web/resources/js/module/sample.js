@@ -168,6 +168,28 @@ async function apiChangeUserLicense(user_type, type, file) {
     }
 }
 
+async function apiUploadUserTempLicense(user_type, type, file) {
+    function apiFetch(user_type, type, file) {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        let requestOptions = {
+            method: 'POST',
+            body: formData,
+        };
+        const response = fetch(`/${user_type}/mypage/license/temp/upload/${type}`, requestOptions);
+        return response.then(res => res.json());
+    }
+
+    let result;
+    try {
+        result = await apiFetch(user_type, type, file);
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 async function profileDefaultChange(user_type, name, phone, email) {
     function apiFetch(user_type, name, phone, email) {
         const myHeaders = new Headers();
@@ -311,6 +333,30 @@ async function apiChargePoint(user_type, point) {
     let result;
     try {
         result = await apiFetch(user_type, point);
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function apiEmployeeRegister(user_type, employee) {
+    function apiFetch(user_type, employee) {
+        const myHeaders = new Headers();
+        myHeaders.append('Content-Type', 'application/json');
+        myHeaders.append('Content-Api', tokenGenerator(8));
+        const raw = JSON.stringify(employee);
+        let requestOptions = {
+            headers: myHeaders,
+            method: 'POST',
+            body: raw,
+        };
+        const response = fetch(`/${user_type}/mypage/employee/register`, requestOptions);
+        return response.then(res => res.json());
+    }
+
+    let result;
+    try {
+        result = await apiFetch(user_type, employee);
         return result;
     } catch (error) {
         console.log(error);

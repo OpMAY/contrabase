@@ -100,8 +100,15 @@
      * */
     $(document).ready(function () {
         console.log('Static JS is ready');
+        console.log(JSON.parse(Storage.get('type'))?.data);
+        let prev_data = JSON.parse(Storage.get('type'))?.data;
         let btn_categories = document.querySelectorAll('.btn-category');
         btn_categories.forEach(function (category) {
+            if (prev_data && category.dataset.type === prev_data) {
+                category.classList.add('is-active');
+            } else {
+                category.classList.remove('is-active');
+            }
             category.addEventListener('click', categoryButtonClickEventListener);
         });
         let btn_previous = document.querySelector('.btn-previous');
@@ -114,11 +121,9 @@
         let type = getActiveCategoryButton();
         alert(type);
         if (type === 'user') {
-            //console.log(JSON.parse(Storage.get('type')).data);
             Storage.set('type', JSON.stringify({data: 'user', date: new Date().getTime()}));
             location.href = '/user/onboard/second';
         } else {
-            //console.log(JSON.parse(Storage.get('type')).data);
             Storage.set('type', JSON.stringify({data: 'supplier', date: new Date().getTime()}));
             location.href = '/supplier/onboard/first';
         }

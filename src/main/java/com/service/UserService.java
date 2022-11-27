@@ -31,8 +31,9 @@ public class UserService {
         userDao.insertUnRegister(unRegister);
     }
 
-    public void registerUser(User user) {
+    public int registerUser(User user) {
         userDao.registerUser(user);
+        return user.getNo();
     }
 
     public UserType getUserType(int user_no) {

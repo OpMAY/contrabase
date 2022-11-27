@@ -26,7 +26,6 @@ import com.util.Encryption.EncryptionService;
 import com.util.Encryption.JWTEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.fileupload.FileUpload;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -177,6 +176,23 @@ public class MyPageRestController {
         return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, true), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/license/temp/upload/{type}", method = POST)
+    public ResponseEntity licenseTempUpload(HttpServletRequest request, @PathVariable String user_type, @PathVariable String type, @RequestBody MultipartFile file) {
+        String user_id = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.ID.name());
+        Message message = new Message();
+        User user = userService.loginUser(user_id);
+        MFile mFile = null;
+        if (file.getSize() != 0) {
+            log.info("file -> {},{},{}", file.getOriginalFilename(), file.getName(), file.getSize());
+            mFile = fileUploadUtility.uploadFile(file, CDNUploadPath.USER_LICENSE.getPath());
+            message.put("license", mFile);
+            message.put("status", true);
+        } else {
+            message.put("status", false);
+        }
+        return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, true), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/update/default", method = POST)
     public ResponseEntity profileDefaultChange(HttpServletRequest request, @PathVariable ControllerEnum user_type, @RequestBody User user) {
         log.info("user -> {}", user);
@@ -284,7 +300,6 @@ public class MyPageRestController {
         return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, false), HttpStatus.OK);
     }
 
-    /*charge/point/*/
     @RequestMapping(value = "/charge/point", method = POST)
     public ResponseEntity chargePoint(HttpServletRequest request, @PathVariable ControllerEnum user_type, HashMap<String, Object> map) throws Exception {
         Message message = new Message();
@@ -298,6 +313,23 @@ public class MyPageRestController {
         log.info("pointRequest -> {}", pointRequest);
         pointRequestService.insertPointRequest(pointRequest);
         message.put("status", true);
+        return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, false), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/employee/register", method = POST)
+    public ResponseEntity employeeRegister(HttpServletRequest request, @PathVariable ControllerEnum user_type, @RequestBody Employee employee) throws Exception {
+        Message message = new Message();
+        int user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
+        log.info("user_no -> {}, employee -> {}", user_no, employee);
+        employee.setUser_no(user_no);
+        Employee dump = employeeService.getEmployeeByUserNo(user_no);
+        if (dump == null) {
+            employeeService.registerEmployee(employee);
+            message.put("status", true);
+        } else {
+            message.put("status", false);
+            message.put("message", "이미 등록되어있습니다. 홈으로 이동합니다.");
+        }
         return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, false), HttpStatus.OK);
     }
 }

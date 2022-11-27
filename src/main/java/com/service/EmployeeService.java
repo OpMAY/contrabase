@@ -24,4 +24,9 @@ public class EmployeeService {
     public void updateEmployeeMarketingAgree(Employee employee) {
         employeeDao.updateEmployeeMarketingAgree(employee);
     }
+
+    public int registerEmployee(Employee employee) {
+        employeeDao.registerEmployee(employee);
+        return employee.getNo();
+    }
 }

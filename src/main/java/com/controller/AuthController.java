@@ -47,17 +47,14 @@ public class AuthController {
     public ModelAndView snsLoginCallBack(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView VIEW = new ModelAndView("auth/login");
         User user = loginAPI.apiLoginInit(request);
-        user.setGrant(GRANT_TYPE.USER);
-        /**
-         * 1. User ID Check 후 없으면 회원가입 후 session에 유저 정보 넣고 로그인
-         * 2. User ID check 후 있으면 Session에 유저 정보 넣고 로그인
-         * */
         User dump = userService.loginUser(user.getId());
         if (dump == null) {
-            userService.registerUser(user);
+            int user_no = userService.registerUser(user);
+            dump = userService.loginUser(user.getId());
         }
-        request.getSession().setAttribute(JWTEnum.JWTToken.name(), encryptionService.encryptJWT(user));
-        log.info("JWTToken -> {}", encryptionService.decryptJWT((String) request.getSession().getAttribute(JWTEnum.JWTToken.name())));
+        dump.setGrant(GRANT_TYPE.USER);
+
+        request.getSession().setAttribute(JWTEnum.JWTToken.name(), encryptionService.encryptJWT(dump));
         Integer user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
         Employee employee = employeeService.getEmployeeByUserNo(user_no);
         Supplier supplier = supplierService.getSupplierByUserNo(user_no);
