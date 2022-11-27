@@ -15,4 +15,9 @@ public class SupplierService {
     public Supplier getSupplierByUserNo(int user_no) {
         return supplierDao.getSupplierInfoByUserNo(user_no);
     }
+
+    public int registerSupplier(Supplier supplier) {
+        supplierDao.registerSupplier(supplier);
+        return supplier.getNo();
+    }
 }

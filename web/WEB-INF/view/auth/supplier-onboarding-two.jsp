@@ -63,7 +63,42 @@
     });
 
     function nextButtonClickEventListener(event) {
-        location.href = '/supplier/home';
+        let company = JSON.parse(Storage.get('company'))?.data;
+        let type = JSON.parse(Storage.get('type'))?.data;
+        console.log('company', company);
+        console.log('type', type);
+        let supplier = {
+            business_file: company.license,
+            user: {
+                name: company.manager.name,
+                phone: company.manager.phone
+            }
+        }
+        apiSupplierRegister('supplier', supplier).then((result) => {
+            console.log('apiSupplierRegister', result);
+            if (result.status === 'OK') {
+                if (result.data.status) {
+                    viewModal({
+                        vCenter: true,
+                        btnCount: 1,
+                        wCenter: true,
+                        title: '회원가입',
+                        desc: '회원가입에 성공하였습니다.',
+                        confirm_text: '홈으로 이동',
+                        onConfirm: function () {
+                            location.href = '/supplier/home';
+                        },
+                        onHidden: function (e) {
+                            location.href = '/supplier/home';
+                        }
+                    });
+                } else {
+                    viewAlert({content: result.data.message});
+                }
+            } else {
+                viewAlert({content: '등록에 실패하였습니다. 다시 시도해주세요.'});
+            }
+        });
         event.stopPropagation();
         event.preventDefault();
     }

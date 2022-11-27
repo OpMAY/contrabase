@@ -21,6 +21,7 @@ import java.util.HashMap;
 @Service
 public class EncryptionService implements Encrypt {
     private final static String SECRET_KEY = "secret";
+
     @Override
     public <T> T getSessionParameter(String token, String key) {
         if (token != null) {
@@ -72,7 +73,7 @@ public class EncryptionService implements Encrypt {
                     .withClaim(JWTEnum.GRANT.name(), user.getGrant().name())
                     .withClaim(JWTEnum.TOKEN.name(), user.getAccess_token())
                     .withClaim(JWTEnum.EMAIL.name(), user.getEmail())
-                    .withClaim(JWTEnum.ID.name(), user.getAccess_token())
+                    .withClaim(JWTEnum.ID.name(), user.getId())
                     .withClaim(JWTEnum.NO.name(), user.getNo())
                     .withClaim(JWTEnum.SIGNATURE.name(), encryptSHA256(SECRET_KEY))
                     .withIssuer("auth0")

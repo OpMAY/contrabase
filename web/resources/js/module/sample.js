@@ -362,3 +362,27 @@ async function apiEmployeeRegister(user_type, employee) {
         console.log(error);
     }
 }
+
+async function apiSupplierRegister(user_type, supplier) {
+    function apiFetch(user_type, supplier) {
+        const myHeaders = new Headers();
+        myHeaders.append('Content-Type', 'application/json');
+        myHeaders.append('Content-Api', tokenGenerator(8));
+        const raw = JSON.stringify(supplier);
+        let requestOptions = {
+            headers: myHeaders,
+            method: 'POST',
+            body: raw,
+        };
+        const response = fetch(`/${user_type}/mypage/supplier/register`, requestOptions);
+        return response.then(res => res.json());
+    }
+
+    let result;
+    try {
+        result = await apiFetch(user_type, supplier);
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}

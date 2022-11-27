@@ -332,4 +332,26 @@ public class MyPageRestController {
         }
         return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, false), HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/supplier/register", method = POST)
+    public ResponseEntity supplierRegister(HttpServletRequest request, @PathVariable ControllerEnum user_type, @RequestBody Supplier supplier) throws Exception {
+        Message message = new Message();
+        int user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
+        String user_id = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.ID.name());
+        log.info("user_no -> {},user_id -> {}, employee -> {}", user_no, user_id, supplier);
+        supplier.setUser_no(user_no);
+        Supplier dump = supplierService.getSupplierByUserNo(user_no);
+        if (dump == null) {
+            supplierService.registerSupplier(supplier);
+            User user = userService.loginUser(user_id);
+            user.setName(supplier.getUser().getName());
+            user.setPhone(supplier.getUser().getPhone());
+            userService.updateUserProfileDefault(user);
+            message.put("status", true);
+        } else {
+            message.put("status", false);
+            message.put("message", "이미 등록되어있습니다. 홈으로 이동합니다.");
+        }
+        return new ResponseEntity(DefaultRes.res(HttpStatus.OK, message, false), HttpStatus.OK);
+    }
 }

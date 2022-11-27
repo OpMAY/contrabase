@@ -53,7 +53,7 @@ public class AuthController {
             dump = userService.loginUser(user.getId());
         }
         dump.setGrant(GRANT_TYPE.USER);
-
+        log.info("login User -> {}",dump);
         request.getSession().setAttribute(JWTEnum.JWTToken.name(), encryptionService.encryptJWT(dump));
         Integer user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
         Employee employee = employeeService.getEmployeeByUserNo(user_no);
