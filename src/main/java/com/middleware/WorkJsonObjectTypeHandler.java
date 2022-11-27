@@ -2,6 +2,7 @@ package com.middleware;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.model.service.work.Work;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
@@ -12,11 +13,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Slf4j
-public class JsonObjectTypeHandler<T> extends BaseTypeHandler<T> {
+public class WorkJsonObjectTypeHandler<T> extends BaseTypeHandler<T> {
 
     private Class<T> type;
 
-    public JsonObjectTypeHandler(Class<T> type) {
+    public WorkJsonObjectTypeHandler(Class<T> type) {
         if (type == null) throw new IllegalArgumentException("Type argument cannot be null");
         this.type = type;
     }
@@ -47,8 +48,7 @@ public class JsonObjectTypeHandler<T> extends BaseTypeHandler<T> {
     private T convertToObject(String jsonString) {
         if (jsonString != null) {
             try {
-                Class<?> findClass = type;
-                return (T) new ObjectMapper().readValue(jsonString, findClass);
+                return (T) new Gson().fromJson(jsonString, Work.class);
             } catch (Exception e) {
                 log.error("JSONTypeHandler failed to casting jsonString to Object, JSON String : " + jsonString, e);
                 throw new RuntimeException();

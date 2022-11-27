@@ -48,7 +48,7 @@
         </div>
         <div class="row">
             <div class="pt-16 pl-24">
-                <button type="button" class="btn btn-block btn-car" data-type="공사" data-car="고속 작업 크레인">
+                <button type="button" class="btn btn-block btn-car" data-type="공사" data-car="CRANE">
                     <div class="d-flex flex-column bd-highlight w-100">
                         <svg class="mr-auto ml-auto mt-12" width="40" height="40" viewBox="0 0 40 40" fill="none"
                              xmlns="http://www.w3.org/2000/svg">
@@ -430,8 +430,18 @@
     $(document).ready(function () {
         console.log('Static JS is ready');
         console.log(JSON.parse(Storage.get('car'))?.data);
+        let prev_data = JSON.parse(Storage.get('car'))?.data;
         let btn_cars = document.querySelectorAll('.btn-car');
         btn_cars.forEach(function (car) {
+            if (prev_data) {
+                if (car.dataset.type === prev_data.type && car.dataset.car === prev_data.car) {
+                    if (!car.classList.contains('is-active')) {
+                        car.classList.add('is-active');
+                    }
+                } else {
+                    car.classList.remove('is-active');
+                }
+            }
             car.addEventListener('click', carButtonClickEventListener);
         });
         let btn_previous = document.querySelector('.btn-previous');

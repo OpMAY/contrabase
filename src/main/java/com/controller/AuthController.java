@@ -2,6 +2,13 @@ package com.controller;
 
 import com.api.LoginAPI;
 import com.model.User;
+import com.model.UserType;
+import com.model.grant.GRANT_TYPE;
+import com.model.service.Employee;
+import com.model.service.Supplier;
+import com.service.EmployeeService;
+import com.service.SupplierService;
+import com.service.UserService;
 import com.util.Encryption.EncryptionService;
 import com.util.Encryption.JWTEnum;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +29,10 @@ import java.io.IOException;
 public class AuthController {
     private ModelAndView VIEW;
     private final LoginAPI loginAPI;
+    private final UserService userService;
     private final EncryptionService encryptionService;
+    private final EmployeeService employeeService;
+    private final SupplierService supplierService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -35,19 +45,27 @@ public class AuthController {
 
     @RequestMapping(value = "/oauth/callback", method = RequestMethod.GET)
     public ModelAndView snsLoginCallBack(HttpServletRequest request, HttpServletResponse response) {
-        ModelAndView VIEW = new ModelAndView("user/login");
+        ModelAndView VIEW = new ModelAndView("auth/login");
         User user = loginAPI.apiLoginInit(request);
-        /** TODO
-         * 1. User ID Check 후 없으면 회원가입 후 session에 유저 정보 넣고 로그인
-         * 2. User ID check 후 있으면 Session에 유저 정보 넣고 로그인
-         * */
-        /*if (userService.getUserById(user.getId()) == null) {
-            userService.createUser(user);
-        } else {
-            user = userService.getUserById(user.getId());
-        }*/
-        request.getSession().setAttribute(JWTEnum.JWTToken.name(), encryptionService.encryptJWT(user));
+        User dump = userService.loginUser(user.getId());
+        if (dump == null) {
+            int user_no = userService.registerUser(user);
+            dump = userService.loginUser(user.getId());
+        }
+        dump.setGrant(GRANT_TYPE.USER);
+        log.info("login User -> {}",dump);
+        request.getSession().setAttribute(JWTEnum.JWTToken.name(), encryptionService.encryptJWT(dump));
         Integer user_no = encryptionService.getSessionParameter((String) request.getSession().getAttribute(JWTEnum.JWTToken.name()), JWTEnum.NO.name());
+        Employee employee = employeeService.getEmployeeByUserNo(user_no);
+        Supplier supplier = supplierService.getSupplierByUserNo(user_no);
+        if (employee == null && supplier == null) {
+            VIEW.addObject("is_register", Boolean.FALSE);
+        } else {
+            VIEW.addObject("is_register", Boolean.TRUE);
+            UserType userType = userService.getUserType(user_no);
+            VIEW.addObject("user_type", userType);
+        }
+        VIEW.addObject("status", Boolean.TRUE);
         return VIEW;
     }
 }

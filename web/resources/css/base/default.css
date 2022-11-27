@@ -44,3 +44,15 @@ input[type=checkbox]:focus {
     box-shadow: none;
     outline: none;
 }
+
+.dropify-wrapper.touch-fallback .dropify-preview .dropify-infos .dropify-infos-inner {
+    padding: 5px 0 !important;
+}
+
+.dropify-wrapper.touch-fallback .dropify-preview .dropify-infos .dropify-infos-inner p.dropify-filename {
+    text-align: center !important;
+}
+
+.dropify-wrapper.touch-fallback .dropify-preview .dropify-infos .dropify-infos-inner p.dropify-infos-message {
+    text-align: center !important;
+}

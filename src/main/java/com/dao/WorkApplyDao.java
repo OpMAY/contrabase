@@ -15,6 +15,7 @@ import java.util.ArrayList;
 @Slf4j
 public class WorkApplyDao {
     private final WorkApplyMapper mapper;
+
     private WorkApplyDao(SqlSession sqlSession) {
         this.mapper = sqlSession.getMapper(WorkApplyMapper.class);
     }
@@ -37,5 +38,9 @@ public class WorkApplyDao {
 
     public void deleteWorkApply(int no) {
         mapper.deleteWorkApply(no);
+    }
+
+    public WorkApply getWorkApply(int employee_no, int work_no) {
+        return mapper.getWorkApply(employee_no, work_no);
     }
 }

@@ -53,203 +53,11 @@
                                     <div class="tab-pane fade show active" id="nav-point-used-details" role="tabpanel"
                                          aria-labelledby="nav-point-used-details-tab">
                                         <div class="work-container">
-                                            <div class="col-12 p-24 work">
-                                                <div class="d-flex flex-column">
-                                                    <div class="d-flex justify-content-between">
-                                                        <div class="bold-h5">
-                                                            운송 운반 | 덤프트럭 2대
-                                                        </div>
-                                                        <div class="bold-h5 c-brand-red">
-                                                            -300P
-                                                        </div>
-                                                    </div>
-                                                    <div class="pt-16 regular-p1">
-                                                        9월 21일 (수), 9월22일 (목)
-                                                    </div>
-                                                    <div class="pt-8 regular-p1">
-                                                        07:00 ~ 18:00
-                                                    </div>
-                                                    <div class="padding-top-4 ">
-                        <span class="regular-p1">
-                            창원시 마산합 영통구 신동구
-                        </span>
-                                                        <img src="/resources/assets/images/icon/icon-location-arrow.svg"
-                                                             alt="">
-                                                        <span class="regular-p1">
-                            창원시 마산합 영통구 신동구
-                        </span>
-                                                    </div>
-
-                                                    <div class="pt-16 regular-p1">
-                                                        <span class="bold-h4">150,000</span>원
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 p-24 work">
-                                                <div class="d-flex flex-column">
-                                                    <div class="d-flex justify-content-between">
-                                                        <div class="bold-h5">
-                                                            운송 운반 | 덤프트럭 2대
-                                                        </div>
-                                                        <div class="bold-h5 c-brand-red">
-                                                            -300P
-                                                        </div>
-                                                    </div>
-                                                    <div class="pt-16 regular-p1">
-                                                        9월 21일 (수), 9월22일 (목)
-                                                    </div>
-                                                    <div class="pt-8 regular-p1">
-                                                        07:00 ~ 18:00
-                                                    </div>
-                                                    <div class="padding-top-4 ">
-                        <span class="regular-p1">
-                            창원시 마산합 영통구 신동구
-                        </span>
-                                                        <img src="/resources/assets/images/icon/icon-location-arrow.svg"
-                                                             alt="">
-                                                        <span class="regular-p1">
-                            창원시 마산합 영통구 신동구
-                        </span>
-                                                    </div>
-
-                                                    <div class="pt-16 regular-p1">
-                                                        <span class="bold-h4">150,000</span>원
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 p-24 work">
-                                                <div class="d-flex flex-column">
-                                                    <div class="d-flex justify-content-between">
-                                                        <div class="bold-h5">
-                                                            운송 운반 | 덤프트럭 2대
-                                                        </div>
-                                                        <div class="bold-h5 c-brand-red">
-                                                            -300P
-                                                        </div>
-                                                    </div>
-                                                    <div class="pt-16 regular-p1">
-                                                        9월 21일 (수), 9월22일 (목)
-                                                    </div>
-                                                    <div class="pt-8 regular-p1">
-                                                        07:00 ~ 18:00
-                                                    </div>
-                                                    <div class="padding-top-4 ">
-                        <span class="regular-p1">
-                            창원시 마산합 영통구 신동구
-                        </span>
-                                                        <img src="/resources/assets/images/icon/icon-location-arrow.svg"
-                                                             alt="">
-                                                        <span class="regular-p1">
-                            창원시 마산합 영통구 신동구
-                        </span>
-                                                    </div>
-
-                                                    <div class="pt-16 regular-p1">
-                                                        <span class="bold-h4">150,000</span>원
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="nav-point-return-details" role="tabpanel"
                                          aria-labelledby="nav-point-return-tab">
                                         <div class="work-container">
-                                            <div class="col-12 p-24 work">
-                                                <div class="d-flex flex-column">
-                                                    <div class="d-flex justify-content-between">
-                                                        <div class="bold-h5">
-                                                            운송 운반 | 덤프트럭 2대
-                                                        </div>
-                                                        <div class="bold-h5 c-brand-blue">
-                                                            +300P
-                                                        </div>
-                                                    </div>
-                                                    <div class="pt-16 regular-p1">
-                                                        9월 21일 (수), 9월22일 (목)
-                                                    </div>
-                                                    <div class="pt-8 regular-p1">
-                                                        07:00 ~ 18:00
-                                                    </div>
-                                                    <div class="padding-top-4 ">
-                        <span class="regular-p1">
-                            창원시 마산합 영통구 신동구
-                        </span>
-                                                        <img src="/resources/assets/images/icon/icon-location-arrow.svg"
-                                                             alt="">
-                                                        <span class="regular-p1">
-                            창원시 마산합 영통구 신동구
-                        </span>
-                                                    </div>
-
-                                                    <div class="pt-16 regular-p1">
-                                                        <span class="bold-h4">150,000</span>원
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 p-24 work">
-                                                <div class="d-flex flex-column">
-                                                    <div class="d-flex justify-content-between">
-                                                        <div class="bold-h5">
-                                                            운송 운반 | 덤프트럭 2대
-                                                        </div>
-                                                        <div class="bold-h5 c-brand-blue">
-                                                            +300P
-                                                        </div>
-                                                    </div>
-                                                    <div class="pt-16 regular-p1">
-                                                        9월 21일 (수), 9월22일 (목)
-                                                    </div>
-                                                    <div class="pt-8 regular-p1">
-                                                        07:00 ~ 18:00
-                                                    </div>
-                                                    <div class="padding-top-4 ">
-                        <span class="regular-p1">
-                            창원시 마산합 영통구 신동구
-                        </span>
-                                                        <img src="/resources/assets/images/icon/icon-location-arrow.svg"
-                                                             alt="">
-                                                        <span class="regular-p1">
-                            창원시 마산합 영통구 신동구
-                        </span>
-                                                    </div>
-
-                                                    <div class="pt-16 regular-p1">
-                                                        <span class="bold-h4">150,000</span>원
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 p-24 work">
-                                                <div class="d-flex flex-column">
-                                                    <div class="d-flex justify-content-between">
-                                                        <div class="bold-h5">
-                                                            운송 운반 | 덤프트럭 2대
-                                                        </div>
-                                                        <div class="bold-h5 c-brand-blue">
-                                                            +300P
-                                                        </div>
-                                                    </div>
-                                                    <div class="pt-16 regular-p1">
-                                                        9월 21일 (수), 9월22일 (목)
-                                                    </div>
-                                                    <div class="pt-8 regular-p1">
-                                                        07:00 ~ 18:00
-                                                    </div>
-                                                    <div class="padding-top-4 ">
-                        <span class="regular-p1">
-                            창원시 마산합 영통구 신동구
-                        </span>
-                                                        <img src="/resources/assets/images/icon/icon-location-arrow.svg"
-                                                             alt="">
-                                                        <span class="regular-p1">
-                            창원시 마산합 영통구 신동구
-                        </span>
-                                                    </div>
-
-                                                    <div class="pt-16 regular-p1">
-                                                        <span class="bold-h4">150,000</span>원
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="nav-point-charge-details" role="tabpanel"
@@ -342,6 +150,18 @@
      * */
     $(document).ready(function () {
         console.log('Static JS is ready');
+        let content = document.querySelector('#nav-point-used-details');
+        apiGetPoints('user', 'pay').then((result) => {
+            console.log('apiGetPoints', result);
+            if (result.status === 'OK') {
+                deleteChild(content);
+                result.data.points?.forEach(function (point) {
+                    content.append(createWorkPointElement(point));
+                });
+            } else {
+                viewAlert({content: '포인트 내역을 불러올 수 없습니다. 다시 시도해주세요.'});
+            }
+        });
         $('a[data-toggle="tab"]').on('show.bs.tab', function (event) {
             let newly_content = document.querySelector('#' + event.target.getAttribute('aria-controls'));
             let previous_content = document.querySelector('#' + event.relatedTarget.getAttribute('aria-controls'));
@@ -351,46 +171,64 @@
             switch (type) {
                 case 'pay':
                     container = newly_content.querySelector('.work-container');
-                    deleteChild(container);
                     /*TODO Fetch*/
-                    work = {
-                        type: 'pay'
-                    }
-                    container.append(createWorkPointElement(work));
-                    container.append(createWorkPointElement(work));
-                    container.append(createWorkPointElement(work));
+                    apiGetPoints('user', type).then((result) => {
+                        console.log('apiGetPoints', result);
+                        if (result.status === 'OK') {
+                            deleteChild(container);
+                            result.data.points?.forEach(function (point) {
+                                container.append(createWorkPointElement(point));
+                            });
+                        } else {
+                            viewAlert({content: '포인트 내역을 불러올 수 없습니다. 다시 시도해주세요.'});
+                        }
+                    });
                     break;
                 case 'repayment':
                     container = newly_content.querySelector('.work-container');
                     deleteChild(container);
                     /*TODO Fetch*/
-                    work = {
-                        type: 'repayment'
-                    }
-                    container.append(createWorkPointElement(work));
-                    container.append(createWorkPointElement(work));
-                    container.append(createWorkPointElement(work));
-                    container.append(createWorkPointElement(work));
+                    apiGetPoints('user', type).then((result) => {
+                        console.log('apiGetPoints', result);
+                        if (result.status === 'OK') {
+                            deleteChild(container);
+                            result.data.points?.forEach(function (point) {
+                                container.append(createWorkPointElement(point));
+                            });
+                        } else {
+                            viewAlert({content: '포인트 내역을 불러올 수 없습니다. 다시 시도해주세요.'});
+                        }
+                    });
                     break;
                 case 'charge':
                     container = newly_content.querySelector('.point-container');
                     deleteChild(container);
-                    /*TODO Fetch*/
-                    point = {}
-                    container.appendChild(createPointChargeElement(point));
-                    container.appendChild(createPointChargeElement(point));
-                    container.appendChild(createPointChargeElement(point));
-                    container.appendChild(createPointChargeElement(point));
+                    apiGetPoints('user', type).then((result) => {
+                        console.log('apiGetPoints', result);
+                        if (result.status === 'OK') {
+                            deleteChild(container);
+                            result.data.points?.forEach(function (point) {
+                                container.append(createPointChargeElement(point));
+                            });
+                        } else {
+                            viewAlert({content: '포인트 내역을 불러올 수 없습니다. 다시 시도해주세요.'});
+                        }
+                    });
                     break;
                 case 'refund':
                     container = newly_content.querySelector('.point-container');
                     deleteChild(container);
-                    /*TODO Fetch*/
-                    point = {}
-                    container.appendChild(createPointRefundElement(point));
-                    container.appendChild(createPointRefundElement(point));
-                    container.appendChild(createPointRefundElement(point));
-                    container.appendChild(createPointRefundElement(point));
+                    apiGetPoints('user', type).then((result) => {
+                        console.log('apiGetPoints', result);
+                        if (result.status === 'OK') {
+                            deleteChild(container);
+                            result.data.points?.forEach(function (point) {
+                                container.append(createPointRefundElement(point));
+                            });
+                        } else {
+                            viewAlert({content: '포인트 내역을 불러올 수 없습니다. 다시 시도해주세요.'});
+                        }
+                    });
                     break;
             }
         });

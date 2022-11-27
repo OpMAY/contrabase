@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.model.UserType" %><%--
   Created by IntelliJ IDEA.
   User: zlzld
   Date: 2022-08-17
@@ -35,7 +35,7 @@
     <div class="floating-bottom bottom-nav-animation" id="footer">
         <div class="row m-0">
             <div class="col-12 p-24">
-                <button type="button" class="btn btn-block btn-kakao">
+                <button type="button" class="btn btn-block btn-kakao" id="kakao">
                     <img class="mr-12 ml-auto my-auto" src="/resources/assets/images/icon/btn-kakao.png"/>
                     <span class="bold-h5 c-gray-dark-low my-auto mr-auto">카카오로 5초 만에 회원가입</span>
                 </button>
@@ -45,5 +45,53 @@
 </div>
 <jsp:include page="../../view/common/js.jsp"></jsp:include>
 <script src="/resources/js/module/api/kakao/kakao-login.js"></script>
+<script>
+    $(document).ready(function () {
+        console.log('Static JS is ready');
+        if (${status ne null}) {
+            console.log('status not null');
+            if (${status eq true}) {
+                viewModal({
+                    vCenter: true,
+                    btnCount: 1,
+                    wCenter: true,
+                    title: '로그인',
+                    desc: '로그인에 성공하였습니다.',
+                    confirm_text: '홈으로 이동',
+                    onConfirm: function () {
+                        if (${is_register eq false}) {
+                            location.href = '/user/onboard/first';
+                        } else {
+                            if (${user_type eq UserType.EMPLOYEE}) {
+                                location.href = '/user/home';
+                            } else if (${user_type eq UserType.SUPPLIER}) {
+                                location.href = '/supplier/home';
+                            } else {
+                                viewAlert({content: '로그인에 실패하였습니다.'});
+                            }
+                        }
+                    },
+                    onHidden: function (e) {
+                        if (${is_register eq false}) {
+                            location.href = '/user/onboard/first';
+                        } else {
+                            if (${user_type eq UserType.EMPLOYEE}) {
+                                location.href = '/user/home';
+                            } else if (${user_type eq UserType.SUPPLIER}) {
+                                location.href = '/supplier/home';
+                            } else {
+                                viewAlert({content: '로그인에 실패하였습니다.'});
+                            }
+                        }
+                    }
+                });
+            } else {
+                console.log('회원 탈퇴하신 회원입니다. 관리자에게 문의하세요.');
+            }
+        } else {
+            console.log('status null');
+        }
+    });
+</script>
 </body>
 </html>

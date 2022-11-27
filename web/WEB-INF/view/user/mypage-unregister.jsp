@@ -115,10 +115,10 @@
     <div class="floating-bottom bottom-nav-animation" id="footer" style="z-index: 10">
         <div id="bottom-tab-application-trigger" class="row m-0">
             <div class="col-12 p-24">
-                <button type="button" class="btn btn-block btn-blue justify-content-center">
-                <span class="medium-h5 ml-auto mr-auto">
-                    회원탈퇴
-                </span>
+                <button type="button" class="btn btn-block btn-blue justify-content-center _unregister">
+                    <span class="medium-h5 ml-auto mr-auto">
+                        회원탈퇴
+                    </span>
                 </button>
             </div>
         </div>
@@ -136,6 +136,23 @@
         let reasons = document.querySelectorAll('.btn-box[data-reason]');
         reasons.forEach(function (reason) {
             reason.addEventListener('click', reasonClickEventListener);
+        });
+        let btn_unregister = document.querySelector('._unregister');
+        btn_unregister.addEventListener('click', function (event) {
+            let reason = document.querySelector('.btn-box.is-active[data-reason]')
+            apiUnregister('user', reason.dataset.reason).then((result) => {
+                console.log('apiUnregister', result);
+                if (result.status === 'OK') {
+                    viewAlert({content: '회원 탈퇴를 하셧습니다.'});
+                    setTimeout(function () {
+                        location.href = '/auth/login';
+                    }, 1000);
+                } else {
+                    viewAlert({content: '회원탈퇴에 실패하였습니다. 다시 시도해주세요.'})
+                }
+            });
+            event.stopPropagation();
+            event.preventDefault();
         });
     });
 

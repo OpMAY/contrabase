@@ -16,4 +16,17 @@ public class EmployeeService {
     public Employee getEmployeeByUserNo(int user_no) {
         return employeeDao.getEmployeeInfoByUserNo(user_no);
     }
+
+    public void updateEmployee(Employee employee) {
+        employeeDao.updateEmployee(employee);
+    }
+
+    public void updateEmployeeMarketingAgree(Employee employee) {
+        employeeDao.updateEmployeeMarketingAgree(employee);
+    }
+
+    public int registerEmployee(Employee employee) {
+        employeeDao.registerEmployee(employee);
+        return employee.getNo();
+    }
 }

@@ -36,7 +36,8 @@
             <div class="col-12 pt-40 pl-24 pr-24 medium-h5 c-basic-black">
                 <label class="medium-h6 c-gray-dark-low">사업자 등록증</label>
                 <div class="form-group form-inner-button" disabled>
-                    <input data-type="upload" name="license" readonly type="text" placeholder="파일을 업로드해주새요."
+                    <input data-type="upload" name="license" data-license="company" readonly type="text"
+                           placeholder="파일을 업로드해주새요."
                            class="form-control input-box medium-h5">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5.33325 2.66675L10.6666 8.00008L5.33325 13.3334" stroke="#D5D8E1" stroke-width="2"
@@ -107,6 +108,7 @@
             license.setAttribute('data-name', prev_data.license.name);
             license.setAttribute('data-size', prev_data.license.size);
             license.setAttribute('data-type', prev_data.license.type);
+            license.setAttribute('data-url', prev_data.license.url);
             name.value = prev_data.manager.name;
             phone.value = prev_data.manager.phone;
         }
@@ -116,6 +118,7 @@
     function fileUploadClickEventListener(event) {
         console.log('fileUploadClickEventListener', this, event);
         let btn_file = this;
+        let type = btn_file.dataset.license;
         let input = document.createElement('input');
         input.type = 'file';
         input.name = this.dataset.name;
@@ -123,11 +126,19 @@
             console.log('change', event, this);
             let file = this.files[0];
             console.log('file', file);
-            /*TODO File Upload*/
-            btn_file.value = file.name;
-            btn_file.setAttribute('data-name', file.name);
-            btn_file.setAttribute('data-size', file.size);
-            btn_file.setAttribute('data-type', file.type);
+            apiUploadUserTempLicense('supplier', type, file).then((result) => {
+                console.log('apiUploadUserTempLicense', result);
+                if (result.status === 'OK') {
+                    btn_file.value = result.data.license.name;
+                    btn_file.setAttribute('data-name', result.data.license.name);
+                    btn_file.setAttribute('data-size', result.data.license.size);
+                    btn_file.setAttribute('data-type', result.data.license.type);
+                    btn_file.setAttribute('data-url', result.data.license.url);
+                    viewAlert({content: '사업자 등록증을 등록 하였습니다.'});
+                } else {
+                    viewAlert({content: '사업자 등록증을 등록 할 수 없습니다. 다시 시도해주세요.'});
+                }
+            });
         });
         input.click();
     }
@@ -140,7 +151,8 @@
         let license_obj = {
             name: license.dataset.name,
             size: license.dataset.size,
-            type: license.dataset.type
+            type: license.dataset.type,
+            url: license.dataset.url
         }
         let manager = {
             name: name.value,

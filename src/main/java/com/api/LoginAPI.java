@@ -69,7 +69,7 @@ public class LoginAPI {
             user.setEmail(naverInfo.getResponse().getEmail());
             user.setAccess_token(naverInfo.getResponse().getId());
             user.setName(naverInfo.getResponse().getNickname());
-            profile_img.setUrl(naverInfo.getResponse().getProfile_image() != null ? naverInfo.getResponse().getProfile_image() :  null);
+            profile_img.setUrl(naverInfo.getResponse().getProfile_image() != null ? naverInfo.getResponse().getProfile_image() : null);
             if (profile_img.getUrl() == null) {
                 profile_img.setUrl(DEFAULT_PROFILE_IMAGE_URL);
                 profile_img.setName(DEFAULT_PROFILE_IMAGE_NAME);
@@ -102,7 +102,19 @@ public class LoginAPI {
                 return null;
             }
             /** Login Success*/
+            if (kakaoInfo.getKakao_account().getHas_phone_number() != null) {
+                //82+ 00-0000-0000
+                String phone_exclude_currency = kakaoInfo.getKakao_account().getPhone_number().substring(kakaoInfo.getKakao_account().getPhone_number().indexOf(' ') + 1);
+                String first_phone_number = kakaoInfo.getKakao_account().getPhone_number().substring(0, kakaoInfo.getKakao_account().getPhone_number().indexOf('-'));
+                String phone_number = null;
+                if (first_phone_number.length() == 2) {
+                    phone_number = "0" + phone_exclude_currency;
+                } else {
+                    phone_number = "0" + phone_exclude_currency;
+                }
 
+                user.setPhone(phone_number);
+            }
             if (kakaoInfo.getKakao_account().getHas_email() != null && kakaoInfo.getKakao_account().getHas_email()) {
                 user.setEmail(kakaoInfo.getKakao_account().getEmail());
             }
@@ -111,6 +123,7 @@ public class LoginAPI {
                     kakaoInfo.getKakao_account() != null ? kakaoInfo.getKakao_account().getProfile().getNickname() != null ?
                             kakaoInfo.getKakao_account().getProfile().getNickname() :
                             kakaoInfo.getProperties() != null ? kakaoInfo.getProperties().getNickname() : null : null);
+            user.setId(Long.toString(kakaoInfo.getId()));
             if (user.getName() == null) {
                 user.setName("user" + TokenGenerator.RandomIntegerToken(4));
             }

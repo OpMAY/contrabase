@@ -12,7 +12,6 @@ public class PointReceipt extends Time {
     private Integer work_no;
     private int point;
     private RECEIPT_TYPE type;
-
     private Work work;
     private WorkApply workApply;
 }

@@ -1,3 +1,6 @@
+<%@ page import="com.model.service.Employee" %>
+<%@ taglib prefix="custom" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: zlzld
@@ -6,6 +9,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    Employee employee = (Employee) request.getAttribute("employee");
+    request.setAttribute("employee", employee);
+%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -32,7 +39,7 @@
             </div>
             <div class="col-12 p-24 bold-h5 ">
                 <div class="profile-image"
-                     style="background-image: url('/resources/assets/images/img/img-sample.svg')">
+                     style="background-image: url('${employee.user.profile_img.url}')">
                     <img class="profile-edit" src="/resources/assets/images/icon/icon-edit.svg">
                 </div>
             </div>
@@ -42,54 +49,50 @@
             <div class="col-12 pl-24 pr-24 regular-h6">
                 <div class="d-flex pt-16">
                     <div class="">이름</div>
-                    <div class="ml-auto bd-highlight">유병준</div>
+                    <div class="ml-auto bd-highlight">${employee.user.name}</div>
                 </div>
             </div>
 
             <div class="col-12 pl-24 pr-24 pt-24 regular-h6">
                 <div class="d-flex">
                     <div class="">이메일</div>
-                    <div class="ml-auto bd-highlight">asszxc@naver.com</div>
+                    <div class="ml-auto bd-highlight">${employee.user.email}</div>
                 </div>
             </div>
             <div class="col-12 pl-24 pr-24 pt-24 regular-h6">
                 <div class="d-flex">
                     <div class="">연락처</div>
-                    <div class="ml-auto bd-highlight">010-9431-1977</div>
+                    <div class="ml-auto bd-highlight">${employee.user.phone}</div>
                 </div>
             </div>
             <div class="col-12 pl-24 pr-24 pt-24 pb-24 regular-h6">
                 <div class="d-flex">
                     <div class="">차량번호</div>
-                    <div class="ml-auto bd-highlight">12나 2333</div>
+                    <div class="ml-auto bd-highlight">${employee.car_code}</div>
                 </div>
             </div>
         </div>
-
-        <div class="row border-line-light">
-
-        </div>
-
-        <div class="row border-line-bold">
-
-        </div>
-
+        <div class="row border-line-light"></div>
+        <div class="row border-line-bold"></div>
         <div class="row">
             <div class="col-12 pl-24 pr-24 pt-24 bold-h5">
                 자격증
             </div>
             <div class="col-12 p-24 license add cursor-pointer">
-                <input type="file" class="dropify" data-height="150" data-type="transfer" data-max-file-size="100M"
-                       data-default-file="https://via.placeholder.com/350x150.png"
+                <input type="file" class="dropify" data-show-remove="false" data-height="150" data-type="transfer"
+                       data-max-file-size="100M"
+                       data-default-file="${employee.transport_license.url}"
                        data-allowed-file-extensions="pdf png psd jpg svg jpeg jfif gif"/>
             </div>
         </div>
         <div class="row">
             <div class="col-12 pl-24 pr-24 pt-24 bold-h5">
-                운전 면허증
+                운전면허증
             </div>
             <div class="col-12 p-24 license add cursor-pointer">
-                <input type="file" class="dropify" data-height="150" data-type="driver" data-max-file-size="100M"
+                <input type="file" class="dropify" data-show-remove="false" data-height="150" data-type="driver"
+                       data-max-file-size="100M"
+                       data-default-file="${employee.driver_license.url}"
                        data-allowed-file-extensions="pdf png psd jpg svg jpeg jfif gif"/>
             </div>
         </div>
@@ -157,6 +160,10 @@
                 'error': '파일의 형식이 올바르지 않습니다.'
             }
         });
+        let btn_license_edits = document.querySelectorAll('.dropify');
+        btn_license_edits.forEach(function (btn_license_edit) {
+            btn_license_edit.addEventListener('change', licenseInputChangeEventListener);
+        });
     });
 
     function profileUploadClickEventListener(event) {
@@ -173,13 +180,45 @@
         console.log('profileInputChangeEventListener', this, event);
         let file = this.files[0];
         console.log(file);
-        /*TODO Fetch*/
-        let preview = document.querySelector('.profile-image');
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            preview.style.backgroundImage = `url('\${e.target.result}')`;
-        };
-        reader.readAsDataURL(file);
+        apiChangeUserProfile('user', file).then((result) => {
+            console.log('changeUserProfile', result);
+            if (result.status === 'OK') {
+                let preview = document.querySelector('.profile-image');
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    preview.style.backgroundImage = "url('" + result.data.profile.url + "')";
+                    viewAlert({content: '프로필을 업데이트 하였습니다.'});
+                };
+                reader.readAsDataURL(file);
+            } else {
+                viewAlert({content: '프로필을 업데이트할 수 없습니다. 다시 시도해주세요.'});
+            }
+        });
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    function licenseInputChangeEventListener(event) {
+        console.log('licenseInputChangeEventListener', this, event);
+        let file = this.files[0];
+        let type = this.dataset.type;
+        console.log(file);
+        apiChangeUserLicense('user', type, file).then((result) => {
+            console.log('apiChangeUserLicense', result);
+            if (result.status === 'OK') {
+                if (type === 'transfer') {
+                    viewAlert({content: '자격증을 업데이트 하였습니다.'});
+                } else {
+                    viewAlert({content: '운전면허증을 업데이트 하였습니다.'});
+                }
+            } else {
+                if (type === 'transfer') {
+                    viewAlert({content: '자격증을 업데이트 할 수 없습니다. 다시 시도해주세요.'});
+                } else {
+                    viewAlert({content: '운전면허증을 업데이트 할 수 없습니다. 다시 시도해주세요.'});
+                }
+            }
+        });
         event.preventDefault();
         event.stopPropagation();
     }

@@ -2,6 +2,7 @@ package com.model.service;
 
 import com.model.User;
 import com.model.common.MFile;
+import com.model.service.employee.Place;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class Employee {
     private MFile driver_license;
     private MFile transport_license;
     private int point;
-    private ArrayList<String> work_places;
+    private Place work_places;
     private VEHICLE_TYPE vehicle_type;
     private boolean new_work_alarm;
     private boolean emergency_work_alarm;

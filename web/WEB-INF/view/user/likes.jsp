@@ -144,12 +144,14 @@
     $(document).ready(function () {
         console.log('Static JS is ready');
         document.querySelector('#bottom-tab-location-trigger > span svg').style.display = 'none';
-
-        let container = document.querySelector('.work-container');
-
-        container.append(createWorkElementRow({hash: tokenGenerator(8)}));
-        container.append(createWorkElementRow({hash: tokenGenerator(8)}));
-        container.append(createWorkElementRow({hash: tokenGenerator(8)}));
+        apiGetLikeWorks('user').then((result) => {
+            console.log('apiGetLikeWorks', result);
+            let container = document.querySelector('.work-container');
+            deleteChild(container);
+            result.data.works.forEach(function (work) {
+                container.append(createWorkElementRow(work));
+            });
+        });
     });
 </script>
 </body>

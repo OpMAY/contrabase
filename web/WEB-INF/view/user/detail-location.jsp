@@ -23,22 +23,15 @@
     </jsp:include>
 
     <!--content-->
-    <div class="container" style="padding-top: 72px; padding-bottom: 56px">
+    <div class="container">
         <div class="row border-line-light">
-
         </div>
-
         <div class="row">
             <div class="col-12 p-0">
                 <div id="map" style="width:100%;height:calc(1000px - 324px);"></div>
             </div>
         </div>
-
-        <div id="overlay">
-
-        </div>
-
-
+        <div id="overlay"></div>
         <!--kakao work info-->
         <div id="bottom-tab-kakao" class="is-active">
             <div class="row p-0">
@@ -88,12 +81,9 @@
                                 </button>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
             </div>
-
             <div class="row m-0">
                 <div class="col-12 pl-24 pr-24 pb-24 pt-24">
                     <button type="button" class="btn btn-block btn-blue justify-content-center">

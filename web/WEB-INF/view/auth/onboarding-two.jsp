@@ -81,6 +81,13 @@
                     </span>
                 </button>
             </div>
+            <div class="pt-16 pl-24">
+                <button type="button" class="btn btn-block btn-box" data-region="서울" data-type="없음">
+                    <span class="medium-h6 my-auto">
+                        없음
+                    </span>
+                </button>
+            </div>
         </div>
         <div class="row">
             <div class="col-12 pt-32 pl-24 pr-24 medium-h5 c-basic-black">
@@ -121,6 +128,13 @@
                 <button type="button" class="btn btn-block btn-box" data-region="경기" data-type="북부">
                     <span class="medium-h6 my-auto">
                         북부
+                    </span>
+                </button>
+            </div>
+            <div class="pt-16 pl-24">
+                <button type="button" class="btn btn-block btn-box" data-region="경기" data-type="없음">
+                    <span class="medium-h6 my-auto">
+                        없음
                     </span>
                 </button>
             </div>
@@ -236,6 +250,13 @@
                     </span>
                 </button>
             </div>
+            <div class="pt-16 pl-24">
+                <button type="button" class="btn btn-block btn-box" data-region="지역" data-type="없음">
+                    <span class="medium-h6 my-auto">
+                        없음
+                    </span>
+                </button>
+            </div>
         </div>
     </div>
     <footer class="floating-bottom bottom-nav-animation" id="footer">
@@ -280,10 +301,56 @@
      * */
     $(document).ready(function () {
         console.log('Static JS is ready');
+        let prev_data = JSON.parse(Storage.get('regions'))?.data;
+        console.log(prev_data);
         let btn_region = document.querySelectorAll('.btn-box');
-        btn_region.forEach(function (region) {
-            region.addEventListener('click', regionButtonClickEventListener);
-        });
+        if (prev_data) {
+            //초기화
+            btn_region.forEach(function (region) {
+                if (region.classList.contains('is-active')) {
+                    region.classList.remove('is-active');
+                }
+            });
+            btn_region.forEach(function (region) {
+                if (region.dataset.region === '서울') {
+                    prev_data.seoul.forEach(function (location) {
+                        if (region.dataset.type === location) {
+                            if (!region.classList.contains('is-active')) {
+                                region.classList.add('is-active');
+                            } else {
+                                region.classList.remove('is-active');
+                            }
+                        }
+                    });
+                } else if (region.dataset.region === '경기') {
+                    prev_data.gyeonggi.forEach(function (location) {
+                        if (region.dataset.type === location) {
+                            if (!region.classList.contains('is-active')) {
+                                region.classList.add('is-active');
+                            } else {
+                                region.classList.remove('is-active');
+                            }
+                        }
+                    });
+                } else {
+                    //지역
+                    prev_data.other.forEach(function (location) {
+                        if (region.dataset.type === location) {
+                            if (!region.classList.contains('is-active')) {
+                                region.classList.add('is-active');
+                            } else {
+                                region.classList.remove('is-active');
+                            }
+                        }
+                    });
+                }
+                region.addEventListener('click', regionButtonClickEventListener);
+            });
+        } else {
+            btn_region.forEach(function (region) {
+                region.addEventListener('click', regionButtonClickEventListener);
+            });
+        }
         let btn_previous = document.querySelector('.btn-previous');
         btn_previous.addEventListener('click', previousButtonClickEventListener);
         let btn_next = document.querySelector('.btn-next');
@@ -304,12 +371,27 @@
             if (!this.classList.contains('is-active')) {
                 this.classList.add('is-active');
             }
-        } else {
-            document.querySelector('[data-region="' + region + '"][data-type="전체"]').classList.remove('is-active');
+        } else if (type === '없음') {
+            let buttons = document.querySelectorAll('[data-region="' + region + '"]');
+            buttons.forEach(function (button) {
+                if (button.classList.contains('is-active')) {
+                    button.classList.remove('is-active');
+                }
+            });
             if (!this.classList.contains('is-active')) {
                 this.classList.add('is-active');
             }
-            let buttons = document.querySelectorAll('[data-region="' + region + '"]:not([data-type="전체"])');
+        } else {
+            if (this.classList.contains('is-active')) {
+                this.classList.remove('is-active');
+                return;
+            }
+            document.querySelector('[data-region="' + region + '"][data-type="전체"]').classList.remove('is-active');
+            document.querySelector('[data-region="' + region + '"][data-type="없음"]').classList.remove('is-active');
+            if (!this.classList.contains('is-active')) {
+                this.classList.add('is-active');
+            }
+            let buttons = document.querySelectorAll('[data-region="' + region + '"]:not([data-type="전체"],[data-type="없음"]');
             let check = false;
             buttons.forEach(function (button) {
                 if (!button.classList.contains('is-active')) {
@@ -319,7 +401,7 @@
             if (!check) {
                 document.querySelector('[data-region="' + region + '"][data-type="전체"]').classList.add('is-active');
                 buttons.forEach(function (button) {
-                    if (button.getAttribute('data-type') !== '전체') {
+                    if (button.dataset.type !== '전체' || button.dataset.type !== '없음') {
                         button.classList.remove('is-active');
                     }
                 });
@@ -361,12 +443,11 @@
             }
         });
         let obj_region = {
-            array1,
-            array2,
-            array3
+            seoul: array1,
+            gyeonggi: array2,
+            other: array3
         }
         Storage.set('regions', JSON.stringify({data: obj_region, date: new Date().getTime()}));
-        console.log(JSON.parse(Storage.get('regions'))?.data);
         location.href = '/user/onboard/third';
         event.stopPropagation();
         event.preventDefault();
